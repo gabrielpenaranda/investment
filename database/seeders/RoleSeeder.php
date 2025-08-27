@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleSeeder extends Seeder
 {
@@ -12,9 +14,39 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $role1 = Role::create(['name' => 'Admin']);
-        $role2 = Role::create(['name' => 'Blogger']);
+        $role1 = Role::create(['name' => 'Administrator']);
+        $role2 = Role::create(['name' => 'Associate']);
 
-        // Permission::create(['name' => 'dashboard', 'description' => 'Panel de Administrador'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'admin.dashboard', 'description' => 'Administration Dashboard'])->syncRoles([$role1,$role2]);
+
+        Permission::create(['name' => 'admin.products.index', 'description' => 'List of Products'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.products.create', 'description' => 'Create Product'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.products.edit', 'description' => 'Edit Product'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.products.destroy', 'description' => 'Delete Product'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.investments.index', 'description' => 'List of Investments'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.investments.create', 'description' => 'Create Investment'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.investments.edit', 'description' => 'Edit Investment'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.investments.destroy', 'description' => 'Delete Investment'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.interests.index', 'description' => 'List of Interests'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.interests.create', 'description' => 'Create Interest'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.interests.edit', 'description' => 'Edit Interest'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.interests.destroy', 'description' => 'Delete Interest'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.taxes.create', 'description' => 'Create Tax'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.taxes.edit', 'description' => 'Edit Tax'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.taxes.destroy', 'description' => 'Delete Tax'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.withdrawals.index', 'description' => 'List of Withdrawals'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.withdrawals.create', 'description' => 'Create Withdrawal'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.withdrawals.edit', 'description' => 'Edit Withdrawal'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.withdrawals.destroy', 'description' => 'Delete Withdrawal'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.users.index', 'description' => 'List of Users'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.users.create', 'description' => 'Create User'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'admin.users.edit', 'description' => 'Edit User'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users.destroy', 'description' => 'Delete User'])->syncRoles([$role1]);
     }
 }

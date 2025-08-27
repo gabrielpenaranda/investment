@@ -1,3 +1,52 @@
+@php
+    $groups = [
+        'Platform' => [
+            [
+                'name' => 'Dashboard',
+                'icon' => '',
+                'url' => route('admin.dashboard'),
+                'current' => request()->routeIs('admin/dashboard'),
+                'can' => 'admin.dashboard',
+            ],
+            [
+                'name' => 'Products',
+                'icon' => '',
+                'url' => route('admin.products.index'),
+                'current' => request()->routeIs('admin/categories'),
+                'can' => 'admin.categories.index',
+            ],
+            [
+                'name' => 'Investments',
+                'icon' => '',
+                'url' => route('admin.investments.index'),
+                'current' => request()->routeIs('admin/investments'),
+                'can' => 'admin.investments.index',
+            ],
+            [
+                'name' => 'Interests',
+                'icon' => '',
+                'url' => route('admin.interests.index'),
+                'current' => request()->routeIs('admin/interests'),
+                'can' => 'admin.interests.index',
+            ],
+            [
+                'name' => 'Taxes',
+                'icon' => '',
+                'url' => route('admin.taxes.index'),
+                'current' => request()->routeIs('admin/taxes'),
+                'can' => 'admin.taxes.index',
+            ],
+            [
+                'name' => 'Users',
+                'icon' => '',
+                'url' => route('admin.users.index'),
+                'current' => request()->routeIs('admin/users'),
+                'can' => 'admin.users.index',
+            ]
+        ]
+    ];
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
@@ -12,7 +61,7 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group :heading="" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
