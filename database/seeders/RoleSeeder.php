@@ -1,0 +1,20 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class RoleSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $role1 = Role::create(['name' => 'Admin']);
+        $role2 = Role::create(['name' => 'Blogger']);
+
+        // Permission::create(['name' => 'dashboard', 'description' => 'Panel de Administrador'])->syncRoles([$role1,$role2]);
+    }
+}
