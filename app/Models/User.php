@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\system\Investment;
+use App\Models\system\Tax;
 
 class User extends Authenticatable
 {
@@ -59,5 +61,15 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function investments()
+    {
+        return $this->HasMany(Investment::class);
+    }
+
+    public function taxes()
+    {
+        return $this->hasMany(Tax::class);
     }
 }
