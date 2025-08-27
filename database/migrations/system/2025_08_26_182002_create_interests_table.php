@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->id();
+            $table->integer('year');
+            $table->integer('month');
+            $table->decimal('interest_amount', 10, 2);
+            $table->decimal('investment_amount', 12, 2);
+            $table->string('investment_serial');
+            $table->foreignId('investement_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
         });
     }
