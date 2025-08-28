@@ -6,10 +6,18 @@ use App\Http\Controllers\system\InvestmentController;
 use App\Http\Controllers\system\InterestController;
 use App\Http\Controllers\system\WithdrawalController;
 use App\Http\Controllers\system\TaxController;
+use App\Http\Controllers\system\UserController;
 
-Route::view('dashboard', 'dashboard')
+/* Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
-    ->middleware('can:admin.dashboard')->name('admin.dashboard');
+    ->middleware('can:admin.dashboard')->name('admin.dashboard'); */
+
+Route::get('dashboard', function(){
+        return view('system.admin.dashboard');
+    })
+    ->middleware(['auth', 'verified'])
+    ->middleware('can:admin.dashboard')
+    ->name('admin.dashboard');
 
 Route::prefix('products')->group(function() {
     Route::get('index', [ProductController::class, 'index'])->middleware('can:admin.products.index')->name('admin.products.index');
@@ -54,4 +62,13 @@ Route::prefix('withdrawals')->group(function() {
     Route::get('edit/{withdrawal}', [WithdrawalController::class, 'edit'])->middleware('can:admin.withdrawals.edit')->name('admin.withdrawals.edit');
     Route::put('update/{withdrawal}', [WithdrawalController::class, 'update'])->middleware('can:admin.withdrawals.edit')->name('admin.withdrawals.update');
     Route::delete('destroy/{withdrawal}', [WithdrawalController::class, 'destroy'])->middleware('can:admin.withdrawals.destroy')->name('admin.withdrawals.destroy');
+});
+
+Route::prefix('users')->group(function() {
+    Route::get('index', [UserController::class, 'index'])->middleware('can:admin.users.index')->name('admin.users.index');
+    Route::get('create', [UserController::class, 'create'])->middleware('can:admin.users.create')->name('admin.users.create');
+    Route::post('store', [UserController::class, 'store'])->middleware('can:admin.users.create')->name('admin.users.store');
+    Route::get('edit/{user}', [UserController::class, 'edit'])->middleware('can:admin.users.edit')->name('admin.users.edit');
+    Route::put('update/{user}', [UserController::class, 'update'])->middleware('can:admin.users.edit')->name('admin.users.update');
+    Route::delete('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:admin.users.destroy')->name('admin.users.destroy');
 });

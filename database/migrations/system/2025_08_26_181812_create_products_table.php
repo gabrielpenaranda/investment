@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->decimal('annual_rate', 4, 2);
-            $table->integer('investment_time');
+            $table->boolean('has_expiration')->default(false);
+            $table->integer('investment_time')->nullable();
             $table->timestamps();
         });
     }

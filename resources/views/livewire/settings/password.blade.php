@@ -38,9 +38,9 @@ new class extends Component {
 }; ?>
 
 <section class="w-full">
-    @include('partials.settings-heading')
+    @include('partials.password-heading')
 
-    <x-settings.layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
+    <x-settings.system-layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
         <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
             <flux:input
                 wire:model="current_password"
@@ -74,5 +74,5 @@ new class extends Component {
                 </x-action-message>
             </div>
         </form>
-    </x-settings.layout>
+    </x-settings.system-layout>
 </section>

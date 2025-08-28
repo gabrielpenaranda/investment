@@ -13,7 +13,7 @@
                 'icon' => '',
                 'url' => route('admin.products.index'),
                 'current' => request()->routeIs('admin/categories'),
-                'can' => 'admin.categories.index',
+                'can' => 'admin.products.index',
             ],
             [
                 'name' => 'Investments',
@@ -36,13 +36,15 @@
                 'current' => request()->routeIs('admin/taxes'),
                 'can' => 'admin.taxes.index',
             ],
+        ],
+        'Users' => [
             [
                 'name' => 'Users',
                 'icon' => '',
                 'url' => route('admin.users.index'),
                 'current' => request()->routeIs('admin/users'),
                 'can' => 'admin.users.index',
-            ]
+            ],
         ]
     ];
 @endphp
@@ -56,19 +58,27 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <a href="{{ route('admin.dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
             </a>
 
+           
+
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
+                @foreach ($groups as $group => $links)
+                    <flux:navlist.group :heading="__($group)" class="grid">
+                        @foreach ($links as $link)
+                            @can($link['can'])
+                                <flux:navlist.item :icon="$link['icon']" :href="$link['url']" :current="$link['current']" wire:navigate>{{ __('messages.'.$link['name']) }}</flux:navlist.item>
+                            @endcan
+                        @endforeach
+                    </flux:navlist.group>
+                @endforeach
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+           {{--  <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
                 </flux:navlist.item>
@@ -76,7 +86,7 @@
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
-            </flux:navlist>
+            </flux:navlist> --}}
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
@@ -108,9 +118,14 @@
 
                     <flux:menu.separator />
 
-                    <flux:menu.radio.group>
+                   {{--  <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group> --}}
+
+                     <flux:menu.radio.group>
+                        <flux:menu.item :href="route('settings.password')" icon="key" wire:navigate>{{ __('Password') }}</flux:menu.item>
                     </flux:menu.radio.group>
+
 
                     <flux:menu.separator />
 
@@ -158,9 +173,14 @@
 
                     <flux:menu.separator />
 
-                    <flux:menu.radio.group>
+                    {{-- <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group> --}}
+
+                     <flux:menu.radio.group>
+                        <flux:menu.item :href="route('settings.password')" icon="key" wire:navigate>{{ __('Password') }}</flux:menu.item>
                     </flux:menu.radio.group>
+
 
                     <flux:menu.separator />
 

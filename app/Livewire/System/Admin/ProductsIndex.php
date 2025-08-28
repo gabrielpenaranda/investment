@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\System;
+namespace App\Livewire\System\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,8 +18,7 @@ class ProductsIndex extends Component
     public function render()
     {
         $products = Product::where('name', 'LIKE', '%'.$this->search.'%')->orderBy($this->sort, $this->direction)->paginate($this->pagination);
-
-        return view('livewire.system.products-index', compact('products'));
+        return view('livewire.system.admin.products-index', compact('products'));
     }
 
     public function updatingSearch()

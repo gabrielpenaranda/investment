@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('system.admin.products.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('system.admin.products.create');
     }
 
     /**
@@ -29,7 +29,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $data = $request->validate([
+            'name' => 'required|min:3|max:255',
+            'description' => 'nullable|max:255',
+            'annual_rate' => 'required|integer|between:0,100',
+            'has_expiration' => 'boolean',
+        ]);
+
+
+        $product = Product::create($data);
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('messages.Success!'),
+            'text' => __('messages.The product has been created succesfully!'),
+        ]);
+
+        if ($product->has_expiration) {
+            return redirect()->route('admin.products.edit', compact('product'));
+        } else {
+            return redirect()->route('admin.products.index');
+        }
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('withdrawals', function (Blueprint $table) {
             $table->id();
             $table->decimal('amount', 12, 2);
-            $table->date('withdrawal_date');
+            $table->datetime('withdrawal_date');
             $table->foreignId('investment_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
             $table->string('investment_serial');
             $table->uuid('serial')->unique();

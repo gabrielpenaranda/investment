@@ -3,13 +3,11 @@
 namespace App\Models\system;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Str;
 
 
 class Withdrawal extends Model
 {
-    use HasUuids;
-
     protected $fillable = [
         'amount',
         'withdrawal_date',
@@ -17,6 +15,20 @@ class Withdrawal extends Model
         'investment_serial',
         'serial',
     ];
+
+    /**
+     * Genera un UUID antes de crear el modelo
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->serial) {
+                $model->serial = (string) Str::uuid();
+            }
+        });
+    }
 
     public function investment()
     {

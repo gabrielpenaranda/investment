@@ -3,14 +3,13 @@
 namespace App\Models\system;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 
 class Investment extends Model
 {
-    use HasUuids;
-    
+
     protected $fillable = [
         'investment_amount',
         'opening_date',
@@ -18,7 +17,22 @@ class Investment extends Model
         'is_active',
         'user_id',
         'product_id',
+        'serial',
     ];
+
+     /**
+     * Genera un UUID antes de crear el modelo
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->serial) {
+                $model->serial = (string) Str::uuid();
+            }
+        });
+    }
 
     public function product()
     {

@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'Change your password' => 'Change your password',
+    'Dashboard' => 'Dashboard',
+    'Edit' => 'Edit',
+    'Delete' => 'Delete',
+    'Enter product name' => 'Enter product name',
+    'Lines per page' => 'Lines per page',
+    'Action' => 'Action',
+    'Products' => 'Products',
+    'Investments' => 'Investments',
+    'Interests' => 'Interests',
+    'Taxes' => 'Taxes',
+    'Users' => 'Users',
+    'Withdrawals' => 'Withdrawals',
+    'New' => 'New',
+    'New Product' => 'New Product',
+    'Return to list' => 'Return to list',
+    'List of Products' => 'List of Products',
+    'Name' => 'Name',
+    'Annual Rate' => 'Annual Rate',
+    'Investment Time (months)' => 'Investment Time (months)',
+    'No termination time' => 'No termination time',
+    'Enter the name' => 'Enter the name',
+    'Product name' => 'Product name',
+    'New Product' => 'New Product',
+    'Enter the description' => 'Enter the description',
+    'Product description' =>  'Product description',
+    'Enter the rate' =>  'Enter the rate',
+    'Annual rate' => 'Annual rate',
+    'Product has termination date?' => 'Product has termination date?',
+];
