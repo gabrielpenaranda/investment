@@ -10,7 +10,7 @@ class ProductsIndex extends Component
 {
     use WithPagination;
 
-    public $pagination = 10;
+    public $pagination = 5;
     public $direction = 'desc';
     public $sort = 'name';
     public $search;
@@ -22,6 +22,12 @@ class ProductsIndex extends Component
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    // Resetear página al cambiar perPage
+    public function updatedPagination($value)
     {
         $this->resetPage();
     }

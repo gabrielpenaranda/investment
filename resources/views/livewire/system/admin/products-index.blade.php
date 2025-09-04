@@ -27,7 +27,7 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3" wire:click="order('name')">
-                    {{ __('messages.Name') }}
+                    {{ __('messages.Name') }} <i class="fa-solid fa-magnifying-glass"></i>
 
                     @if ($sort == 'name')
                         @if ($direction == 'asc')
@@ -42,7 +42,7 @@
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Annual Rate') }}
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Investment Time (months)') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
@@ -59,7 +59,7 @@
                     <td class="px-6 py-4 text-center">
                         {{ $product->annual_rate }}
                     </td>
-                     <td class="px-6 py-4">
+                     <td class="px-6 py-4 text-center">
                         @if ($product->investment_time)
                             {{ $product->investment_time }}
                         @else
@@ -85,9 +85,12 @@
         </tbody>
         @else
         <div class="m-8">
-            <span class="font-bold text-md md:text-xl lg:text-2xl">{{ __('No records found') }}</span>
+            <span class="font-bold text-md md:text-xl lg:text-2xl">{{ __('messages.No records found') }}</span>
         </div>
         @endif
-    </table> 
+    </table>
+    @if ($products->count())
+        {{ $products->links() }}
+    @endif
 </div>
 

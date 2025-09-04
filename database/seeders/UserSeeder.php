@@ -17,21 +17,35 @@ class UserSeeder extends Seeder
             'name' => 'Gabriel Peñaranda',
             'email' => 'gabrielpg77@gmail.com',
             'password' => bcrypt('password'),
-            'type' => 'Company',
+            'type' => 'Admin',
         ])->assignRole('Administrator');
 
         User::create([
             'name' => 'Juancho Lazo',
             'email' => 'jlazo@mail.com',
             'password' => bcrypt('password'),
-            'type' => 'Company',
+            'type' => 'Person',
         ])->assignRole('Associate');
 
         User::create([
             'name' => 'Tegoteo Blanco',
             'email' => 'tblanco@mail.com',
             'password' => bcrypt('password'),
-            'type' => 'Company',
+            'type' => 'Person',
+        ])->assignRole('Associate');
+
+        User::create([
+            'name' => 'Crispin Gatieza',
+            'email' => 'cgatieza@mail.com',
+            'password' => bcrypt('password'),
+            'type' => 'Person',
+        ])->assignRole('Associate');
+
+        User::create([
+            'name' => 'Debora Meltrozo',
+            'email' => 'dmeltrozo@mail.com',
+            'password' => bcrypt('password'),
+            'type' => 'Person',
         ])->assignRole('Associate');
     }
 }

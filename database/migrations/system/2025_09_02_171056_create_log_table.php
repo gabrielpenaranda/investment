@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('withdrawals', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 12, 2);
-            $table->datetime('withdrawal_date');
-            $table->foreignId('investment_id')->constrained()->onDelete('restrict')->onUpdate('cascade');
-            $table->string('investment_serial');
-            $table->string('serial')->unique();
+            $table->enum('action', ['C', 'U', 'D']);
+            $table->string('table_name', 50);
+            $table->bigInteger('table_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('user_name');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('withdrawals');
+        Schema::dropIfExists('log');
     }
 };

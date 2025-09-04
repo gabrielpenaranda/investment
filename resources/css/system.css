@@ -1,25 +1,99 @@
+@theme { 
+    --color-primary-50:   oklch(0.98 0.02 250); 
+    --color-primary-100:  oklch(0.94 0.03 250); 
+    --color-primary-200:  oklch(0.88 0.06 250); 
+    --color-primary-300:  oklch(0.82 0.09 250); 
+    --color-primary-400:  oklch(0.76 0.13 250); 
+    --color-primary-500:  oklch(0.68 0.16 250); 
+    --color-primary-600:  oklch(0.60 0.18 250); 
+    --color-primary-700:  oklch(0.52 0.19 250); 
+    --color-primary-800:  oklch(0.44 0.18 250); 
+    --color-primary-900:  oklch(0.38 0.16 250); 
+    --color-primary-950:  oklch(0.30 0.12 250);
+
+    --color-secondary-50: oklch(0.98 0.02 300);
+    --color-secondary-100:  oklch(0.94 0.03 300); 
+    --color-secondary-200:  oklch(0.88 0.06 300); 
+    --color-secondary-300:  oklch(0.82 0.09 300); 
+    --color-secondary-400:  oklch(0.76 0.13 300); 
+    --color-secondary-500:  oklch(0.68 0.16 300); 
+    --color-secondary-600:  oklch(0.60 0.18 300); 
+    --color-secondary-700:  oklch(0.52 0.19 300); 
+    --color-secondary-800:  oklch(0.44 0.18 300); 
+    --color-secondary-900:  oklch(0.38 0.16 300); 
+    --color-secondary-950:  oklch(0.30 0.12 300);
+
+    --color-success-50:  oklch(0.98 0.02 140);
+    --color-success-100:  oklch(0.94 0.03 140); 
+    --color-success-200:  oklch(0.88 0.06 140); 
+    --color-success-300:  oklch(0.82 0.09 140); 
+    --color-success-400:  oklch(0.76 0.13 140); 
+    --color-success-500:  oklch(0.68 0.16 140); 
+    --color-success-600:  oklch(0.60 0.18 140); 
+    --color-success-700:  oklch(0.52 0.19 140); 
+    --color-success-800:  oklch(0.44 0.18 140); 
+    --color-success-900:  oklch(0.38 0.16 140); 
+    --color-success-950:  oklch(0.30 0.12 140); 
+
+    --color-info-50:  oklch(0.98 0.02 200); 
+    --color-info-100:  oklch(0.94 0.03 200); 
+    --color-info-200:  oklch(0.88 0.06 200); 
+    --color-info-300:  oklch(0.82 0.09 200); 
+    --color-info-400:  oklch(0.76 0.13 200); 
+    --color-info-500:  oklch(0.68 0.16 200); 
+    --color-info-600:  oklch(0.60 0.18 200); 
+    --color-info-700:  oklch(0.52 0.19 200); 
+    --color-info-800:  oklch(0.44 0.18 200); 
+    --color-info-900:  oklch(0.38 0.16 200); 
+    --color-info-950:  oklch(0.30 0.12 200); 
+
+    --color-danger-50:  oklch(0.98 0.02 20);
+    --color-danger-100:  oklch(0.94 0.03 20); 
+    --color-danger-200:  oklch(0.88 0.06 20); 
+    --color-danger-300:  oklch(0.82 0.09 20); 
+    --color-danger-400:  oklch(0.76 0.13 20); 
+    --color-danger-500:  oklch(0.68 0.16 20); 
+    --color-danger-600:  oklch(0.60 0.18 20); 
+    --color-danger-700:  oklch(0.52 0.19 20); 
+    --color-danger-800:  oklch(0.44 0.18 20); 
+    --color-danger-900:  oklch(0.38 0.16 20); 
+    --color-danger-950:  oklch(0.30 0.12 20); 
+
+    --color-warning-50:  oklch(0.98 0.02 60);
+    --color-warning-100:  oklch(0.94 0.03 60);
+    --color-warning-200:  oklch(0.88 0.06 60);
+    --color-warning-300:  oklch(0.82 0.09 60);
+    --color-warning-400:  oklch(0.76 0.13 60);
+    --color-warning-500:  oklch(0.68 0.16 60);
+    --color-warning-600:  oklch(0.60 0.18 60);
+    --color-warning-700:  oklch(0.52 0.19 60);
+    --color-warning-800:  oklch(0.44 0.18 60);
+    --color-warning-900:  oklch(0.38 0.16 60);
+    --color-warning-950:  oklch(0.30 0.12 60);
+}
+
 .btn {
     @apply font-bold py-2 px-4 rounded;
   }
   
 .btn-primary {
-    @apply bg-blue-500 text-white hover:bg-blue-700;
+    @apply bg-primary-500 text-white hover:bg-primary-700;
 }
 
 .btn-success {
-    @apply bg-green-500 text-white hover:bg-green-700;
+    @apply bg-success-500 text-white hover:bg-success-700;
 }
 
 .btn-danger {
-    @apply bg-red-500 text-white hover:bg-red-700;
+    @apply bg-danger-500 text-white hover:bg-danger-700;
 }
 
 .btn-warning {
-    @apply bg-yellow-400 text-gray-800 hover:bg-yellow-600;
+    @apply bg-warning-400 text-gray-800 hover:bg-warning-600;
 }
 
 .btn-info {
-    @apply bg-cyan-500 text-white hover:bg-cyan-700;
+    @apply bg-info-500 text-white hover:bg-info-700;
 }
 
 .btn-light {
@@ -31,5 +105,9 @@
 }
 
 .card {
-    @apply bg-white px-6 py-8 shadow-lg rounded-lg
+    @apply bg-white px-6 py-8 shadow-lg rounded-lg;
+}
+
+.success {
+    @apply bg-success-500;
 }

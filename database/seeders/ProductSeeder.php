@@ -13,10 +13,26 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+
         Product::create([
             'name' => 'Regular Investment',
             'description' => 'Regular investment with no time defined',
             'annual_rate' => 7.00,
         ]);
+
+        Product::create([
+            'name' => 'Extra Investment',
+            'description' => 'Extra investment with no time defined',
+            'annual_rate' => 9.00,
+            'has_expiration' => true,
+            'investment_time' => 48,
+        ]);
+
+        Product::create([
+            'name' => 'Premium Investment',
+            'description' => 'Premium investment with no time defined',
+            'annual_rate' => 11.00,
+        ]);
+
     }
 }

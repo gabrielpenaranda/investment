@@ -10,6 +10,7 @@ class Product extends Model
         'name',
         'description',
         'annual_rate',
+        'has_expiration',
         'investment_time',
     ];
 

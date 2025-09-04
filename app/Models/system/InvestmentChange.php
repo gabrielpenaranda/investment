@@ -4,14 +4,15 @@ namespace App\Models\system;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Withdrawal extends Model
+class InvestmentChange extends Model
 {
     protected $fillable = [
         'amount',
-        'withdrawal_date',
+        'activation_date',
+        'deactivation_date',
+        'rate',
+        'interests',
         'investment_id',
-        'investment_serial',
-        'serial',
     ];
 
     public function investment()

@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interests', function (Blueprint $table) {
+        Schema::create('investment_changes', function (Blueprint $table) {
             $table->id();
-            $table->integer('year');
-            $table->integer('month');
-            $table->decimal('interest_amount', 10, 2);
-            $table->decimal('investment_amount', 12, 2);
+            $table->decimal('amount', 12, 2);
+            $table->datetime('activation_date');
+            $table->datetime('deactivation_date')->nullable();
             $table->decimal('rate', 4, 2);
-            $table->string('investment_serial');
-            $table->foreignId('investment_id')->constrained()->onUpdate('cascade')->onDelete('restrict');
+            $table->decimal('interests', 10, 2);
+            $table->foreignId('investment_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interests');
+        Schema::dropIfExists('investment_changes');
     }
 };
