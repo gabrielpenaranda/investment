@@ -24,8 +24,6 @@ class ProductSeeder extends Seeder
             'name' => 'Extra Investment',
             'description' => 'Extra investment with no time defined',
             'annual_rate' => 9.00,
-            'has_expiration' => true,
-            'investment_time' => 48,
         ]);
 
         Product::create([

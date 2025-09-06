@@ -40,11 +40,14 @@
                     @endif
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Annual Rate') }}
+                    {{ __('messages.Description') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Investment Time (months)') }}
+                    {{ __('messages.Annual Rate') }}
                 </th>
+                {{-- <th scope="col" class="px-6 py-3 text-center">
+                    {{ __('messages.Investment Time (months)') }}
+                </th> --}}
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
                 </th>
@@ -57,15 +60,18 @@
                         {{ $product->name }}
                     </td>
                     <td class="px-6 py-4 text-center">
+                        {{ $product->description }}
+                    </td>
+                    <td class="px-6 py-4 text-center">
                         {{ $product->annual_rate }}
                     </td>
-                     <td class="px-6 py-4 text-center">
+                     {{-- <td class="px-6 py-4 text-center">
                         @if ($product->investment_time)
                             {{ $product->investment_time }}
                         @else
                             {{ __('messages.No termination time') }}
                         @endif
-                    </td>
+                    </td> --}}
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @can('admin.products.edit')

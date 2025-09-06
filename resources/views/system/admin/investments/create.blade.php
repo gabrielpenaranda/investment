@@ -78,7 +78,26 @@
                 id="opening_date"
                 value="{{ old('opening_date') }}"
             >
+
+            {{-- <flux:label class="mt-2!">{{ __('messages.Capitalization of Interests') }}</flux:label>
+            <flux:select wire:model="capitalize" placeholder="{{ __('messages.Capitalizes Interests') }}">
+                <flux:select.option value=1>{{ __('messages.Yes') }}</flux:select.option>{{ __('messages.Capitalizes Interests') }}
+                <flux:select.option value=0>{{ __('messages.No') }}</flux:select.option>
+            </flux:select> --}}
+
+            <!-- Input oculto: valor por defecto cuando NO está marcado -->
+            <input type="hidden" name="capitalize" value="0">
             
+            <input 
+                type="checkbox" 
+                name="capitalize"
+                value="1"
+                {{ old('capitalize') ? 'checked' : '' }}
+                class="rounded border-gray-300 text-zinc-600 shadow-sm mt-4"
+            >
+            <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Capitalizes Interests') }}?</span>
+            </label>
+
             {{-- <label class="flex items-center space-x-2 mt-2">
                 <input 
                     type="checkbox" 
@@ -112,13 +131,13 @@ $(document).ready(function () {
     const dateFormat = locale === 'es' ? 'dd/mm/yy' : 'mm/dd/yy';
 
     // Fecha mínima: hoy
-    const minDate = new Date();
+    // const minDate = new Date();
     // Fecha máxima: último día del mes
     const maxDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
 
     $('#opening_date_display').datepicker({
         dateFormat: dateFormat,
-        minDate: minDate,
+        // minDate: minDate,
         maxDate: maxDate,
         changeMonth: false,
         changeYear: false,

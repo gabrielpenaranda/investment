@@ -29,8 +29,10 @@ class InvestmentCreateRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
             'investment_amount' => 'decimal:2|required|between:1000,100000000000',
-            'opening_date' => 'date|required|after_or_equal:today|before_or_equal:'.today()->endOfMonth()->format('Y-m-d'),
+            /* 'activation_date' => 'date|required|after_or_equal:today|before_or_equal:'.today()->endOfMonth()->format('Y-m-d'), */
+            'activation_date' => 'date|required',
             /* 'is_active' => 'boolean', */
+            'capitalize' => 'required|boolean',
         ];
     }
 }

@@ -26,13 +26,15 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'admin.investments.index', 'description' => 'List of Investments'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.investments.create', 'description' => 'Create Investment'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.investments.show', 'description' => 'Show Investment'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.investments.edit', 'description' => 'Edit Investment'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.investments.destroy', 'description' => 'Delete Investment'])->syncRoles([$role1]);
 
+        Permission::create(['name' => 'admin.investmentarchives.index', 'description' => 'List of Investment Archives'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.investmentarchives.show', 'description' => 'Show Investment Archive'])->syncRoles([$role1]);
+
         Permission::create(['name' => 'admin.interests.index', 'description' => 'List of Interests'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.interests.create', 'description' => 'Create Interest'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.interests.edit', 'description' => 'Edit Interest'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.interests.destroy', 'description' => 'Delete Interest'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.interests.generate', 'description' => 'Generate Interest'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'admin.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.create', 'description' => 'Create Tax'])->syncRoles([$role1]);

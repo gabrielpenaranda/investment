@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\system;
 
 use App\Http\Controllers\Controller;
-use App\Models\system\Interest;
+use App\Models\system\InvestmentArchive;
 use Illuminate\Http\Request;
 
-class InterestController extends Controller
+class InvestmentArchiveController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $interests = Interest::all();
-        $interest_months = InterestMonth::all();
-        return view('system.admin.interests.index', compact('interests', 'interest_month'));
+        //
     }
 
     /**
@@ -37,15 +35,15 @@ class InterestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Interest $interest)
+    public function show(InvestmentArchive $investmentArchive)
     {
-        //
+        return view('system.admin.investment_archives.show', compact('investmentArchive'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Interest $interest)
+    public function edit(InvestmentArchive $investmentArchive)
     {
         //
     }
@@ -53,7 +51,7 @@ class InterestController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Interest $interest)
+    public function update(Request $request, InvestmentArchive $investmentArchive)
     {
         //
     }
@@ -61,7 +59,7 @@ class InterestController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Interest $interest)
+    public function destroy(InvestmentArchive $investmentArchive)
     {
         //
     }

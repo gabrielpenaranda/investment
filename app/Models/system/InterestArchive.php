@@ -4,23 +4,21 @@ namespace App\Models\system;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Interest extends Model
+class InterestArchive extends Model
 {
     protected $fillable = [
         'year',
         'month',
         'interest_amount',
         'investment_amount',
-        'days',
         'rate',
-        'name',
-        'email',
-        'investment_id',
+        'investment_serial',
         'serial',
+        'investment_archive_id',
     ];
 
-    public function investment()
+    public function investment_archive()
     {
-        return $this->belongsTo(Investment::class);
+        return $this->belongsTo(InvestmentArchive::class);
     }
 }

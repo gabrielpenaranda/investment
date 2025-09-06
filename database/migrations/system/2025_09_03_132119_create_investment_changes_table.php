@@ -17,7 +17,7 @@ return new class extends Migration
             $table->datetime('activation_date');
             $table->datetime('deactivation_date')->nullable();
             $table->decimal('rate', 4, 2);
-            $table->decimal('interests', 10, 2);
+            $table->decimal('interests', 12, 4);
             $table->foreignId('investment_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

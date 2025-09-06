@@ -53,7 +53,7 @@ class InvestmentController extends Controller
      */
     public function show(Investment $investment)
     {
-        //
+        return view('system.admin.investments.show', compact('investment'));
     }
 
     /**
@@ -78,6 +78,11 @@ class InvestmentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Investment $investment)
+    {
+        //
+    }
+
+    public function close(Investment $investment)
     {
         $this->investmentService->deactivateInvestment($investment);
         return redirect()->route('admin.investments.index');

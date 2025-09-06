@@ -42,9 +42,7 @@
             </flux:field>
 
 
-            {{-- <div x-data="{ customRateEnabled: false }"> --}}
-                <div x-data="{ customRateEnabled: $el.querySelector('[name=has_expiration]').checked }">
-                <!-- Checkbox para habilitar el input -->
+            {{-- <div x-data="{ customRateEnabled: $el.querySelector('[name=has_expiration]').checked }">
                 <label class="flex items-center space-x-2 mt-2">
                     <input 
                         type="checkbox" 
@@ -66,7 +64,7 @@
                     />
                     <flux:error name="investment_time" />
                 </flux:field>
-            </div>
+            </div> --}}
 
 
             <div class="flex justify-end mt-4">

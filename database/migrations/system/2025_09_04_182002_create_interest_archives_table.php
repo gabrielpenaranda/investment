@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interests', function (Blueprint $table) {
+        Schema::create('interest_archives', function (Blueprint $table) {
             $table->id();
             $table->integer('year');
             $table->integer('month');
             $table->decimal('interest_amount', 12, 4);
             $table->decimal('investment_amount', 12, 2);
             $table->decimal('rate', 4, 2);
-            $table->integer('days');
+            $table->string('investment_serial');
             $table->string('serial');
-            $table->string('name');
-            $table->string('email');
-            $table->foreignId('investment_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('investment_archive_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

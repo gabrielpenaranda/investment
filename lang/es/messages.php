@@ -55,4 +55,12 @@ return [
     'Enter the client name' => 'Seleccione el cliente',
     'Close' => 'Cerrar',
     'Show' => 'Detalle',
+    'Account Statement' => 'Estado de Cuenta',
+    'Active' => 'Activas',
+    'Closed' => 'Cerradas',
+    'Description' => 'Descripción',
+    'Yes' => 'Si',
+    'No' => 'No',
+    'Capitalization of Interests' => 'Capitalización of Intereses',
+    'Capitalizes Interests' => 'Capitaliza Intereses',
 ];

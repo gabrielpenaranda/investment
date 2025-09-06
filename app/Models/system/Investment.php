@@ -11,14 +11,13 @@ class Investment extends Model
         'investment_amount',
         'name',
         'email',
-        'opening_date',
-        'closing_date',
         'is_active',
         'user_id',
         'product_id',
         'serial',
         'activation_date',
         'deactivation_date',
+        'capitalize',
     ];
 
     public function product()

@@ -8,20 +8,21 @@
                 {{ __('messages.Dashboard') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
-                {{ __('messages.Investments') }}
+                {{ __('messages.Interests') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
-        @can('admin.investments.create')
-            <a href="{{ route('admin.investments.create') }}" class="btn btn-primary">{{ __('messages.New Investment') }}</a>
+
+        @can('admin.interests.create')
+            <a href="{{ route('admin.interests.generate') }}" class="btn btn-primary">{{ __('messages.Generate Interests') }}</a>
         @endcan
     </div>
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <p class="text-2xl mb-4">{{  __('messages.List of Investments') }}</p>
+    <p class="text-2xl mb-4">{{  __('messages.List of Interests') }}</p>
 
-    @livewire('system.admin.investments-index')
+    @livewire('system.admin.interests-index')
 
 </div>
 
@@ -49,26 +50,6 @@
                 });
             });
         });
-    </script>
-
-    <script>
-        function confirmarCierre(url) {
-            Swal.fire({
-                title: "{{ __('swal.confirm_close_title') }}",
-                text: "{{ __('swal.confirm_close_text') }}",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: "{{ __('swal.confirm_button') }}",
-                cancelButtonText: "{{ __('swal.cancel_button') }}"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirigir al enlace (GET) o enviar un formulario (si es POST)
-                    window.location.href = url;
-                }
-            });
-        }
     </script>
 @endpush
 

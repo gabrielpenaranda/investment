@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('interest_months', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('description')->nullable();
-            $table->decimal('annual_rate', 4, 2);
-            /* $table->boolean('has_expiration')->default(false);
-            $table->integer('investment_time')->nullable(); */
+            $table->string('year')->unique();
+            $table->string('month');
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('interest_months');
     }
 };

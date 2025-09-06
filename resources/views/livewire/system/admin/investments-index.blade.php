@@ -2,25 +2,9 @@
     <div class="flex justify-left mb-4">
        {{--  <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search"> --}}
 
-        <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-xl! ml-2!" />
+        <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" />
 
         
-
-{{-- class="form-control mr-1 sm:mr-2 md:mr-4 text-xs" --}}
-
-      {{--   <div class="relative flex-1 ml-8">
-            <div class="w-64 flex justify-between">
-                <lavel class="m-2">{{ __('messages.Lines per page') }}</label>
-                <select name="" id="" wire:model.live="pagination"
-                    class="ml-2 px-4 py-3 pr-8 leading-tight bg-white border border-gray-300 rounded-sm shadow-sm appearance-none focus:outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white text-center">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-        </div> --}}
-
         <flux:select wire:model.live="pagination" class="w-48!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
             <flux:select.option>5</flux:select.option>
             <flux:select.option>10</flux:select.option>
@@ -28,17 +12,10 @@
             <flux:select.option>50</flux:select.option>
         </flux:select>
 
-
-        <flux:select wire:model.live="is_active" class="w-32!  ml-4!" placeholder="{{ __('messages.List investments') }}">
-            <flux:select.option value='1'>Activas</flux:select.option>
-            <flux:select.option value='2'>Cerradas</flux:select.option>
+        <flux:select wire:model.live="is_active" class="w-32!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
+            <flux:select.option value="0">{{ __('messages.Active') }}</flux:select.option>
+            <flux:select.option value="1">{{ __('messages.Closed') }}</flux:select.option>
         </flux:select>
-
-        {{-- <flux:field variant="inline" class="ml-4!">
-            <flux:label>{{ __('messages.Show Active') }}</flux:label>
-            <flux:switch wire:model.live="is_active" />
-            <flux:error name="is_active" />
-        </flux:field> --}}
 
     </div>
 
@@ -83,6 +60,7 @@
                     {{ __('messages.Investment Amount') }}
                 </th>
 
+                @if ($archive)
                 <th scope="col" class="px-6 py-3 text-center" wire:click="order('closing_date')">
                     {{ __('messages.Closing Date') }}
 
@@ -96,6 +74,7 @@
                         <i class="fa-solid fa-sort float-right mt-1"></i>
                     @endif
                 </th>
+                @endif
 
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
@@ -111,30 +90,44 @@
                     </td>
 
                     <td class="px-6 py-4">
-                        {{ $investment->user->name }}
+                        {{ $investment->name }}
                     </td>
 
                      <td class="px-6 py-4">
-                        {{ $investment->user->email }}
+                        {{ $investment->email }}
                     </td>
                     
                     <td class="px-6 py-4 text-center">
                         {{ $investment->investment_amount }}
                     </td>
-                    
+
+                     @if ($archive)
                     <td class="px-6 py-4 text-center">
-                        @if ($investment->closing_date)
-                            @php
-                                $closing_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($investment->closing_date)) : date("m/d/Y", strtotime($investment->closing_date));
+                        
+                            {{-- @if ($investment->closing_date)
+                                @php
+                                    $closing_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($investment->closing_date)) : date("m/d/Y", strtotime($investment->closing_date));
+                                @endphp
+                                {{ $closing_date }}
+                            @else
+                                {{ __('messages.No termination time') }}
+                            @endif --}}
+                       
+                             @php
+                                $deactivation_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($investment->deactivation_date)) : date("m/d/Y", strtotime($investment->deactivation_date));
                             @endphp
-                            {{ $closing_date }}
-                        @else
-                            {{ __('messages.No termination time') }}
-                        @endif
+                            {{ $deactivation_date }}
+                       
                     </td>
-                    
+                     @endif
+
                     <td class="px-6 py-4">
+                        @if (!$archive)
                         <div class="flex space-x-2 justify-center">
+                            @can('admin.investments.show')
+                                <a href="{{ route('admin.investments.show', $investment) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
+                            @endcan
+                            <a href="#" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
                             @can('admin.investments.edit')
                                 <a href="{{ route('admin.investments.edit', $investment) }}" class="btn btn-primary text-xs">{{ __('messages.Edit') }}</a>
                             @endcan
@@ -151,9 +144,21 @@
                                     @csrf
                                     <button type="submit" class="btn btn-danger text-xs">{{ __('messages.Delete') }}</button>
                                 </form> --}}
-                                <a href="{{ route('admin.investments.destroy', $investment) }}" class="btn btn-danger text-xs">{{ __('messages.Close') }}</a>
+                                <a href="#" onclick="confirmarCierre('{{ route('admin.investments.close', $investment) }}')" class="btn btn-danger text-xs">{{ __('messages.Close') }}</a>
                             @endcan
                         </div>
+                        @else
+                            <div class="flex space-x-2 justify-center">
+                                @can('admin.investmentarchives.show')
+                                    @php
+                                        //dd($investment);
+                                        $investmentArchive = $investment;
+                                    @endphp
+                                    <a href="{{ route('admin.investmentarchives.show', $investmentArchive) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
+                                @endcan
+                                <a href="#" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
+                            </div>
+                        @endif
                     
                     </td>
                 </tr>

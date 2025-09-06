@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\system\ProductController;
 use App\Http\Controllers\system\InvestmentController;
+use App\Http\Controllers\system\InvestmentArchiveController;
 use App\Http\Controllers\system\InterestController;
 use App\Http\Controllers\system\WithdrawalController;
 use App\Http\Controllers\system\TaxController;
@@ -32,18 +33,16 @@ Route::prefix('investments')->group(function() {
     Route::get('index', [InvestmentController::class, 'index'])->middleware('can:admin.investments.index')->name('admin.investments.index');
     Route::get('create', [InvestmentController::class, 'create'])->middleware('can:admin.investments.create')->name('admin.investments.create');
     Route::post('store', [InvestmentController::class, 'store'])->middleware('can:admin.investments.create')->name('admin.investments.store');
+    Route::get('show/{investment}', [InvestmentController::class, 'show'])->middleware('can:admin.investments.show')->name('admin.investments.show');
     Route::get('edit/{investment}', [InvestmentController::class, 'edit'])->middleware('can:admin.investments.edit')->name('admin.investments.edit');
     Route::put('update/{investment}', [InvestmentController::class, 'update'])->middleware('can:admin.investments.edit')->name('admin.investments.update');
     Route::delete('destroy/{investment}', [InvestmentController::class, 'destroy'])->middleware('can:admin.investments.destroy')->name('admin.investments.destroy');
+    Route::get('close/{investment}', [InvestmentController::class, 'close'])->middleware('can:admin.investments.destroy')->name('admin.investments.close');
 });
 
 Route::prefix('interests')->group(function() {
     Route::get('index', [InterestController::class, 'index'])->middleware('can:admin.interests.index')->name('admin.interests.index');
-    Route::get('create', [InterestController::class, 'create'])->middleware('can:admin.interests.create')->name('admin.interests.create');
-    Route::post('store', [InterestController::class, 'store'])->middleware('can:admin.interests.create')->name('admin.interests.store');
-    Route::get('edit/{interest}', [InterestController::class, 'edit'])->middleware('can:admin.interests.edit')->name('admin.interests.edit');
-    Route::put('update/{interest}', [InterestController::class, 'update'])->middleware('can:admin.interests.edit')->name('admin.interests.update');
-    Route::delete('destroy/{interest}', [InterestController::class, 'destroy'])->middleware('can:admin.interests.destroy')->name('admin.interests.destroy');
+    Route::get('generate', [InterestController::class, 'destroy'])->middleware('can:admin.interests.generate')->name('admin.interests.generate');
 });
 
 Route::prefix('taxes')->group(function() {
@@ -62,6 +61,11 @@ Route::prefix('withdrawals')->group(function() {
     Route::get('edit/{withdrawal}', [WithdrawalController::class, 'edit'])->middleware('can:admin.withdrawals.edit')->name('admin.withdrawals.edit');
     Route::put('update/{withdrawal}', [WithdrawalController::class, 'update'])->middleware('can:admin.withdrawals.edit')->name('admin.withdrawals.update');
     Route::delete('destroy/{withdrawal}', [WithdrawalController::class, 'destroy'])->middleware('can:admin.withdrawals.destroy')->name('admin.withdrawals.destroy');
+});
+
+Route::prefix('investment_archives')->group(function() {
+    Route::get('index', [InvestmentArchiveController::class, 'index'])->middleware('can:admin.investmentarchives.index')->name('admin.investmentarchives.index');
+    Route::get('show/{investmentArchive}', [InvestmentArchiveController::class, 'show'])->middleware('can:admin.investmentarchives.show')->name('admin.investmentarchives.show');
 });
 
 Route::prefix('users')->group(function() {

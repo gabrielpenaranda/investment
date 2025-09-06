@@ -21,28 +21,30 @@ class InvestmentSeeder extends Seeder
         $user1 = User::where('id', 2)->first();
         $user2 = User::where('id', 3)->first();
         $user3 = User::where('id', 4)->first();
+        $user4 = User::where('id', 5)->first();
+        $user5 = User::where('id', 6)->first();
+        $user6 = User::where('id', 7)->first();
+        $user7 = User::where('id', 8)->first();
+
 
         // dd($user1->name);
 
         $investment1 = Investment::create([
-            'investment_amount' => 100000,
-            'opening_date' => Carbon::now(),
+            'investment_amount' => 10000,
             'activation_date' => Carbon::now(),
-            'product_id' => 2,
-            'user_id' => 2,
+            'product_id' => 1,
+            'user_id' => $user1->id,
             'name' => $user1->name,
             'email' => $user1->email,
             'is_active' => true,
-            'closing_date' => Carbon::now()->addMonths(48),
             'serial' => hash('md5', Hash::make(Carbon::now())),
         ]);
 
         $investment2 = Investment::create([
-            'investment_amount' => 1000000,
-            'opening_date' => Carbon::now(),
+            'investment_amount' => 20000,
             'activation_date' => Carbon::now(),
             'product_id' => 1,
-            'user_id' => 3,
+            'user_id' => $user2->id,
             'name' => $user2->name,
             'email' => $user2->email,
             'is_active' => true,
@@ -50,13 +52,56 @@ class InvestmentSeeder extends Seeder
         ]);
 
         $investment3 = Investment::create([
-            'investment_amount' => 1000000,
-            'opening_date' => Carbon::now(),
+            'investment_amount' => 30000,
             'activation_date' => Carbon::now(),
             'product_id' => 1,
-            'user_id' => 4,
+            'user_id' => $user3->id,
             'name' => $user3->name,
             'email' => $user3->email,
+            'is_active' => true,
+            'serial' => hash('md5', Hash::make(Carbon::now())),
+        ]);
+
+        $investment4 = Investment::create([
+            'investment_amount' => 40000,
+            'activation_date' => Carbon::now(),
+            'product_id' => 1,
+            'user_id' => $user4->id,
+            'name' => $user4->name,
+            'email' => $user4->email,
+            'is_active' => true,
+            'serial' => hash('md5', Hash::make(Carbon::now())),
+        ]);
+
+        $investment5 = Investment::create([
+            'investment_amount' => 50000,
+            'activation_date' => Carbon::now(),
+            'product_id' => 1,
+            'user_id' => $user5->id,
+            'name' => $user5->name,
+            'email' => $user5->email,
+            'is_active' => true,
+            'serial' => hash('md5', Hash::make(Carbon::now())),
+        ]);
+
+        $investment6 = Investment::create([
+            'investment_amount' => 60000,
+            'activation_date' => Carbon::now(),
+            'product_id' => 1,
+            'user_id' => $user6->id,
+            'name' => $user6->name,
+            'email' => $user6->email,
+            'is_active' => true,
+            'serial' => hash('md5', Hash::make(Carbon::now())),
+        ]);
+
+        $investment7 = Investment::create([
+            'investment_amount' => 70000,
+            'activation_date' => Carbon::now(),
+            'product_id' => 1,
+            'user_id' => $user7->id,
+            'name' => $user7->name,
+            'email' => $user7->email,
             'is_active' => true,
             'serial' => hash('md5', Hash::make(Carbon::now())),
         ]);
@@ -64,7 +109,7 @@ class InvestmentSeeder extends Seeder
         InvestmentChange::create([
             'amount' => $investment1->investment_amount,
             'activation_date' => Carbon::now(),
-            'rate' => 5.00,
+            'rate' => 7.00,
             'interests' => 0.00,
             'investment_id' => $investment1->id,
         ]);
@@ -72,7 +117,7 @@ class InvestmentSeeder extends Seeder
         InvestmentChange::create([
             'amount' => $investment2->investment_amount,
             'activation_date' => Carbon::now(),
-            'rate' => 5.00,
+            'rate' => 7.00,
             'interests' => 0.00,
             'investment_id' => $investment2->id,
         ]);
@@ -80,9 +125,41 @@ class InvestmentSeeder extends Seeder
         InvestmentChange::create([
             'amount' => $investment3->investment_amount,
             'activation_date' => Carbon::now(),
-            'rate' => 5.00,
+            'rate' => 7.00,
             'interests' => 0.00,
             'investment_id' => $investment3->id,
+        ]);
+
+        InvestmentChange::create([
+            'amount' => $investment4->investment_amount,
+            'activation_date' => Carbon::now(),
+            'rate' => 7.00,
+            'interests' => 0.00,
+            'investment_id' => $investment4->id,
+        ]);
+
+        InvestmentChange::create([
+            'amount' => $investment5->investment_amount,
+            'activation_date' => Carbon::now(),
+            'rate' => 7.00,
+            'interests' => 0.00,
+            'investment_id' => $investment5->id,
+        ]);
+
+        InvestmentChange::create([
+            'amount' => $investment6->investment_amount,
+            'activation_date' => Carbon::now(),
+            'rate' => 7.00,
+            'interests' => 0.00,
+            'investment_id' => $investment6->id,
+        ]);
+
+        InvestmentChange::create([
+            'amount' => $investment7->investment_amount,
+            'activation_date' => Carbon::now(),
+            'rate' => 7.00,
+            'interests' => 0.00,
+            'investment_id' => $investment7->id,
         ]);
 
     }

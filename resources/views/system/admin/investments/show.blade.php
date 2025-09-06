@@ -13,7 +13,7 @@
                 {{ __('messages.Investments') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
-                {{ __('messages.Edit') }}
+                {{ __('messages.Show') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
@@ -21,10 +21,7 @@
     </div>
 
     <div class="card">
-        <p class="text-2xl mb-4">{{  __('messages.Edit Investment') }}</p>
-        <form action="{{ route('admin.investments.update', $investment) }}" method="POST">
-            @csrf
-            @method('PUT')
+        <p class="text-2xl mb-4">{{  __('messages.Show Investment') }}</p>
 
             <flux:label class="mt-2!">{{ __('messages.Serial') }}</flux:label>
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
@@ -34,6 +31,11 @@
             <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 {{ $investment->name }}
+            </p>
+
+            <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                {{ $investment->email }}
             </p>
 
             <flux:label class="mt-2!">{{ __('messages.Product') }}</flux:label>
@@ -46,15 +48,15 @@
                 $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
             @endphp
 
-            <flux:field>
-                <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
-                @if (app()->getLocale() == 'es')
-                    <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
-                @endif
-                <flux:input name='investment_amount'  placeholder="{{ __('messages.Enter the investment amount') }}" value="{{ old('investment_amount', $investment->investment_amount) }}"/>
-                <flux:error name="investment_amount" />
-            </flux:field>
+            <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                {{ $formatter->format($investment->investment_amount) }}
+            </p>
 
+            <flux:label class="mt-2!">{{ __('messages.Annual Rate') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                {{ $formatter->format($investment->product->annual_rate) }}
+            </p>
 
             <!-- Input visible (solo lectura, formato local) -->
             <flux:label for="opening_date_display" class="mt-2!">{{ __('messages.Opening Date') }}</flux:label>
@@ -65,7 +67,7 @@
                 {{ $activation_date }}
             </p>
 
-            {{-- <flux:label for="opening_date_display" class="mt-2!">{{ __('messages.Closing Date') }}</flux:label>
+            {{-- <flux:label for="opening_date_display" class="mt-2!">{{ __('messages.Opening Date') }}</flux:label>
              <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 @if ($investment->product->has_expiration)
                     @php
@@ -75,26 +77,8 @@
                 @else
                     {{ __('messages.No termination time') }}
                 @endif
-            </p> --}}
-
-            {{-- <flux:label class="mt-2!">{{ __('messages.Capitalization of Interests') }}</flux:label>
-            <flux:select wire:model="capitalize" placeholder="{{ __('messages.Capitalizes Interests') }}">
-                <flux:select.option value="true">{{ __('messages.Yes') }}</flux:select.option>
-                <flux:select.option value="false">{{ __('messages.No') }}</flux:select.option>
-            </flux:select> --}}
-
-            <!-- Input oculto: valor por defecto cuando NO está marcado -->
-            <input type="hidden" name="capitalize" value="0">
-            
-            <input 
-                type="checkbox" 
-                name="capitalize"
-                value="1"
-                {{ old('capitalize', $investment->capitalize) ? 'checked' : '' }}
-                class="rounded border-gray-300 text-zinc-600 shadow-sm mt-4"
-            >
-            <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Capitalizes Interests') }}?</span>
-            </label>
+            </p>
+ --}}
 
             {{-- class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500" --}}
 
@@ -109,11 +93,9 @@
                 <span class="text-sm text-zinc-700">{{ __('messages.Investment is active') }}?</span>
             </label> --}}
 
-            <div class="flex justify-end mt-4">
+            {{-- <div class="flex justify-end mt-4">
                 <flux:button variant="primary" type="submit">{{  __('messages.Send') }}</flux:button>
-            </div>
-
-        </form>
+            </div> --}}
     </div>
 
 </x-layouts.admin>
