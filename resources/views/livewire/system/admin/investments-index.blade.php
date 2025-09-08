@@ -104,15 +104,6 @@
                      @if ($archive)
                     <td class="px-6 py-4 text-center">
                         
-                            {{-- @if ($investment->closing_date)
-                                @php
-                                    $closing_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($investment->closing_date)) : date("m/d/Y", strtotime($investment->closing_date));
-                                @endphp
-                                {{ $closing_date }}
-                            @else
-                                {{ __('messages.No termination time') }}
-                            @endif --}}
-                       
                              @php
                                 $deactivation_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($investment->deactivation_date)) : date("m/d/Y", strtotime($investment->deactivation_date));
                             @endphp
@@ -127,9 +118,11 @@
                             @can('admin.investments.show')
                                 <a href="{{ route('admin.investments.show', $investment) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
                             @endcan
+
                             <a href="#" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
+                            
                             @can('admin.investments.edit')
-                                <a href="{{ route('admin.investments.edit', $investment) }}" class="btn btn-primary text-xs">{{ __('messages.Edit') }}</a>
+                                <a href="{{ route('admin.investments.edit', $investment) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>
                             @endcan
                            {{--  @can('admin.investments.destroy')
                                 <form action="{{ route('admin.investments.destroy', $investment) }}" method="POST" class="delete-form">

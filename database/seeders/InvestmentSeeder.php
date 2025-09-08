@@ -111,6 +111,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment1->id,
         ]);
 
@@ -119,6 +121,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment2->id,
         ]);
 
@@ -127,6 +131,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment3->id,
         ]);
 
@@ -135,6 +141,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment4->id,
         ]);
 
@@ -143,6 +151,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment5->id,
         ]);
 
@@ -151,6 +161,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment6->id,
         ]);
 
@@ -159,6 +171,8 @@ class InvestmentSeeder extends Seeder
             'activation_date' => Carbon::now(),
             'rate' => 7.00,
             'interests' => 0.00,
+            'month' => Carbon::now()->format('m'),
+            'year' => Carbon::now()->format('Y'),
             'investment_id' => $investment7->id,
         ]);
 

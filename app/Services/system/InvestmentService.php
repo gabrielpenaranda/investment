@@ -138,10 +138,12 @@ class InvestmentService
 
     public function deactivateInvestment(Investment $investment)
     {
+        // Actualiza fecha de desactivacion
         $investment->is_active = false;
         $investment->deactivation_date = Carbon::now();
         $investment->update();
 
+        // Actualiza fecha de desactivacion en investment changes
         $investment_change = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
         $investment_change->deactivation_date = Carbon::now();
         $investment_change->update();
@@ -151,6 +153,7 @@ class InvestmentService
 
         $month = now()->month;
 
+        // filtra los cambios de inversion que se activaron en el mes actual
         $investment_changes = InvestmentChange::where('investment_id', $investment->id)->get();
         $investment_changes_filtered = $investment_changes->filter(function ($change) use ($month) {
             return $change->activation_date ? Carbon::parse($change->activation_date)->format('m') == $month : false;

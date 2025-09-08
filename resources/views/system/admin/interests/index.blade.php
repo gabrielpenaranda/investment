@@ -1,3 +1,5 @@
+
+
 <x-layouts.admin>
 
     @livewire('system.language-selector')
@@ -11,11 +13,17 @@
                 {{ __('messages.Interests') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
-
-
-        @can('admin.interests.create')
-            <a href="{{ route('admin.interests.generate') }}" class="btn btn-primary">{{ __('messages.Generate Interests') }}</a>
-        @endcan
+        @if ($interest_month->count() == 0)
+            @can('admin.interests.generate')
+                <a href="{{ route('admin.interests.generate') }}" class="btn btn-primary">{{ __('messages.Generate Interests') }}</a>
+            @endcan
+        @else
+            @if ($interest_month->processed)
+                @can('admin.interests.approve')
+                    <a href="{{ route('admin.interests.approve') }}" class="btn btn-success">{{ __('messages.Approve Interests') }}</a>
+                @endcan
+            @endif
+        @endif
     </div>
     
 

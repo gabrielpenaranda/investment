@@ -1,24 +1,33 @@
+
 <div>
-    <div class="flex justify-between mb-4">
-        <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter interest name') }}" wire:model.live="search">
+    @php
+        use Carbon\Carbon;
+        $currentYear = (int)Carbon::now()->format('Y');
+        $currentMonth = (int)Carbon::now()->format('m');
+    @endphp
+
+    <div class="flex justify-left mb-4">
+        <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" />
 
         
+        <flux:select wire:model.live="pagination" class="w-48!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
+            <flux:select.option>5</flux:select.option>
+            <flux:select.option>10</flux:select.option>
+            <flux:select.option>20</flux:select.option>
+            <flux:select.option>50</flux:select.option>
+        </flux:select>
 
-{{-- class="form-control mr-1 sm:mr-2 md:mr-4 text-xs" --}}
+        <flux:select wire:model.live="year" class="w-48!  ml-4!" placeholder="{{ __('messages.Year') }}">
+            @for ($i=$currentYear; $i >= 1990; $i--)
+                <flux:select.option value={{ $i }}>{{ $i }}</flux:select.option>
+            @endfor
+        </flux:select>
 
-        <div class="relative flex-1 ml-8">
-            <div class="w-64 flex justify-between">
-                <lavel class="m-2">{{ __('messages.Lines per page') }}</label>
-                <select name="" id="" wire:model.live="pagination"
-                    class="ml-2 px-4 py-3 pr-8 leading-tight bg-white border border-gray-300 rounded-sm shadow-sm appearance-none focus:outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white text-center">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-        </div>
+        <flux:select wire:model.live="year" class="w-48!  ml-4!" placeholder="{{ __('messages.Month') }}">
+            @for ($i=12; $i > 0; $i--)
+                <flux:select.option value={{ $i }}>{{ $i }}</flux:select.option>
+            @endfor
+        </flux:select>
 
     </div>
 

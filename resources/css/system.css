@@ -162,6 +162,10 @@
     @apply bg-primary-500 text-white hover:bg-primary-700;
 }
 
+.btn-secondary {
+    @apply bg-secondary-500 text-white hover:bg-secondary-700;
+}
+
 .btn-success {
     @apply bg-success-500 text-white hover:bg-success-700;
 }

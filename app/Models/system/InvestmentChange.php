@@ -13,6 +13,9 @@ class InvestmentChange extends Model
         'rate',
         'interests',
         'investment_id',
+        'total_days',
+        'month',
+        'year',
     ];
 
     public function investment()

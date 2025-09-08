@@ -42,7 +42,7 @@ Route::prefix('investments')->group(function() {
 
 Route::prefix('interests')->group(function() {
     Route::get('index', [InterestController::class, 'index'])->middleware('can:admin.interests.index')->name('admin.interests.index');
-    Route::get('generate', [InterestController::class, 'destroy'])->middleware('can:admin.interests.generate')->name('admin.interests.generate');
+    Route::get('generate', [InterestController::class, 'generate'])->middleware('can:admin.interests.generate')->name('admin.interests.generate');
 });
 
 Route::prefix('taxes')->group(function() {

@@ -65,7 +65,8 @@ class ProductService
                 if (Carbon::parse($ic->activation_date)->format('Y-m-d') == Carbon::now()->format('Y-m-d')) {
                     $ic->delete();
                 } else {
-                    $ic->deactivation_date = Carbon::now();
+                    $ic->deactivation_date = Carbon::now()->subDay();
+                    $ic->total_days = (ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::now()->subDay())));
                     $ic->update();
                 }
             }

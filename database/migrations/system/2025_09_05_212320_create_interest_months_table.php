@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('year')->unique();
             $table->string('month');
+            $table->boolean('processed')->default(false);
             $table->timestamps();
         });
     }

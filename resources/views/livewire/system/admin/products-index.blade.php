@@ -1,10 +1,6 @@
 <div>
-    <div class="flex justify-between mb-4">
-        <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter product name') }}" wire:model.live="search">
-
-        
-
-{{-- class="form-control mr-1 sm:mr-2 md:mr-4 text-xs" --}}
+    <div class="flex justify-left mb-4">
+        {{-- <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter product name') }}" wire:model.live="search">
 
         <div class="relative flex-1 ml-8">
             <div class="w-64 flex justify-between">
@@ -18,7 +14,17 @@
                     <option value="100">100</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
+
+        <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" />
+
+        
+        <flux:select wire:model.live="pagination" class="w-48!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
+            <flux:select.option>5</flux:select.option>
+            <flux:select.option>10</flux:select.option>
+            <flux:select.option>20</flux:select.option>
+            <flux:select.option>50</flux:select.option>
+        </flux:select>
 
     </div>
 
@@ -75,7 +81,7 @@
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @can('admin.products.edit')
-                                <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-primary text-xs">{{ __('messages.Edit') }}</a>
+                                <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>
                             @endcan
                             @can('admin.products.destroy')
                                 <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="delete-form">
