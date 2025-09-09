@@ -3,6 +3,7 @@
 namespace App\Http\Requests\system;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
 class InvestmentCreateRequest extends FormRequest
 {
@@ -25,14 +26,17 @@ class InvestmentCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id',
+            /* 'user_id' => 'required',
+            'product_id' => 'required', */
             'investment_amount' => 'decimal:2|required|between:1000,100000000000',
-            /* 'activation_date' => 'date|required|after_or_equal:today|before_or_equal:'.today()->endOfMonth()->format('Y-m-d'), */
-            'activation_date' => 'date|required',
+            'activation_date' => 'date|required|after_or_equal:today|before_or_equal:'.Carbon::now()->endOfMonth()->format('Y-m-d'),
+            /* 'activation_date' => 'required|date', */
             /* 'is_active' => 'boolean', */
-            'capitalize' => 'required|boolean',
+            'capitalize' => 'boolean',
         ];
     }
 }

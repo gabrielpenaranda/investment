@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('month');
             $table->integer('total_days')->default(0);
             $table->decimal('rate', 4, 2);
-            $table->decimal('interests', 12, 4);
+            $table->decimal('interests', 12, 4)->default(0);
             $table->foreignId('investment_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

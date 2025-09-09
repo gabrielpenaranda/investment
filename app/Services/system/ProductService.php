@@ -2,6 +2,7 @@
 
 namespace App\Services\system;
 
+use App\Models\system\Investment;
 use App\Models\system\Product;
 use App\Models\system\InvestmentChange;
 use App\Models\system\Log;
@@ -51,7 +52,29 @@ class ProductService
         Si cambia el valor de annual_rate, crea nuevo registro en investment_changes y cierra el registro anterior.
         Si la fecha es la del mismo dia del registro anterior por otro cambio efectuado, se elimina el registro y se sustituye con el nuevo.
         */
-        if ($product->annual_rate != $request['annual_rate']) {
+        $investments = Investment::where('product_id', $product->id)->where('is_active', true)->get();
+        foreach($investments as $investment) {
+            $oic = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
+            if ($oic) {
+                if (Carbon::parse($oic->activation_date)->format('Y-m-d') == Carbon::now()->format('Y-m-d')) {
+                    $oic->delete();
+                } else {
+                    $oic->deactivation_date = Carbon::now()->yesterday();
+                    $oic->update();
+                }
+            }
+
+            $nic = new InvestmentChange();
+            $nic->amount = $investment->investment_amount;
+            $nic->activation_date = Carbon::now();
+            $nic->rate = $request['annual_rate'];
+            $nic->year = Carbon::now()->format('Y');
+            $nic->month = Carbon::now()->format('m');
+            $nic->investment_id = $investment->id;
+            $nic->save();
+        }
+
+        /* if ($product->annual_rate != $request['annual_rate']) {
             $investment_changes = InvestmentChange::where('deactivation_date', null)->where('rate', $product->annual_rate)->get();
             foreach($investment_changes as $ic) {
                 $nic = new InvestmentChange();
@@ -70,7 +93,7 @@ class ProductService
                     $ic->update();
                 }
             }
-        }
+        } */
 
         // Actualizacion de producto
         $product->name = $request['name'];

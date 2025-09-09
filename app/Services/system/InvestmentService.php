@@ -32,10 +32,9 @@ class InvestmentService
         }
 
         // $investment->is_active = $request['is_active'];
-        $investment->activation_date = Carbon::now();
         $investment->is_active = true;
         $investment->investment_amount = $request['investment_amount'];
-        $investment->opening_date = $request['opening_date'];
+        $investment->activation_date = $request['activation_date'];
         $investment->serial = hash('md5', Hash::make(Carbon::now()));
         $investment->name = $user->name;
         $investment->email = $user-> email;
@@ -47,9 +46,10 @@ class InvestmentService
 
         $investment_change = new InvestmentChange();
         $investment_change->amount = $investment->investment_amount;
-        $investment_change->activation_date = $investment->opening_date;
+        $investment_change->activation_date = $investment->activation_date;
         $investment_change->rate = $product->annual_rate;
-        $investment_change->interests = 0;
+        $investment_change->year = Carbon::parse($investment->activation_date)->format('Y');
+        $investment_change->month = Carbon::parse($investment->activation_date)->format('m');
         $investment_change->investment_id = $investment->id;
 
         $investment_change->save();
@@ -62,6 +62,8 @@ class InvestmentService
             'title' => __('swal.Success'),
             'text' => __('swal.The investment has been created succesfully'),
         ]);
+
+        return;
     }
 
     public function updateInvestment($request, Investment $investment)
@@ -78,7 +80,7 @@ class InvestmentService
             if (Carbon::parse($oic->activation_date)->format('Y-m-d') == Carbon::now()->format('Y-m-d')) {
                 $oic->delete();
             } else {
-                $oic->deactivation_date = Carbon::now();
+                $oic->deactivation_date = Carbon::now()->yesterday();
                 $oic->update();
             }
 
@@ -89,7 +91,8 @@ class InvestmentService
             $investment_change->amount = $request['investment_amount'];
             $investment_change->activation_date = Carbon::now();
             $investment_change->rate = $product->annual_rate;
-            $investment_change->interests = 0;
+            $investment_change->year = Carbon::parse($investment->activation_date)->format('Y');
+            $investment_change->month = Carbon::parse($investment->activation_date)->format('m');
             $investment_change->investment_id = $investment->id;
             $investment_change->save();
         }
@@ -134,6 +137,8 @@ class InvestmentService
             'title' => __('swal.Success'),
             'text' => __('swal.The investment has been updated succesfully'),
         ]);
+
+        return;
     }
 
     public function deactivateInvestment(Investment $investment)
@@ -223,5 +228,6 @@ class InvestmentService
             'text' => __('swal.The investment has been closed succesfully'),
         ]);
 
+        return;
     }
 }

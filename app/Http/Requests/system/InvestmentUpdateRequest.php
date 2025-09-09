@@ -31,7 +31,7 @@ class InvestmentUpdateRequest extends FormRequest
                     ? 'decimal:2|required|between:1000,100000000000'
                     : 'nullable',
             /* 'is_active' => 'boolean', */
-            'capitalize' => 'required|boolean',
+            'capitalize' => 'boolean',
         ];
     }
 }

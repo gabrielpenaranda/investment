@@ -36,21 +36,27 @@
         <p class="text-2xl mb-4">{{  __('messages.New Investment') }}</p>
         <form action="{{ route('admin.investments.store') }}" method="POST">
             @csrf
+            @method('POST')
 
+            <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
+                <flux:select name="user_id" placeholder="{{ __('messages.Enter the client name') }}">
+                    @foreach ( $users as $user)
+                        <flux:select.option value="{{ $user->id }}">{{ $user->name }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="user_id" />
+            </flux:field>
 
-            <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
-            <flux:select wire:model="user_id" placeholder="{{ __('messages.Enter the client name') }}">
-                @foreach ( $users as $user)
-                    <flux:select.option value="{{ $user->id }}" wire:key="{{ $user->id }}">{{ $user->name }}</flux:select.option>
-                @endforeach
-            </flux:select>
-
-            <flux:label class="mt-2!">{{ __('messages.Product') }}</flux:label>
-            <flux:select wire:model="product_id" placeholder="{{ __('messages.Enter the product') }}">
-                @foreach ( $products as $product)
-                    <flux:select.option value="{{ $product->id }}" wire:key="{{ $product->id }}">{{ $product->name }}  {{ $product->annual_rate }}% @if ($product->has_expiration)  {{ $product->investment_time }} {{ __('messages.Months') }}  @else {{ __('messages.No termination time') }} @endif</flux:select.option>
-                @endforeach
-            </flux:select>
+            <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Product') }}</flux:label>
+                <flux:select name="product_id" placeholder="{{ __('messages.Enter the product') }}">
+                    @foreach ( $products as $product)
+                        <flux:select.option value="{{ $product->id }}">{{ $product->name }}  {{ $product->annual_rate }}% @if ($product->has_expiration)  {{ $product->investment_time }} {{ __('messages.Months') }}  @else {{ __('messages.No termination time') }} @endif</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="product_id" />
+            </flux:field>
 
 
             <flux:field>
@@ -61,10 +67,10 @@
 
 
             <!-- Input visible (solo lectura, formato local) -->
-            <flux:label for="opening_date_display" class="mt-2!">{{ __('messages.Opening Date') }}</flux:label>
+            <flux:label for="activation_date_display" class="mt-2!">{{ __('messages.activation Date') }}</flux:label>
             <flux:input
                 type="text"
-                id="opening_date_display"
+                id="activation_date_display"
                 placeholder="{{ app()->getLocale() === 'es' ? 'dd/mm/yyyy' : 'mm/dd/yyyy' }}"
                 readonly
             ></flux:input>
@@ -74,9 +80,9 @@
             <!-- Input oculto (valor real para el backend) -->
             <input
                 type="hidden"
-                name="opening_date"
-                id="opening_date"
-                value="{{ old('opening_date') }}"
+                name="activation_date"
+                id="activation_date"
+                value="{{ old('activation_date') }}"
             >
 
             {{-- <flux:label class="mt-2!">{{ __('messages.Capitalization of Interests') }}</flux:label>
@@ -86,7 +92,7 @@
             </flux:select> --}}
 
             <!-- Input oculto: valor por defecto cuando NO está marcado -->
-            <input type="hidden" name="capitalize" value="0">
+           <input type="hidden" name="capitalize" value="0">
             
             <input 
                 type="checkbox" 
@@ -95,8 +101,10 @@
                 {{ old('capitalize') ? 'checked' : '' }}
                 class="rounded border-gray-300 text-zinc-600 shadow-sm mt-4"
             >
+            <flux:error name="capitalize" />
             <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Capitalizes Interests') }}?</span>
             </label>
+            
 
             {{-- <label class="flex items-center space-x-2 mt-2">
                 <input 
@@ -131,13 +139,13 @@ $(document).ready(function () {
     const dateFormat = locale === 'es' ? 'dd/mm/yy' : 'mm/dd/yy';
 
     // Fecha mínima: hoy
-    // const minDate = new Date();
+    const minDate = new Date(); 
     // Fecha máxima: último día del mes
     const maxDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
 
-    $('#opening_date_display').datepicker({
+    $('#activation_date_display').datepicker({
         dateFormat: dateFormat,
-        // minDate: minDate,
+        minDate: minDate,
         maxDate: maxDate,
         changeMonth: false,
         changeYear: false,
@@ -150,7 +158,7 @@ $(document).ready(function () {
             // Convertir a YYYY-MM-DD para el backend
             const date = $(this).datepicker('getDate');
             const isoDate = $.datepicker.formatDate('yy-mm-dd', date);
-            $('#opening_date').val(isoDate);
+            $('#activation_date').val(isoDate);
         }
     });
 
@@ -160,11 +168,11 @@ $(document).ready(function () {
     }
 
     // Si hay valor guardado (old), formatearlo
-    const savedDate = $('#opening_date').val();
+    const savedDate = $('#activation_date').val();
     if (savedDate) {
         const date = new Date(savedDate);
         const formatted = $.datepicker.formatDate(dateFormat, date);
-        $('#opening_date_display').val(formatted);
+        $('#activation_date_display').val(formatted);
     }
 });
 </script>
