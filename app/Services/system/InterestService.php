@@ -16,68 +16,110 @@ class InterestService
     {
         $month = now()->subMonth()->month;
         $investments = Investment::where('is_active', true)->get();
+
         /* $investment_changes = InvestmentChange::all();
         $investment_changes_filtered = $investment_changes->filter(function ($change) use ($month) {
             return $change->activation_date ? Carbon::parse($change->activation_date)->subMonth()->format('m') == $month : false;
         }); */
+
         $process_month = Carbon::now()->subMonth()->format('m');
         $process_year = Carbon::now()->subMonth()->format('Y');
-        
-        foreach($investments as $i) {
-            $investement_changes = InvestmentChange::where('investment_id', $i->id)->where('month', $process_month)->get();
+
+        foreach($investments as $inv) {
+            $investment_changes = InvestmentChange::where('investment_id', $inv->id)->where('month', $process_month)->get();
             $register_counter = $investment_changes->count();
+            // dd($register_counter);
             $acum_interests = 0;
             $acum_days = 0;
-            if ($register_counter == 1) {
-                $annual_interest = ($investment_changes->amount * $investment_changes->rate)/100;
-                $day_interest = $annual_interest / 360;
-                $acum_interests = $day_interest * 30;
-            } else {
-                for($i = 1; $i <= $register_counter; $i++) {
+            $days = 0;
+            $interest = 0;
+            $annual_interest = 0;
+            $day_interest = 0;
+
+            foreach($investment_changes as $ic) {
+
+                /*if ($register_counter == 1) {
                     $annual_interest = ($ic->amount * $ic->rate)/100;
                     $day_interest = $annual_interest / 360;
-                    if ($i == $register_counter) {
-                        $total_days = 30 - $acum-days;
-                        $ic->total_days = $total_days;
+                    $acum_interests = $day_interest * 30;
+                    dd(acum_interests);
+                } else {
+                    for($i = 1; $i <= $register_counter; $i++) {
+                        $annual_interest = ($ic->amount * $ic->rate)/100;
+                        $day_interest = $annual_interest / 360;
+                        if ($i == $register_counter) {
+                            $total_days = 30 - $acum-days;
+                            $ic->total_days = $total_days;
+                        }
+                        $interests = $day_interest * $ic->total_days;
+                        $ic->interests = interests;
+                        if ($ic->deactivation_date == null) {
+                            $ic->deactivation_date = Carbon::now()->subMonth()->endOfMonth();
+                        }
+                        $ic->update();
+                        $acum_interests += $interests;
+                        $acum_days += $ic->total_days;
                     }
-                    $interests = $day_interest * $ic->total_days;
-                    $ic->interests = interests;
-                    if ($ic->deactivation_date == null) {
-                        $ic->deactivation_date = Carbon::now()->subMonth()->endOfMonth();
-                    }
+                }*/
+                
+                if ($ic->deactivation_date != null) {
+                    $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date))) + 1;
+                    dump($ic->amount);
+                    $annual_interest = ($ic->amount * $ic->rate)/100;
+                    $day_interest = $annual_interest / 360;
+                    $interest = $day_interest * $days;
+                    $acum_days += $days;
+                    $acum_interests += $interest;
+                } else {
+                    dump($acum_interests);
+                    $days = 30 - $acum_days;
+                    $annual_interest = ($ic->amount * $ic->rate)/100;
+                    $day_interest = $annual_interest / 360;
+                    $interest = $day_interest * $days;
+                    $acum_interests += $interest;
+                    $ic->deactivation_date = Carbon::now()->endOfMonth();
                     $ic->update();
-                    $acum_interests += $interests;
-                    $acum_days += $ic->total_days;
                 }
+
             }
+
             $interest = new Interest();
-            $interest->month = (string)$proccess_month;
-            $interest->year = (string)$proccess_year;
-            $interest->serial = hash('md5', Hash::make($investment->serial.Carbon::now()));
-            $interest->investment_serial = $investment->serial;
-            $interest->investment_amount = $investment->amount;
+            $interest->month = (string)$process_month;
+            $interest->year = (string)$process_year;
+            $interest->serial = hash('md5', Hash::make($inv->serial.Carbon::now()));
+            $interest->investment_amount = $inv->investment_amount;
             $interest->interest_amount = $acum_interests;
-            $interest->investment_id = $investment->id;
-            $interest->rate = $ic->rate;
+            $interest->investment_id = $inv->id;
+            $interest->rate = $inv->product->annual_rate;
+            $interest->days = 30;
+            $interest->name = $inv->name;
+            $interest->email = $inv->email;
             $interest->save();
 
-            if ($investment->capitalize) {
-                $investment->amount += $acum_interests;
-                $investment->update();
+            if ($inv->capitalize) {
+                $inv->amount += $acum_interests;
+                $inv->update();
             }
 
             $investment_change = new InvestmentChange();
-            $investment_change->amount = $investment->amount;
+            $investment_change->amount = $inv->investment_amount;
             $investment_change->activation_date = Carbon::now()->startOfMonth();
-            $investment_change->rate = $investment->product->annual_rate;
+            $investment_change->rate = $inv->product->annual_rate;
             $investment_change->interests = 0.00;
-            $investment_change->investment_id = $investment->id;    
+            $investment_change->investment_id = $inv->id;    
             $investment_change->month = (string)Carbon::now()->format('m');
             $investment_change->year = (string)Carbon::now()->format('Y');
             $investment_change->save();
 
-            $log = new Log();
-        $log->register($log, 'C', $interest->id, "interests", auth()->user()->name, auth()->user()->id, $interest->serial);
+            $acum_interests = 0;
+            $acum_days = 0;
+            $days = 0;
+            $interest = 0;
+            $annual_interest = 0;
+            $day_interest = 0;
+
+            /*$log = new Log();
+            $log->register($log, 'C', $interest->id, "interests", auth()->user()->name, auth()->user()->id, $interest->serial);*/
         }
 
         session()->flash('swal', [
