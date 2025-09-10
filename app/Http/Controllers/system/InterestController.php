@@ -28,9 +28,16 @@ class InterestController extends Controller
     }
 
 
-    public function generate()
+    public function generate(InterestMonth $interestMonth)
     {
-        $this->interestService->generateInterests();
+        $this->interestService->generateInterests($interestMonth);
+
+        return redirect()->route('admin.interests.index');
+    }
+
+    public function approve(InterestMonth $interestMonth)
+    {
+        $this->interestService->approveInterests($interestMonth);
 
         return redirect()->route('admin.interests.index');
     }

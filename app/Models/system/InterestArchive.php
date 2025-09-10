@@ -10,9 +10,7 @@ class InterestArchive extends Model
         'year',
         'month',
         'interest_amount',
-        'investment_amount',
         'rate',
-        'investment_serial',
         'serial',
         'investment_archive_id',
     ];

@@ -16,8 +16,6 @@ return new class extends Migration
             $table->decimal('investment_amount', 12, 2);
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            /* $table->datetime('opening_date');
-            $table->datetime('closing_date')->nullable(); */
             $table->boolean('is_active')->default(true);
             $table->datetime('activation_date');
             $table->datetime('deactivation_date')->nullable();

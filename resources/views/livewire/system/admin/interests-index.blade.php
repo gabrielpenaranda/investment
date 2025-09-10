@@ -2,8 +2,10 @@
 <div>
     @php
         use Carbon\Carbon;
-        $currentYear = (int)Carbon::now()->format('Y');
-        $currentMonth = (int)Carbon::now()->format('m');
+        $currentYear = Carbon::now()->format('Y');
+        $currentMonth = Carbon::now()->format('m');
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
     @endphp
 
     <div class="flex justify-left mb-4">
@@ -19,13 +21,13 @@
 
         <flux:select wire:model.live="year" class="w-48!  ml-4!" placeholder="{{ __('messages.Year') }}">
             @for ($i=$currentYear; $i >= 1990; $i--)
-                <flux:select.option value={{ $i }}>{{ $i }}</flux:select.option>
+                <flux:select.option value="{{ $i }}">{{ $i }}</flux:select.option>
             @endfor
         </flux:select>
 
-        <flux:select wire:model.live="year" class="w-48!  ml-4!" placeholder="{{ __('messages.Month') }}">
+        <flux:select wire:model.live="month" class="w-48!  ml-4!" placeholder="{{ __('messages.Month') }}">
             @for ($i=12; $i > 0; $i--)
-                <flux:select.option value={{ $i }}>{{ $i }}</flux:select.option>
+                <flux:select.option value="{{ $i }}">{{ $i }}</flux:select.option>
             @endfor
         </flux:select>
 
@@ -35,6 +37,9 @@
         @if ($interests->count())
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
+                 <th scope="col" class="px-6 py-3 text-center">
+                    {{ __('messages.Serial') }}
+                </th>
                 <th scope="col" class="px-6 py-3" wire:click="order('name')">
                     {{ __('messages.Name') }} <i class="fa-solid fa-magnifying-glass"></i>
 
@@ -48,40 +53,75 @@
                         <i class="fa-solid fa-sort float-right mt-1"></i>
                     @endif
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Description') }}
+                <th scope="col" class="px-6 py-3 text-center" wire:click="order('email')">
+                    {{ __('messages.Email') }}
+
+                    @if ($sort == 'email')
+                        @if ($direction == 'asc')
+                            <i class="fa-solid fa-arrow-up-a-z float-right mt-1"></i>
+                        @else
+                            <i class="fa-solid fa-arrow-down-z-a float-right mt-1"></i>
+                        @endif
+                    @else
+                        <i class="fa-solid fa-sort float-right mt-1"></i>
+                    @endif
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Annual Rate') }}
+                    {{ __('messages.Amount') }}
                 </th>
-                {{-- <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Investment Time (months)') }}
-                </th> --}}
+               <th scope="col" class="px-6 py-3 text-center">
+                    {{ __('messages.Process') }}
+                </th>
                 <th scope="col" class="px-6 py-3 text-center">
+                    {{ __('messages.Condition') }}
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    {{ __('messages.Status') }}
+                </th>
+              {{--   <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
-                </th>
+                </th> --}}
             </tr>
         </thead>
         <tbody>
             @foreach ($interests as $interest)
                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                     <td class="px-6 py-4">
+                        {{ $interest->serial }}
+                    </td>
+                    <td class="px-6 py-4 text-center">
                         {{ $interest->name }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        {{ $interest->description }}
+                        {{ $interest->email }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        {{ $interest->annual_rate }}
+                        {{ $formatter->format(round($interest->interest_amount, 2)) }}
                     </td>
-                     {{-- <td class="px-6 py-4 text-center">
-                        @if ($interest->investment_time)
-                            {{ $interest->investment_time }}
+                    <td class="px-6 py-4 text-center">
+                        @if ($interest->approved)
+                            {{  __('messages.Approved') }}
                         @else
-                            {{ __('messages.No termination time') }}
+                            {{  __('messages.Pending') }}
                         @endif
-                    </td> --}}
-                    <td class="px-6 py-4">
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        @if ($interest->condition == 'paid')
+                            {{  __('messages.Paid') }}
+                        @else
+                            {{  __('messages.Unpaid') }}
+                        @endif
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        @if ($interest->status == 'payable')
+                            {{  __('messages.Payable') }}
+                        @else
+                            {{  __('messages.Cumulative') }}
+                        @endif
+                    </td>
+
+
+                   {{--  <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @can('admin.interests.edit')
                                 <a href="{{ route('admin.interests.edit', $interest) }}" class="btn btn-primary text-xs">{{ __('messages.Edit') }}</a>
@@ -94,7 +134,7 @@
                                 </form>
                             @endcan
                         </div>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>

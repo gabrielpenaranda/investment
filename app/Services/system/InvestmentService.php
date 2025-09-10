@@ -143,17 +143,51 @@ class InvestmentService
 
     public function deactivateInvestment(Investment $investment)
     {
-        // Actualiza fecha de desactivacion
-        $investment->is_active = false;
         $investment->deactivation_date = Carbon::now();
+        $investment->is_active = false;
         $investment->update();
 
-        // Actualiza fecha de desactivacion en investment changes
-        $investment_change = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
-        $investment_change->deactivation_date = Carbon::now();
-        $investment_change->update();
+        /* $investment_archive = new InvestmentArchive();
+        $investment_archive->investment_amount = $investment->investment_amount;
+        $investment_archive->name = $investment->name;
+        $investment_archive->email = $investment->email;
+        $investment_archive->product_name = $investment->product->name;
+        $investment_archive->product_rate = $investment->product->annual_rate;
+        $investment_archive->activation_date = $investment->activation_date;
+        $investment_archive->deactivation_date = $investment->deactivation_date;
+        $investment_archive->serial = $investment->serial;
+        $investment_archive->investment_id = $investment->id;
+        $investment_archive->user_id = $investment->user_id;
+        $investment_archive->product_id = $investment->product_id;
+        $investment_archive->save(); */
+
+        $log = new Log();
+        $log->register($log, 'D', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->serial);session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('swal.Success'),
+            'text' => __('swal.The investment has been closed succesfully'),
+        ]);
+
+        return;
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('swal.Success'),
+            'text' => __('swal.The investment has been closed succesfully'),
+        ]);
+
+        return redirect()->back();
+    }
+
+
+
+
+
+    public function deactivateInvestmentX(Investment $investment)
+    {
 
         $acum_interests = 0;
+        $acum_days = 0;
 
 
         $month = now()->month;
@@ -166,10 +200,23 @@ class InvestmentService
 
         foreach($investment_changes_filtered as $ic) {
             if (Carbon::parse($ic->activation_date)->format('m') == Carbon::now()->format('m')) {
-                $annual_interest = ($ic->amount * $ic->rate)/100;
-                $day_interest = $annual_interest / 360;
-                $active_days_interest = (ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date)))) * $day_interest;
-                $acum_interests += $active_days_interest;
+                if ($ic->deactivation_date != null) {
+                    $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date))) + 1;
+                    dump($ic->amount);
+                    $annual_interest = ($ic->amount * $ic->rate)/100;
+                    $day_interest = $annual_interest / 360;
+                    $interest = $day_interest * $days;
+                    $acum_days += $days;
+                    $acum_interests += $interest;
+                } else {
+                    $days = 30 - $acum_days;
+                    $annual_interest = ($ic->amount * $ic->rate)/100;
+                    $day_interest = $annual_interest / 360;
+                    $interest = $day_interest * $days;
+                    $acum_interests += $interest;
+                    $ic->deactivation_date = Carbon::now()->endOfMonth();
+                    $ic->update();
+                }
             }
         }
 
@@ -177,23 +224,25 @@ class InvestmentService
         $interest->year = Carbon::now()->format('Y');
         $interest->month = Carbon::now()->format('m');
         $interest->serial = hash('md5', Hash::make($investment->serial.Carbon::now()));
-        $interest->investment_serial = $investment->serial;
-        $interest->investment_amount = $investment->investment_amount;
         $interest->interest_amount = $acum_interests;
         $interest->investment_id = $investment->id;
         $interest->rate = $investment->product->annual_rate;
+        $interest->name = $investment->name;
+        $interest->email = $investment->email;
+        $interest->approved = false;
         $interest->save();
 
         $log = new Log();
         $log->register($log, 'C', $interest->id, "interests", auth()->user()->name, auth()->user()->id, $interest->serial);
 
+        $investment->deactivation_date = Carbon::now();
         $investment->is_active = false;
         $investment->update();
 
         $log = new Log();
         $log->register($log, 'D', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->serial);
 
-        $investment_archive = new InvestmentArchive();
+        /* $investment_archive = new InvestmentArchive();
         $investment_archive->investment_amount = $investment->investment_amount;
         $investment_archive->name = $investment->name;
         $investment_archive->email = $investment->email;
@@ -204,23 +253,21 @@ class InvestmentService
         $investment_archive->serial = $investment->serial;
         $investment_archive->save();
 
-        $interests = Interest::where('investment_id', $investment->id)->get();
+        $interests = Interest::where('investment_id', $investment->id)->get(); */
 
-        foreach($interests as $i) {
+        /* foreach($interests as $i) {
             $interest_archive = new InterestArchive();
             $interest_archive->year = $i->year;
             $interest_archive->month = $i->month;
             $interest_archive->interest_amount = $i->interest_amount;
-            $interest_archive->investment_amount = $i->investment_amount;
             $interest_archive->rate = $i->rate;
-            $interest_archive->investment_serial = $i->investment_serial;
             $interest_archive->serial = $i->serial;
             $interest_archive->investment_archive_id = $investment_archive->id;
             $interest_archive->save();
             $i->delete();
-        }
+        } */
 
-        $investment->delete();
+        //$investment->delete();
 
         session()->flash('swal', [
             'icon' => 'success',

@@ -10,5 +10,6 @@ class InterestMonth extends Model
         'year',
         'month',
         'processed',
+        'approved'
     ];
 }

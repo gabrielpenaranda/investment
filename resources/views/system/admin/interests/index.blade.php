@@ -13,17 +13,9 @@
                 {{ __('messages.Interests') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
-        @if ($interest_month->count() == 0)
-            @can('admin.interests.generate')
-                <a href="{{ route('admin.interests.generate') }}" class="btn btn-primary">{{ __('messages.Generate Interests') }}</a>
-            @endcan
-        @else
-            @if ($interest_month->processed)
-                @can('admin.interests.approve')
-                    <a href="{{ route('admin.interests.approve') }}" class="btn btn-success">{{ __('messages.Approve Interests') }}</a>
-                @endcan
-            @endif
-        @endif
+
+        @livewire('system.admin.interests-buttons')
+        
     </div>
     
 

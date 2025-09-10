@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('investment_archives', function (Blueprint $table) {
             $table->id();
-            $table->decimal('investment_amount', 12, 2);
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('product_name')->nullable();

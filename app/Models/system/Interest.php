@@ -10,13 +10,14 @@ class Interest extends Model
         'year',
         'month',
         'interest_amount',
-        'investment_amount',
-        'days',
         'rate',
         'name',
         'email',
         'investment_id',
         'serial',
+        'approved',
+        'condition',
+        'status',
     ];
 
     public function investment()
