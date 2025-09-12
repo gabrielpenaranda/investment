@@ -21,4 +21,6 @@ return [
     'Product cannot be deleted' => 'This product cannot be deleted because it is being used in other parts of the system (e.g. investments)',
     'Cannot delete' => 'Can\'t delete',
     'An unexpected error occurred' => 'An unexpected error occurred',
+    'Are you sure' => 'Are you sure?',
+    'Cannot revert' => 'You won\'t be able to undo this!'
 ];

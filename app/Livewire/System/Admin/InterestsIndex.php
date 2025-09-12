@@ -57,7 +57,7 @@ class InterestsIndex extends Component
         // 🔹 Paginación
         $interests = $query->paginate($this->pagination);
 
-        $interest_month = InterestMonth::where('year', (string)$this->year)->where('month', (string)Carbon::now()->subMonth()->format('m'))->first();
+        $interest_month = InterestMonth::where('year', $this->year)->where('month', (int)Carbon::now()->subMonth()->format('m'))->first();
         //dd($interest_month);
         
         return view('livewire.system.admin.interests-index', compact('interests', 'interest_month' ));

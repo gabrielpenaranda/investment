@@ -5,6 +5,7 @@ namespace App\Http\Controllers\system;
 use App\Http\Controllers\Controller;
 use App\Models\system\Interest;
 use App\Models\system\InterestMonth;
+use App\Models\system\InvestmentChange;
 use App\Services\system\InterestService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -31,14 +32,12 @@ class InterestController extends Controller
     public function generate(InterestMonth $interestMonth)
     {
         $this->interestService->generateInterests($interestMonth);
-
         return redirect()->route('admin.interests.index');
     }
 
     public function approve(InterestMonth $interestMonth)
     {
         $this->interestService->approveInterests($interestMonth);
-
         return redirect()->route('admin.interests.index');
     }
 
@@ -63,7 +62,10 @@ class InterestController extends Controller
      */
     public function show(Interest $interest)
     {
-        //
+        $investmentChanges = InvestmentChange::where('investment_id', $interest->investment_id)
+            ->where('month', $interest->month)
+            ->get();
+        return view('system.admin.interests.show', compact('interest','investmentChanges'));
     }
 
     /**

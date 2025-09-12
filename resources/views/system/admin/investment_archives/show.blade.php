@@ -80,6 +80,7 @@
                 {{ $deactivation_date }}
             </p>
 
+
             {{-- <flux:label for="opening_date_display" class="mt-2!">{{ __('messages.Opening Date') }}</flux:label>
              <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 @if ($investmentArchive->product->has_expiration)

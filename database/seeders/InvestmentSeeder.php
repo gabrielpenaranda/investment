@@ -179,7 +179,7 @@ class InvestmentSeeder extends Seeder
 
         InvestmentChange::create([
             'amount' => $investment7->investment_amount,
-            'activation_date' => Carbon::now()->subMonth()->startOfMonth(),
+            'activation_date' => '2025-08-20',
             'rate' => 7.00,
             'interests' => 0.00,
             'month' => Carbon::now()->subMonth()->format('m'),

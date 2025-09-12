@@ -21,7 +21,11 @@
     </div>
 
     <div class="card">
-        <p class="text-2xl mb-4">{{  __('messages.Show Investment') }}</p>
+        @if ($investment->is_active)
+            <p class="text-2xl mb-4">{{  __('messages.Show Investment') }}</p>
+        @else
+            <p class="text-2xl mb-4">{{  __('messages.Show Closed Investment') }}</p>
+        @endif
 
             <flux:label class="mt-2!">{{ __('messages.Serial') }}</flux:label>
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
@@ -75,6 +79,16 @@
                     {{ $deactivation_date }}
                 </p>
             @endif
+
+            <flux:label class="mt-2!">{{ __('messages.Capitalizable Interest') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                @if ($investment->capitalize)
+                    Yes
+                @else
+                    No
+                @endif
+            </p>
+
 
     </div>
 

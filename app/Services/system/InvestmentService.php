@@ -3,11 +3,10 @@
 namespace App\Services\system;
 
 use App\Models\system\Investment;
-use App\Models\system\InvestmentArchive;
 use App\Models\system\InvestmentChange;
 use App\Models\system\Product;
 use App\Models\system\Interest;
-use App\Models\system\InterestArchive;
+use App\Models\system\InterestMonth;
 use App\Models\system\Log;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -48,8 +47,8 @@ class InvestmentService
         $investment_change->amount = $investment->investment_amount;
         $investment_change->activation_date = $investment->activation_date;
         $investment_change->rate = $product->annual_rate;
-        $investment_change->year = Carbon::parse($investment->activation_date)->format('Y');
-        $investment_change->month = Carbon::parse($investment->activation_date)->format('m');
+        $investment_change->year = (int)Carbon::parse($investment->activation_date)->format('Y');
+        $investment_change->month = (int)Carbon::parse($investment->activation_date)->format('m');
         $investment_change->investment_id = $investment->id;
 
         $investment_change->save();
@@ -68,7 +67,19 @@ class InvestmentService
 
     public function updateInvestment($request, Investment $investment)
     {
-        // dd($request);
+        $subMonth = Carbon::now()->subMonth()->format('m');
+        $interestMonth = InterestMonth::where('year', (int)Carbon::now()->format('Y'))->where('month', (int)$subMonth)->first();
+        if (!$interestMonth->approved && $investment->investment_amount != $request['investment_amount']) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => __('swal.Cannot update'),
+                'text' => __('swal.The investment cannot be updated because the interests for the previous month have not been approved'),
+            ]);
+
+            return redirect()->back();
+        }
+
+
         $product = Product::where('id', $investment->product_id)->first();
 
         /* if ($product->has_expiration) {
@@ -91,8 +102,8 @@ class InvestmentService
             $investment_change->amount = $request['investment_amount'];
             $investment_change->activation_date = Carbon::now();
             $investment_change->rate = $product->annual_rate;
-            $investment_change->year = Carbon::parse($investment->activation_date)->format('Y');
-            $investment_change->month = Carbon::parse($investment->activation_date)->format('m');
+            $investment_change->year = (int)Carbon::parse($investment->activation_date)->format('Y');
+            $investment_change->month = (int)Carbon::parse($investment->activation_date)->format('m');
             $investment_change->investment_id = $investment->id;
             $investment_change->save();
         }
@@ -221,8 +232,8 @@ class InvestmentService
         }
 
         $interest = new Interest();
-        $interest->year = Carbon::now()->format('Y');
-        $interest->month = Carbon::now()->format('m');
+        $interest->year = (int)Carbon::now()->format('Y');
+        $interest->month = (int)Carbon::now()->format('m');
         $interest->serial = hash('md5', Hash::make($investment->serial.Carbon::now()));
         $interest->interest_amount = $acum_interests;
         $interest->investment_id = $investment->id;

@@ -34,8 +34,8 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: "Estás seguro/a?",
-                    text: "No podrás revertir esto!",
+                    title: {{ __('swal.Are you sure') }},
+                    text: {{ _('swal.Cannot revert') }},
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",

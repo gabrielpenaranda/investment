@@ -20,4 +20,6 @@ return [
     'Product cannot be deleted' => 'Este producto no se puede eliminar porque se está utilizando en otras partes del sistema (por ejemplo, inversiones)',
     'Cannot delete' => 'No se puede eliminar',
     'An unexpected error occurred' => 'Ocurrió un error inesperado',
+    'Are you sure' => '¿Estás seguro/a?',
+    'Cannot revert' => 'No podrás revertir esto!',
 ];

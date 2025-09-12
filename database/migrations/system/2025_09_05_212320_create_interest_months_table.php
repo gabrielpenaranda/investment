@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('interest_months', function (Blueprint $table) {
             $table->id();
-            $table->string('year');
-            $table->string('month');
+            $table->integer('year');
+            $table->integer('month');
             $table->boolean('processed')->default(false);
             $table->boolean('approved')->default(false);
             $table->timestamps();

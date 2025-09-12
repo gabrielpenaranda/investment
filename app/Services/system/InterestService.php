@@ -17,8 +17,8 @@ class InterestService
     {
         $month = now()->subMonth()->month;
         $investments = Investment::all();
-        $process_month = Carbon::now()->subMonth()->format('m');
-        $process_year = Carbon::now()->subMonth()->format('Y');
+        $process_month = (int)Carbon::now()->subMonth()->format('m');
+        $process_year = (int)Carbon::now()->subMonth()->format('Y');
 
         foreach($investments as $inv) {
             $investment_changes = InvestmentChange::where('investment_id', $inv->id)->where('month', $process_month)->get();
@@ -38,20 +38,25 @@ class InterestService
                     $interest = $day_interest * $days;
                     $acum_days += $days;
                     $acum_interests += $interest;
+                    $ic->total_days = $days;
+                    $ic->interests = round($interest, 2);
+                    $ic->update();
                 } else {
                     $days = 30 - $acum_days;
                     $annual_interest = ($ic->amount * $ic->rate)/100;
                     $day_interest = $annual_interest / 360;
                     $interest = $day_interest * $days;
                     $acum_interests += $interest;
-                    $ic->deactivation_date = Carbon::now()->endOfMonth();
+                    $ic->deactivation_date = Carbon::now()->subMonth()->endOfMonth();
+                    $ic->total_days = $days;
+                    $ic->interests = round($interest, 2);
                     $ic->update();
                 }
             }
 
             $interest = new Interest();
-            $interest->month = (string)$process_month;
-            $interest->year = (string)$process_year;
+            $interest->month = (int)$process_month;
+            $interest->year = (int)$process_year;
             $interest->serial = hash('md5', Hash::make($inv->serial.Carbon::now()));
             $interest->interest_amount = round($acum_interests, 2);
             $interest->investment_id = $inv->id;
@@ -79,8 +84,8 @@ class InterestService
             $investment_change->rate = $inv->product->annual_rate;
             $investment_change->interests = 0.00;
             $investment_change->investment_id = $inv->id;    
-            $investment_change->month = (string)Carbon::now()->format('m');
-            $investment_change->year = (string)Carbon::now()->format('Y');
+            $investment_change->month = (int)Carbon::now()->format('m');
+            $investment_change->year = (int)Carbon::now()->format('Y');
             $investment_change->save();
 
             $acum_interests = 0;
@@ -119,8 +124,8 @@ class InterestService
         $interestMonth->update();
 
         $newInterestMonth = new InterestMonth();
-        $newInterestMonth->year = (string)Carbon::now()->format('Y');
-        $newInterestMonth->month = (string)Carbon::now()->format('m');
+        $newInterestMonth->year = (int)Carbon::now()->format('Y');
+        $newInterestMonth->month = (int)Carbon::now()->format('m');
         $newInterestMonth->processed = false;
         $newInterestMonth->approved = false;
         $newInterestMonth->save();  

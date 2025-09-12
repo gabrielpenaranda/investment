@@ -42,6 +42,7 @@ Route::prefix('investments')->group(function() {
 
 Route::prefix('interests')->group(function() {
     Route::get('index', [InterestController::class, 'index'])->middleware('can:admin.interests.index')->name('admin.interests.index');
+    Route::get('index/{interest}', [InterestController::class, 'show'])->middleware('can:admin.interests.show')->name('admin.interests.show');
     Route::get('generate/{interestMonth}', [InterestController::class, 'generate'])->middleware('can:admin.interests.generate')->name('admin.interests.generate');
     Route::get('approve/{interestMonth}', [InterestController::class, 'approve'])->middleware('can:admin.interests.approve')->name('admin.interests.approve');
 });

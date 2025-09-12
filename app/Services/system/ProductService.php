@@ -5,6 +5,7 @@ namespace App\Services\system;
 use App\Models\system\Investment;
 use App\Models\system\Product;
 use App\Models\system\InvestmentChange;
+use App\Models\system\InterestMonth;
 use App\Models\system\Log;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
@@ -52,6 +53,18 @@ class ProductService
         Si cambia el valor de annual_rate, crea nuevo registro en investment_changes y cierra el registro anterior.
         Si la fecha es la del mismo dia del registro anterior por otro cambio efectuado, se elimina el registro y se sustituye con el nuevo.
         */
+        $subMonth = Carbon::now()->subMonth()->format('m');
+        $interestMonth = interestMonth::where('year', (int)Carbon::now()->format('Y'))->where('month', (int)$subMonth)->first();
+        if (!$interestMonth->approved) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => __('swal.Cannot update'),
+                'text' => __('swal.The product cannot be updated because the interests for the previous month have not been approved'),
+            ]);
+
+            return redirect()->back();
+        }
+
         $investments = Investment::where('product_id', $product->id)->where('is_active', true)->get();
         foreach($investments as $investment) {
             $oic = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
@@ -68,11 +81,12 @@ class ProductService
             $nic->amount = $investment->investment_amount;
             $nic->activation_date = Carbon::now();
             $nic->rate = $request['annual_rate'];
-            $nic->year = Carbon::now()->format('Y');
-            $nic->month = Carbon::now()->format('m');
+            $nic->year = (int)Carbon::now()->format('Y');
+            $nic->month = (int)Carbon::now()->format('m');
             $nic->investment_id = $investment->id;
             $nic->save();
         }
+
 
         /* if ($product->annual_rate != $request['annual_rate']) {
             $investment_changes = InvestmentChange::where('deactivation_date', null)->where('rate', $product->annual_rate)->get();
@@ -131,8 +145,8 @@ class ProductService
             // mensaje de exito
             Session::flash('swal', [
                 'icon' => 'success',
-                'title' => '¡Éxito!',
-                'text' => 'El producto se eliminó correctamente.',
+                'title' => __('swal.deleted_title'),
+                'text' => __('swal.deleted_text'),
             ]);
 
         } catch (QueryException $e) {

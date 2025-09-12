@@ -78,9 +78,9 @@
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Status') }}
                 </th>
-              {{--   <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
-                </th> --}}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -119,22 +119,13 @@
                             {{  __('messages.Cumulative') }}
                         @endif
                     </td>
-
-
-                   {{--  <td class="px-6 py-4">
+                    <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
-                            @can('admin.interests.edit')
-                                <a href="{{ route('admin.interests.edit', $interest) }}" class="btn btn-primary text-xs">{{ __('messages.Edit') }}</a>
-                            @endcan
-                            @can('admin.interests.destroy')
-                                <form action="{{ route('admin.interests.destroy', $interest) }}" method="POST" class="delete-form">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger text-xs">{{ __('messages.Delete') }}</button>
-                                </form>
+                            @can('admin.interests.show')
+                                <a href="{{ route('admin.interests.show', $interest) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
                             @endcan
                         </div>
-                    </td> --}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
