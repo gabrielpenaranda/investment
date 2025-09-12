@@ -87,4 +87,4 @@ return [
     'Payable' => 'Pagable',
     'Cumulative' => 'Acumulativo',
     'Interest Amount' => 'Monto del Interés',
-]
+];

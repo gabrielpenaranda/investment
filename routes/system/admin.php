@@ -46,7 +46,8 @@ Route::prefix('interests')->group(function() {
     Route::get('generate/{interestMonth}', [InterestController::class, 'generate'])->middleware('can:admin.interests.generate')->name('admin.interests.generate');
     Route::get('approve/{interestMonth}', [InterestController::class, 'approve'])->middleware('can:admin.interests.approve')->name('admin.interests.approve');
     Route::get('rollback', [InterestController::class, 'rollback'])->middleware('can:admin.interests.rollback')->name('admin.interests.rollback');
-});
+    Route::get('payall', [InterestController::class, 'payall'])->middleware('can:admin.interests.pay')->name('admin.interests.payall');
+    Route::get('pay/{interest}', [InterestController::class, 'pay'])->middleware('can:admin.interests.pay')->name('admin.interests.pay');
 });
 
 Route::prefix('taxes')->group(function() {

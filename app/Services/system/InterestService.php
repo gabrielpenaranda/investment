@@ -142,6 +142,17 @@ class InterestService
         $lastInterestMonth->processed = false;
         $lastInterestMonth->update();
 
+        $investmentChanges = InvestmentChange::where('year',(int)Carbon::now()->subMonth()->format('Y'))->where('month',(int)Carbon::now()->subMonth()->format('m'))->get();
+        foreach($investmentChanges as $invCh) {
+            //dd(Carbon::parse($invCh->deactivation_date)->format('Y-m-d'),Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d'));
+            if (Carbon::parse($invCh->deactivation_date)->format('Y-m-d') == Carbon::now()->subMonth()->endOfMonth()->format('Y-m-d')) {
+                $invCh->deactivation_date = null;
+            }
+            $invCh->total_days = 0;
+            $invCh->interests = 0;
+            $invCh->update();
+        }
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => __('swal.Success'),
@@ -177,5 +188,36 @@ class InterestService
         ]);
 
         return redirect()->back();
-    }   
+    }
+
+    public function payAllInterests()
+    {
+        $interests = Interest::where('approved', true)->where('status', 'payable')->where('condition', 'unpaid')->get();
+        foreach($interests as $interest) {
+            $interest->condition = 'paid';
+            $interest->update();
+        }
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('swal.Success'),
+            'text' => __('swal.All the payable interests has been marked as paid succesfully'),
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function payInterest(Interest $interest)
+    {
+        $interest->condition = 'paid';
+        $interest->update();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('swal.Success'),
+            'text' => __('swal.The payable interests has been marked as paid succesfully'),
+        ]);
+
+        return redirect()->back();
+    }
 }          

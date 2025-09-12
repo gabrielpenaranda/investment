@@ -47,6 +47,18 @@ class InterestController extends Controller
         return redirect()->route('admin.interests.index');
     }
 
+    public function payall()
+    {
+        $this->interestService->payAllInterests();
+        return redirect()->route('admin.interests.index');
+    }
+
+    public function pay(Interest $interest)
+    {
+        $this->interestService->payInterest($interest);
+        return redirect()->route('admin.interests.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

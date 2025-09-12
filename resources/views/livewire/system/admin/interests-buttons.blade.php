@@ -13,14 +13,17 @@
                 {{ __('messages.Approve Interests') }}
             </a>
         @endcan
-        @can('admin.interests.approve')
-            <a href="{{ route('admin.interests.approve', $interestMonth) }}" class="btn btn-success">
-                {{ __('messages.Approve Interests') }}
+        @can('admin.interests.rollback')
+            <a href="{{ route('admin.interests.rollback') }}" class="btn btn-danger ml-2">
+                {{ __('messages.Rollback Interests') }}
             </a>
         @endcan
-        @can('admin.interests.approve')
-            <a href="{{ route('admin.interests.rollback') }}" class="btn btn-danger">
-                {{ __('messages.Rollback Interests') }}
+    @endif
+
+    @if ($interestMonth && $interestMonth->processed && $interestMonth->approved)
+        @can('admin.interests.pay')
+            <a href="{{ route('admin.interests.payall') }}" class="btn btn-info">
+                {{ __('messages.Mark All As Paid') }}
             </a>
         @endcan
     @endif
