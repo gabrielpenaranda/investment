@@ -13,5 +13,15 @@
                 {{ __('messages.Approve Interests') }}
             </a>
         @endcan
+        @can('admin.interests.approve')
+            <a href="{{ route('admin.interests.approve', $interestMonth) }}" class="btn btn-success">
+                {{ __('messages.Approve Interests') }}
+            </a>
+        @endcan
+        @can('admin.interests.approve')
+            <a href="{{ route('admin.interests.rollback') }}" class="btn btn-danger">
+                {{ __('messages.Rollback Interests') }}
+            </a>
+        @endcan
     @endif
 </div>

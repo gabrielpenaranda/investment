@@ -37,6 +37,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.interests.show', 'description' => 'Show Interests'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.interests.generate', 'description' => 'Generate Interest'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.interests.approve', 'description' => 'Approve Interest'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.interests.rollback', 'description' => 'Rollback Interest'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'admin.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.create', 'description' => 'Create Tax'])->syncRoles([$role1]);

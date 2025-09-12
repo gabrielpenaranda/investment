@@ -41,6 +41,12 @@ class InterestController extends Controller
         return redirect()->route('admin.interests.index');
     }
 
+    public function rollback()
+    {
+        $this->interestService->rollbackInterests();
+        return redirect()->route('admin.interests.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
