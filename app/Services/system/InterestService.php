@@ -111,6 +111,46 @@ class InterestService
         return redirect()->back();
     }
 
+    public function rollbackInterests()
+    {
+        $lastInterestMonth = InterestMonth::where('processed', true)->where('approved', false)->orderBy('year', 'desc')->orderBy('month', 'desc')->first();
+
+        if (!$lastInterestMonth) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => __('swal.Error'),
+                'text' => __('swal.No unapproved processed interest month found to rollback.'),
+            ]);
+            return redirect()->back();
+        }
+
+        $interests = Interest::where('year', $lastInterestMonth->year)->where('month', $lastInterestMonth->month)->get();
+        
+        foreach($interests as $interest) {
+            $investment = Investment::find($interest->investment_id);
+            if ($interest->status == 'cumulative') {
+                $investment->investment_amount -= $interest->interest_amount;
+                $investment->update();
+            }
+            $interest->delete();
+        }
+
+        InvestmentChange::where('month', (int)Carbon::now()->format('m'))
+            ->where('year', (int)Carbon::now()->format('Y'))
+            ->delete();
+
+        $lastInterestMonth->processed = false;
+        $lastInterestMonth->update();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => __('swal.Success'),
+            'text' => __('swal.The interests have been rolled back successfully.'),
+        ]);
+
+        return redirect()->back();
+    }   
+
     public function approveInterests(InterestMonth $interestMonth)
     {
         $interests = Interest::where('year', $interestMonth->year)->where('month', $interestMonth->month)->get();
