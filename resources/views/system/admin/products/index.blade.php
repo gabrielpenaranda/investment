@@ -40,8 +40,8 @@
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, elimínalo!",
-                    cancelButtonText: "Cancelar"
+                    confirmButtonText: {{ __('swal.Yes, delete it') }},
+                    cancelButtonText: {{ __('swal.Cancel') }},
                     }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

@@ -37,13 +37,27 @@
                 'can' => 'admin.taxes.index',
             ],
         ],
-        'Users' => [
+        'Configuration' => [
             [
                 'name' => 'Users',
                 'icon' => '',
                 'url' => route('admin.users.index'),
                 'current' => request()->routeIs('admin/users'),
                 'can' => 'admin.users.index',
+            ],
+            [
+                'name' => 'Countries',
+                'icon' => '',
+                'url' => route('admin.countries.index'),
+                'current' => request()->routeIs('admin/countries'),
+                'can' => 'admin.countries.index',
+            ],
+            [
+                'name' => 'States',
+                'icon' => '',
+                'url' => route('admin.states.index'),
+                'current' => request()->routeIs('admin/states'),
+                'can' => 'admin.states.index',
             ],
         ]
     ];

@@ -1,5 +1,3 @@
-
-
 <x-layouts.admin>
 
     @livewire('system.language-selector')
@@ -10,19 +8,20 @@
                 {{ __('messages.Dashboard') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
-                {{ __('messages.Interests') }}
+                {{ __('messages.Countries') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
-        @livewire('system.admin.interests-buttons')
-        
+        @can('admin.countries.create')
+            <a href="{{ route('admin.countries.create') }}" class="btn btn-primary">{{ __('messages.New Country') }}</a>
+        @endcan
     </div>
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <p class="text-2xl mb-4">{{  __('messages.List of Interests') }}</p>
+    <p class="text-2xl mb-4">{{  __('messages.List of Countries') }}</p>
 
-    @livewire('system.admin.interests-index')
+    @livewire('system.admin.countries-index')
 
 </div>
 
@@ -41,8 +40,8 @@
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, elimínalo!",
-                    cancelButtonText: "Cancelar"
+                    confirmButtonText: {{ __('swal.Yes, delete it') }},
+                    cancelButtonText: "{{ __('swal.Cancel') }}",
                     }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

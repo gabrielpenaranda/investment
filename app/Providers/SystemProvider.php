@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Services\system\InvestmentService;
 use App\Services\system\ProductService;
 use App\Services\system\InterestService;
+use App\Services\system\CountryService;
+use App\Services\system\StateService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\ProductProvider;
 
@@ -23,6 +25,12 @@ class SystemProvider extends ServiceProvider
         });
         $this->app->singleton(InterestService::class, function ($app) {
             return new InterestService();
+        });
+        $this->app->singleton(CountryService::class, function ($app) {
+            return new CountryService();
+        });
+        $this->app->singleton(StateService::class, function ($app) {
+            return new StateService();
         });
     }
 

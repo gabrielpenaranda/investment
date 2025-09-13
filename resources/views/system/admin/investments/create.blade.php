@@ -36,7 +36,6 @@
         <p class="text-2xl mb-4">{{  __('messages.New Investment') }}</p>
         <form action="{{ route('admin.investments.store') }}" method="POST">
             @csrf
-            @method('POST')
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
@@ -67,7 +66,7 @@
 
 
             <!-- Input visible (solo lectura, formato local) -->
-            <flux:label for="activation_date_display" class="mt-2!">{{ __('messages.activation Date') }}</flux:label>
+            <flux:label for="activation_date_display" class="mt-2!">{{ __('messages.Opening Date') }}</flux:label>
             <flux:input
                 type="text"
                 id="activation_date_display"
@@ -103,7 +102,6 @@
             >
             <flux:error name="capitalize" />
             <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Capitalizes Interests') }}?</span>
-            </label>
             
 
             {{-- <label class="flex items-center space-x-2 mt-2">

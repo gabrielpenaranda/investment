@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'email' => 'gabrielpg77@gmail.com',
             'password' => bcrypt('password'),
             'type' => 'Admin',
+            'state_id' => 1,
         ])->assignRole('Administrator');
 
         User::create([
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
             'email' => 'jlazo@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -32,6 +34,7 @@ class UserSeeder extends Seeder
             'email' => 'tblanco@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -39,6 +42,7 @@ class UserSeeder extends Seeder
             'email' => 'cgatieza@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -46,6 +50,7 @@ class UserSeeder extends Seeder
             'email' => 'dmeltrozo@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -53,6 +58,7 @@ class UserSeeder extends Seeder
             'email' => 'alipa@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -60,6 +66,7 @@ class UserSeeder extends Seeder
             'email' => 'morrocoy@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Company',
+            'state_id' => 1,
         ])->assignRole('Associate');
 
         User::create([
@@ -67,6 +74,7 @@ class UserSeeder extends Seeder
             'email' => 'escarpandola@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Company',
+            'state_id' => 1,
         ])->assignRole('Associate');
     }
 }

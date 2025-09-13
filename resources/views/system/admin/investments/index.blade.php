@@ -34,14 +34,14 @@
                 e.preventDefault();
 
                 Swal.fire({
-                    title: "Estás seguro/a?",
-                    text: "No podrás revertir esto!",
+                    title: {{ __('swal.Are you sure') }},
+                    text: {{ _('swal.Cannot revert') }},
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, elimínalo!",
-                    cancelButtonText: "Cancelar"
+                    confirmButtonText: {{ __('swal.Yes, delete it') }},
+                    cancelButtonText: {{ __('swal.Cancel') }},
                     }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();

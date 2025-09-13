@@ -19,6 +19,16 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'admin.dashboard', 'description' => 'Administration Dashboard'])->syncRoles([$role1,$role2]);
 
+        Permission::create(['name' => 'admin.countries.index', 'description' => 'List of Countries'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.countries.create', 'description' => 'Create Country'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.countries.edit', 'description' => 'Edit Country'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.countries.destroy', 'description' => 'Delete Country'])->syncRoles([$role1]);
+
+        Permission::create(['name' => 'admin.states.index', 'description' => 'List of States'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.states.create', 'description' => 'Create State'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.states.edit', 'description' => 'Edit State'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.states.destroy', 'description' => 'Delete State'])->syncRoles([$role1]);
+
         Permission::create(['name' => 'admin.products.index', 'description' => 'List of Products'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.products.create', 'description' => 'Create Product'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.products.edit', 'description' => 'Edit Product'])->syncRoles([$role1]);

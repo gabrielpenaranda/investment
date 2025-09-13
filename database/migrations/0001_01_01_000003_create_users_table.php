@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('type', ['Person', 'Company', 'Admin'])->default('Company');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('set null');
             $table->rememberToken();
             $table->timestamps();
         });

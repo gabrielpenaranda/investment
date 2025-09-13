@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\system\CountryController;
+use App\Http\Controllers\system\StateController;
 use App\Http\Controllers\system\ProductController;
 use App\Http\Controllers\system\InvestmentController;
 use App\Http\Controllers\system\InvestmentArchiveController;
@@ -19,6 +21,25 @@ Route::get('dashboard', function(){
     ->middleware(['auth', 'verified'])
     ->middleware('can:admin.dashboard')
     ->name('admin.dashboard');
+
+
+Route::prefix('countries')->group(function() {
+    Route::get('index', [CountryController::class, 'index'])->middleware('can:admin.countries.index')->name('admin.countries.index');
+    Route::get('create', [CountryController::class, 'create'])->middleware('can:admin.countries.create')->name('admin.countries.create');
+    Route::post('store', [CountryController::class, 'store'])->middleware('can:admin.countries.create')->name('admin.countries.store');
+    Route::get('edit/{country}', [CountryController::class, 'edit'])->middleware('can:admin.countries.edit')->name('admin.countries.edit');
+    Route::put('update/{country}', [CountryController::class, 'update'])->middleware('can:admin.countries.edit')->name('admin.countries.update');
+    Route::delete('destroy/{country}', [CountryController::class, 'destroy'])->middleware('can:admin.countries.destroy')->name('admin.countries.destroy');
+});
+
+Route::prefix('states')->group(function() {
+    Route::get('index', [StateController::class, 'index'])->middleware('can:admin.states.index')->name('admin.states.index');
+    Route::get('create', [StateController::class, 'create'])->middleware('can:admin.states.create')->name('admin.states.create');
+    Route::post('store', [StateController::class, 'store'])->middleware('can:admin.states.create')->name('admin.states.store');
+    Route::get('edit/{state}', [StateController::class, 'edit'])->middleware('can:admin.states.edit')->name('admin.states.edit');
+    Route::put('update/{state}', [StateController::class, 'update'])->middleware('can:admin.states.edit')->name('admin.states.update');
+    Route::delete('destroy/{state}', [StateController::class, 'destroy'])->middleware('can:admin.states.destroy')->name('admin.states.destroy');
+});
 
 Route::prefix('products')->group(function() {
     Route::get('index', [ProductController::class, 'index'])->middleware('can:admin.products.index')->name('admin.products.index');
