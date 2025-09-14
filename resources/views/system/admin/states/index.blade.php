@@ -8,20 +8,20 @@
                 {{ __('messages.Dashboard') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
-                {{ __('messages.Countries') }}
+                {{ __('messages.States') }}
             </flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
-        @can('admin.countries.create')
-            <a href="{{ route('admin.countries.create') }}" class="btn btn-primary">{{ __('messages.New Country') }}</a>
+        @can('admin.states.create')
+            <a href="{{ route('admin.states.create') }}" class="btn btn-primary">{{ __('messages.New State') }}</a>
         @endcan
     </div>
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <p class="text-2xl mb-4">{{  __('messages.List of Countries') }}</p>
+    <p class="text-2xl mb-4">{{  __('messages.List of States') }}</p>
 
-    @livewire('system.admin.countries-index')
+    @livewire('system.admin.states-index')
 
 </div>
 

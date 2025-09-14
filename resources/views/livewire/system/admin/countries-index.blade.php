@@ -55,6 +55,9 @@
                             {{ $country->name }}
                         </td>
                         <td class="px-6 py-4">
+                            {{ $country->code }}
+                        </td>
+                        <td class="px-6 py-4">
                             <div class="flex space-x-2 justify-center">
                                 @can('admin.countries.edit')
                                     <a href="{{ route('admin.countries.edit', $country) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>

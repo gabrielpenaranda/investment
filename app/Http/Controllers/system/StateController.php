@@ -5,7 +5,8 @@ namespace App\Http\Controllers\system;
 use App\Http\Controllers\Controller;
 use App\Models\system\State;
 use App\Models\system\Country;
-use Illuminate\Http\Request;
+use App\Http\Requests\system\StateCreateRequest;
+use App\Http\Requests\system\StateUpdateRequest;
 use App\Services\system\StateService;
 
 class StateController extends Controller
@@ -37,9 +38,9 @@ class StateController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StateCreateRequest $request)
     {
-        $this->stateService->createState();
+        $this->stateService->createState($request);
         return redirect()->route('admin.states.index');
     }
 
@@ -57,15 +58,15 @@ class StateController extends Controller
     public function edit(State $state)
     {
         $countries = Country::all();
-        return view('system.admin.states.edit', compact('countries'));
+        return view('system.admin.states.edit', compact('state', 'countries'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, State $state)
+    public function update(StateUpdateRequest $request, State $state)
     {
-        $this->stateService->updateState($state);
+        $this->stateService->updateState($request, $state);
         return redirect()->route('admin.states.index');
     }
 

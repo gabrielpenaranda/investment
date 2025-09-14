@@ -26,13 +26,13 @@
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Country name') }}</flux:label>
-                <flux:input name='name' placeholder="{{ __('messages.Enter the name') }}" value="{{ old('name', $product->name) }}"/>
+                <flux:input name='name' placeholder="{{ __('messages.Enter the name') }}" value="{{ old('name', $country->name) }}"/>
                 <flux:error name="name" />
             </flux:field>
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Country Code') }}</flux:label>
-                <flux:input name='code' placeholder="{{ __('messages.Enter the code') }}" value="{{ old('description', $product->code) }}"/>
+                <flux:input name='code' placeholder="{{ __('messages.Enter the code') }}" value="{{ old('description', $country->code) }}"/>
                 <flux:error name="code" />
             </flux:field>
 

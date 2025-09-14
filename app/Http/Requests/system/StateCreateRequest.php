@@ -26,8 +26,9 @@ class StateCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|required|min:3|max:100|unique:countries,name',
-            'code' => 'string|required|max:3|unique:countries,code',
+            'name' => 'string|required|min:3|max:100|unique:states,name',
+            'code' => 'string|required|max:3|unique:states,code',
+            'country_id' => 'integer:required',
         ];
     }
 }

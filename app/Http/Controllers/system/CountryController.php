@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\system\Country;
 use Illuminate\Http\Request;
 use App\Services\system\CountryService;
+use App\Http\Requests\system\CountryCreateRequest;
+use App\Http\Requests\system\CountryUpdateRequest;
 
 class CountryController extends Controller
 {
@@ -35,9 +37,9 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CountryCreateRequest $request)
     {
-        $this->countryService->createCountry();
+        $this->countryService->createCountry($request);
         return redirect()->route('admin.countries.index');
     }
 
@@ -60,9 +62,9 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Country $country)
+    public function update(CountryUpdateRequest $request, Country $country)
     {
-        $this->countryService->updateCountry($country);
+        $this->countryService->updateCountry($request, $country);
         return redirect()->route('admin.countries.index');
     }
 

@@ -18,7 +18,9 @@ return new class extends Migration
             $table->enum('type', ['Person', 'Company', 'Admin'])->default('Company');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('set null');
+            $table->string('postal_code');
+            $table->string('RIF') //OJO cambiar
+            $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();
         });
