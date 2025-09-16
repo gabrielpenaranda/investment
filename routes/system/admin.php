@@ -10,6 +10,7 @@ use App\Http\Controllers\system\InterestController;
 use App\Http\Controllers\system\WithdrawalController;
 use App\Http\Controllers\system\AccountStatementController;
 use App\Http\Controllers\system\TaxController;
+use App\Http\Controllers\system\PaymentController;
 use App\Http\Controllers\system\UserController;
 
 /* Route::view('dashboard', 'dashboard')
@@ -98,6 +99,10 @@ Route::prefix('investment_archives')->group(function() {
 Route::prefix('account_statements')->group(function() {
     Route::get('index/{investment}', [AccountStatementController::class, 'index'])->middleware('can:admin.account-statements.index')->name('admin.account-statements.index');
     Route::get('print/{investment}', [AccountStatementController::class, 'print'])->middleware('can:admin.account-statements.print')->name('admin.account-statements.print');
+});
+
+Route::prefix('payments')->group(function() {
+    Route::get('index', [PaymentController::class, 'index'])->middleware('can:admin.payments.index')->name('admin.payments.index');
 });
 
 Route::prefix('users')->group(function() {

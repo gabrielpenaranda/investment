@@ -20,29 +20,6 @@ class InvestmentsIndex extends Component
 
     public function render()
     {   
-        // dd($this->is_active);
-        /* if ($this->is_active == 1) {
-            $investments = Investment::where('name', 'LIKE', '%'.$this->search.'%')
-                ->orWhere('email', 'LIKE', '%'.$this->search.'%')
-                ->orderBy($this->sort, $this->direction)
-                ->with('user')
-                ->with('product')
-                ->paginate($this->pagination);
-                $archive = false;
-        } else {
-            $investments = InvestmentArchive::where('name', 'LIKE', '%'.$this->search.'%')
-                ->orWhere('email', 'LIKE', '%'.$this->search.'%')
-                ->orderBy($this->sort, $this->direction)
-                ->paginate($this->pagination);
-                $archive = true;
-        } */
-
-        /* $investments = Investment::where('name', 'LIKE', '%'.$this->search.'%')
-                ->orWhere('email', 'LIKE', '%'.$this->search.'%')
-                ->orderBy($this->sort, $this->direction)
-                ->with('user')
-                ->with('product')
-                ->paginate($this->pagination); */
 
         // Convertir a booleano: '1' o 1 → true, '0' o 0 → false
         $isActive = filter_var($this->is_active, FILTER_VALIDATE_BOOLEAN);
@@ -70,19 +47,6 @@ class InvestmentsIndex extends Component
         // 🔹 Paginación
         $investments = $query->paginate($this->pagination);
 
-        /* if ($this->is_active == 1) {
-            $archive = false;
-        } else {
-            $archive = true;
-        } */
-
-
-
-
-
-       /*  $investments = $inv_non_filtered->filter(function ($change) {
-            return $change->is_active ? true : false;
-        }); */
         
         return view('livewire.system.admin.investments-index', compact('investments', 'archive'));
     }

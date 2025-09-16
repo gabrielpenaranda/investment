@@ -25,6 +25,7 @@ class InvestmentUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this->all());
         return [
             /* 'investment_amount' => 'decimal:2|required|between:1000,100000000000', */
             /* $this->filled('amount') && $this->amount != $investment->amount

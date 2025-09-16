@@ -8,7 +8,7 @@
                 {{ __('messages.Dashboard') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item href="{{ route('admin.countries.index') }}">
-                {{ __('messages.countries') }}
+                {{ __('messages.Countries') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
                 {{ __('messages.Edit') }}
@@ -25,7 +25,7 @@
             @method('PUT')
 
             <flux:field>
-                <flux:label class="mt-2!">{{ __('messages.Country name') }}</flux:label>
+                <flux:label class="mt-2!">{{ __('messages.Country Name') }}</flux:label>
                 <flux:input name='name' placeholder="{{ __('messages.Enter the name') }}" value="{{ old('name', $country->name) }}"/>
                 <flux:error name="name" />
             </flux:field>

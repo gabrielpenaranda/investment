@@ -75,13 +75,15 @@ class InvestmentService
 
     public function updateInvestment($request, Investment $investment)
     {
+        $investment->capitalize = $request['capitalize'];
+        $investment->update();
         $subMonth = Carbon::now()->subMonth()->format('m');
         $interestMonth = InterestMonth::where('year', (int)Carbon::now()->format('Y'))->where('month', (int)$subMonth)->first();
-        if (!$interestMonth->approved && $investment->investment_amount != $request['investment_amount']) {
+        if (!$interestMonth->approved && $request['investment_amount'] != null) {
             session()->flash('swal', [
                 'icon' => 'error',
                 'title' => __('swal.Cannot update'),
-                'text' => __('swal.The investment cannot be updated because the interests for the previous month have not been approved'),
+                'text' => __('swal.The investment cannot be updated because the interests for the previous month have not been generated or approved'),
             ]);
 
             return redirect()->back();

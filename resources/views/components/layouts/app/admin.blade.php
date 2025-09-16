@@ -1,13 +1,13 @@
 @php
     $groups = [
         'Platform' => [
-            [
+            /* [
                 'name' => 'Dashboard',
                 'icon' => '',
                 'url' => route('admin.dashboard'),
                 'current' => request()->routeIs('admin/dashboard'),
                 'can' => 'admin.dashboard',
-            ],
+            ], */
             [
                 'name' => 'Products',
                 'icon' => '',
@@ -28,6 +28,13 @@
                 'url' => route('admin.interests.index'),
                 'current' => request()->routeIs('admin/interests'),
                 'can' => 'admin.interests.index',
+            ],
+            [
+                'name' => 'Payments',
+                'icon' => '',
+                'url' => route('admin.payments.index'),
+                'current' => request()->routeIs('admin/payments'),
+                'can' => 'admin.payments.index',
             ],
             [
                 'name' => 'Taxes',

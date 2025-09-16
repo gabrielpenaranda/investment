@@ -38,6 +38,9 @@
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Annual rate') }} (%)</flux:label>
+                @if (app()->getLocale() == 'es')
+                    <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
+                @endif
                 <flux:input name='annual_rate' placeholder="{{ __('messages.Enter the rate') }} (%)" value="{{ old('annual_rate', $product->annual_rate) }}"/>
                 <flux:error name="annual_rate" />
             </flux:field>

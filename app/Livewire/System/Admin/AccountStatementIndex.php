@@ -10,7 +10,9 @@ use Livewire\WithPagination;
 class AccountStatementIndex extends Component
 {
     use WithPagination;
+
     public $pagination = 5;
+    public Investment $investment;
 
     public function mount(Investment $investment)
     {

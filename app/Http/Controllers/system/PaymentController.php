@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\system;
 
 use App\Http\Controllers\Controller;
-use App\Models\system\Tax;
+use App\Models\system\Payment;
 use Illuminate\Http\Request;
 
-class TaxController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('system.admin.taxes.index');
+        return view('system.admin.payments.index');
     }
 
     /**
@@ -35,7 +35,7 @@ class TaxController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Tax $tax)
+    public function show(Payment $payment)
     {
         //
     }
@@ -43,7 +43,7 @@ class TaxController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tax $tax)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -51,7 +51,7 @@ class TaxController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tax $tax)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
@@ -59,7 +59,7 @@ class TaxController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tax $tax)
+    public function destroy(Payment $payment)
     {
         //
     }

@@ -9,6 +9,8 @@ use App\Models\system\Investment;
 use App\Models\system\InvestmentChange;
 use App\Models\system\AccountStatement;
 use App\Models\system\Log;
+use App\Models\system\Payment;
+use App\Models\system\Tax;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
@@ -49,11 +51,12 @@ class InterestService
                     $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
                     $account_statement->description = $days.' days at '. $ic->rate.'% APY';
                     $account_statement->amount = $interest;
-                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->balance = ($ic->investment->investment_amount + $interest);
                     $account_statement->type = 'contribution';
                     $account_statement->approved = false;
                     $account_statement->investment_id = $ic->investment->id;
                     $account_statement->save();
+
                 } else {
                     $days = 30 - $acum_days;
                     $annual_interest = ($ic->amount * $ic->rate)/100;
@@ -71,11 +74,27 @@ class InterestService
                     $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
                     $account_statement->description = $days.' days at '. $ic->rate.'% APY';
                     $account_statement->amount = $interest;
-                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->balance = ($ic->investment->investment_amount + $interest);
                     $account_statement->type = 'contribution';
                     $account_statement->approved = false;
                     $account_statement->investment_id = $ic->investment->id;
                     $account_statement->save();
+                }
+
+                $investment = Investment::find($ic->investment_id);
+                $investment->investment_amount += $interest;
+                $investment->update();
+
+                $tax = Tax::where('year', $process_year)->where('user_id', $investment->user_id)->first();
+                if ($tax) {
+                    $tax->earnings += round($interest, 2);
+                    $tax->update();
+                } else {
+                    $new_tax = new Tax();
+                    $new_tax->year = $process_year;
+                    $new_tax->earnings = round($interest, 2);
+                    $new_tax->user_id = $investment->user_id;
+                    $new_tax->save();
                 }
             }
 
@@ -98,10 +117,27 @@ class InterestService
             }
             $interest->save();
 
-            if ($inv->capitalize) {
+            /* if ($inv->capitalize) {
                 $inv->investment_amount += $acum_interests;
                 $inv->update();
+            } */
+
+            $investment_change = new InvestmentChange();
+            if ($inv->capitalize) {
+                $investment_change->amount = $inv->investment_amount + $acum_interests;
+            } else {
+                $investment_change->amount = $inv->investment_amount;
             }
+            $investment_change->activation_date = Carbon::now()->startOfMonth();
+            $investment_change->rate = $inv->product->annual_rate;
+            $investment_change->interests = 0.00;
+            $investment_change->investment_id = $inv->id;    
+            $investment_change->month = (int)Carbon::now()->format('m');
+            $investment_change->year = (int)Carbon::now()->format('Y');
+            $investment_change->save();
+
+            $inv->investment_amount += $acum_interests;
+            $inv->update();
 
             $investment_change = new InvestmentChange();
             $investment_change->amount = $inv->investment_amount;
@@ -153,11 +189,24 @@ class InterestService
         
         foreach($interests as $interest) {
             $investment = Investment::find($interest->investment_id);
-            if ($interest->status == 'cumulative') {
+            
+            /* if ($interest->status == 'cumulative') {
                 $investment->investment_amount -= $interest->interest_amount;
                 $investment->update();
-            }
+            } */
+
+            $investment->investment_amount -= $interest->interest_amount;
+            $investment->update();
             $interest->delete();
+
+            $tax = Tax::where('year', $interest->year)->where('user_id', $investment->user_id)->first();
+            if ($tax) {
+                $tax->earnings -= $interest->interest_amount;
+                if ($tax->earnings < 0) {
+                    $tax->earnings = 0;
+                }
+                $tax->update();
+            }
         }
 
         InvestmentChange::where('month', (int)Carbon::now()->format('m'))
@@ -242,6 +291,11 @@ class InterestService
             $interest->condition = 'paid';
             $interest->update();
 
+            $investment = Investment::find($interest->investment_id);
+            
+            $investment->investment_amount -= $interest->interest_amount;
+            $investment->update();
+
             $account_statement = new AccountStatement();
             $account_statement->date = Carbon::now();
             $account_statement->month = (int)Carbon::now()->format('m');
@@ -253,6 +307,17 @@ class InterestService
             $account_statement->approved = true;
             $account_statement->investment_id = $interest->investment->id;
             $account_statement->save();
+
+            $payment = new Payment();
+            $payment->date = Carbon::now();
+            $payment->month = (int)Carbon::now()->format('m');
+            $payment->year = (int)Carbon::now()->format('Y');
+            $payment->description = 'Investor Distribution';
+            $payment->amount = $interest->interest_amount;
+            $payment->serial = hash('md5', Hash::make($interest->serial.Carbon::now()));
+            $payment->investment_id = $interest->investment->id;
+            $payment->save();
+            
         }
 
         session()->flash('swal', [
@@ -269,6 +334,11 @@ class InterestService
         $interest->condition = 'paid';
         $interest->update();
 
+        $investment = Investment::find($interest->investment_id);
+            
+        $investment->investment_amount -= $interest->interest_amount;
+        $investment->update();
+
         $account_statement = new AccountStatement();
         $account_statement->date = Carbon::now();
         $account_statement->month = (int)Carbon::now()->format('m');
@@ -280,6 +350,16 @@ class InterestService
         $account_statement->approved = true;
         $account_statement->investment_id = $interest->investment->id;
         $account_statement->save();
+
+        $payment = new Payment();
+        $payment->date = Carbon::now();
+        $payment->month = (int)Carbon::now()->format('m');
+        $payment->year = (int)Carbon::now()->format('Y');
+        $payment->description = 'Investor Distribution';
+        $payment->amount = $interest->interest_amount;
+        $payment->serial = hash('md5', Hash::make($interest->serial.Carbon::now()));
+        $payment->investment_id = $interest->investment->id;
+        $payment->save();
 
         session()->flash('swal', [
             'icon' => 'success',

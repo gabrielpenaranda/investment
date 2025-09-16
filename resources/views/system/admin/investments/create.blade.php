@@ -78,6 +78,9 @@
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
+                @if (app()->getLocale() == 'es')
+                    <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
+                @endif
                 <flux:input name='investment_amount' placeholder="{{ __('messages.Enter the investment amount') }}" value="{{ old('investment_amount') }}"/>
                 <flux:error name="investment_amount" />
             </flux:field>

@@ -10,7 +10,6 @@ class Tax extends Model
     protected $fillable = [
         'year',
         'earnings',
-        'tax',
         'user_id',
     ];
 

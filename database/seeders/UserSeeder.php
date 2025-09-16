@@ -26,8 +26,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Administrator');
 
         User::create([
-            'name' => 'Juancho Lazo',
-            'email' => 'jlazo@mail.com',
+            'name' => 'Jane Martínez',
+            'email' => 'jmartinez@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
             'state_id' => 1,
@@ -38,8 +38,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Associate');
 
         User::create([
-            'name' => 'Tegoteo Blanco',
-            'email' => 'tblanco@mail.com',
+            'name' => 'Tina Cortéz',
+            'email' => 'tcortez@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
             'state_id' => 1,
@@ -50,8 +50,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Associate');
 
         User::create([
-            'name' => 'Crispin Gatieza',
-            'email' => 'cgatieza@mail.com',
+            'name' => 'Peter Hamilton',
+            'email' => 'chamilton@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
             'state_id' => 1,
@@ -62,8 +62,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Associate');
 
         User::create([
-            'name' => 'Debora Meltrozo',
-            'email' => 'dmeltrozo@mail.com',
+            'name' => 'Debora Walters',
+            'email' => 'dwalters@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
             'state_id' => 1,
@@ -74,8 +74,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Associate');
 
         User::create([
-            'name' => 'Alipio Lipa',
-            'email' => 'alipa@mail.com',
+            'name' => 'Andres Rodríguez',
+            'email' => 'arodriguez@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Person',
             'state_id' => 1,
@@ -98,8 +98,8 @@ class UserSeeder extends Seeder
         ])->assignRole('Associate');
 
         User::create([
-            'name' => 'Escarpandola',
-            'email' => 'escarpandola@mail.com',
+            'name' => 'Snow Mountain Co.',
+            'email' => 'snowmountain@mail.com',
             'password' => bcrypt('password'),
             'type' => 'Company',
             'state_id' => 1,

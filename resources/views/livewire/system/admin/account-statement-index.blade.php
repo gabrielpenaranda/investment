@@ -1,10 +1,10 @@
 <div>
-    <div class="flex justify-left mb-4">
+    <div class="flex justify-end mb-4">
 {{-- 
         <flux:input placeholder="{{ __('messages.Enter state') }}" wire:model.live="search" class="w-2xl! ml-2!" /> --}}
 
         
-        <flux:select wire:model.live="pagination" class="w-48!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
+        <flux:select wire:model.live="pagination" class="w-48! mr-4!" placeholder="{{ __('messages.Lines per page') }}">
             <flux:select.option>5</flux:select.option>
             <flux:select.option>10</flux:select.option>
             <flux:select.option>20</flux:select.option>

@@ -23,7 +23,7 @@
     @if ($interestMonth && $interestMonth->processed && $interestMonth->approved)
         @can('admin.interests.pay')
             <a href="{{ route('admin.interests.payall') }}" class="btn btn-info">
-                {{ __('messages.Mark All As Paid') }}
+                {{ __('messages.Mark all as paid') }}
             </a>
         @endcan
     @endif

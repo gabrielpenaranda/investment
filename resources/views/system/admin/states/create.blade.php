@@ -8,7 +8,7 @@
                 {{ __('messages.Dashboard') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item href="{{ route('admin.states.index') }}">
-                {{ __('messages.states') }}
+                {{ __('messages.States') }}
             </flux:breadcrumbs.item>
             <flux:breadcrumbs.item>
                 {{ __('messages.New') }}
@@ -22,7 +22,7 @@
         <form action="{{ route('admin.states.store') }}" method="POST">
             @csrf
             <flux:field>
-                <flux:label class="mt-2!">{{ __('messages.State name') }}</flux:label>
+                <flux:label class="mt-2!">{{ __('messages.State Name') }}</flux:label>
                 <flux:input name='name' placeholder="{{ __('messages.Enter the name') }}" value="{{ old('name') }}"/>
                 <flux:error name="name" />
             </flux:field>

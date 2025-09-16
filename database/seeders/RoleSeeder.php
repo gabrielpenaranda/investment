@@ -63,6 +63,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.account-statements.index', 'description' => 'State Accountment'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.account-statements.print', 'description' => 'Print State Accountment'])->syncRoles([$role1]);
 
+        Permission::create(['name' => 'admin.payments.index', 'description' => 'List of Payments'])->syncRoles([$role1]);
+
         Permission::create(['name' => 'admin.users.index', 'description' => 'List of Users'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.create', 'description' => 'Create User'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.edit', 'description' => 'Edit User'])->syncRoles([$role1]);
