@@ -24,14 +24,6 @@ class ProductService
         $product->description = $request['description'];
         $product->annual_rate = $request['annual_rate'];
 
-        /* if ($request['has_expiration']) {
-            $product->investment_time = $request['investment_time'];
-            $product->has_expiration = $request['has_expiration'];
-        } else {
-            $product->has_expiration = false;
-            $product->investment_time = 0;
-        } */
-
         $product->save();
 
         // Agregar transacción al log
@@ -87,41 +79,11 @@ class ProductService
             $nic->save();
         }
 
-
-        /* if ($product->annual_rate != $request['annual_rate']) {
-            $investment_changes = InvestmentChange::where('deactivation_date', null)->where('rate', $product->annual_rate)->get();
-            foreach($investment_changes as $ic) {
-                $nic = new InvestmentChange();
-                $nic->amount = $ic->amount;
-                $nic->activation_date = Carbon::now();
-                $nic->rate = $request['annual_rate'];
-                $nic->interests = $ic->interests;
-                $nic->investment_id = $ic->investment_id;
-                $nic->save();
-
-                if (Carbon::parse($ic->activation_date)->format('Y-m-d') == Carbon::now()->format('Y-m-d')) {
-                    $ic->delete();
-                } else {
-                    $ic->deactivation_date = Carbon::now()->subDay();
-                    $ic->total_days = (ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::now()->subDay())));
-                    $ic->update();
-                }
-            }
-        } */
-
         // Actualizacion de producto
         $product->name = $request['name'];
         $product->description = $request['description'];
         $product->annual_rate = $request['annual_rate'];
         
-        /* if ($request['has_expiration']) {
-            $product->investment_time = $request['investment_time'];
-            $product->has_expiration = $request['has_expiration'];
-        } else {
-            $product->has_expiration = false;
-            $product->investment_time = 0;
-        } */
-
         $product->update();
      
         // Agregar transacción al log

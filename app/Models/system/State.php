@@ -3,6 +3,7 @@
 namespace App\Models\system;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class State extends Model
 {
@@ -16,4 +17,10 @@ class State extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }

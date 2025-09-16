@@ -27,9 +27,10 @@ class InvestmentUpdateRequest extends FormRequest
     {
         return [
             /* 'investment_amount' => 'decimal:2|required|between:1000,100000000000', */
-            $this->filled('amount') && $this->amount != $investment->amount
+            /* $this->filled('amount') && $this->amount != $investment->amount
                     ? 'decimal:2|required|between:1000,100000000000'
-                    : 'nullable',
+                    : 'nullable', */
+            'investment_amount' => 'decimal:2|nullable|between:1000,100000000000',
             /* 'is_active' => 'boolean', */
             'capitalize' => 'boolean',
         ];

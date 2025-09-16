@@ -9,6 +9,7 @@ class Investment extends Model
 {
     protected $fillable = [
         'investment_amount',
+        'initial_amount',
         'name',
         'email',
         'is_active',
@@ -35,13 +36,18 @@ class Investment extends Model
         return $this->hasMany(Investment::class);
     }
 
-    public function withdrawals()
+    public function payments()
     {
-        return $this->hasMany(Withdrawal::class);
+        return $this->hasMany(Payment::class);
     }
 
     public function investment_changes()
     {
         return $this->hasMany(InvestmentChange::class);
+    }
+
+    public function account_statements()
+    {
+        return $this->hasOne(AccountStatement::class);
     }
 }

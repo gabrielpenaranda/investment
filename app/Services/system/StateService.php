@@ -5,13 +5,14 @@ namespace App\Services\system;
 use App\Models\system\State;
 use App\Models\system\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\QueryException;
 
 class StateService
 {
     public function createState($request)
     {
         $state = new state();
-        $state->name = $request['name'];
+        $state->name = ucwords($request['name']);
         $state->code = strtoupper($request['code']);
         $state->country_id = $request['country_id'];
         $state->save();
@@ -30,7 +31,7 @@ class StateService
 
     public function updateState($request, State $state)
     {
-        $state->name = $request['name'];
+        $state->name = ucwords($request['name']);
         $state->code = strtoupper($request['code']);
         $state->country_id = $request['country_id'];
         $state->update();

@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
             $table->enum('type', ['Person', 'Company', 'Admin'])->default('Company');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('postal_code');
-            $table->string('RIF') //OJO cambiar
+            $table->string('zip_code')->nullable();
+            $table->string('fin')
+                  ->nullable()
+                  ->unique(); //Federal Identification Number
             $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();

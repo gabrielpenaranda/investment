@@ -8,6 +8,7 @@ use App\Http\Controllers\system\InvestmentController;
 use App\Http\Controllers\system\InvestmentArchiveController;
 use App\Http\Controllers\system\InterestController;
 use App\Http\Controllers\system\WithdrawalController;
+use App\Http\Controllers\system\AccountStatementController;
 use App\Http\Controllers\system\TaxController;
 use App\Http\Controllers\system\UserController;
 
@@ -92,6 +93,11 @@ Route::prefix('withdrawals')->group(function() {
 Route::prefix('investment_archives')->group(function() {
     Route::get('index', [InvestmentArchiveController::class, 'index'])->middleware('can:admin.investmentarchives.index')->name('admin.investmentarchives.index');
     Route::get('show/{investmentArchive}', [InvestmentArchiveController::class, 'show'])->middleware('can:admin.investmentarchives.show')->name('admin.investmentarchives.show');
+});
+
+Route::prefix('account_statements')->group(function() {
+    Route::get('index/{investment}', [AccountStatementController::class, 'index'])->middleware('can:admin.account-statements.index')->name('admin.account-statements.index');
+    Route::get('print/{investment}', [AccountStatementController::class, 'print'])->middleware('can:admin.account-statements.print')->name('admin.account-statements.print');
 });
 
 Route::prefix('users')->group(function() {

@@ -39,21 +39,39 @@
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Client') }}</flux:label>
-                <flux:select name="user_id" placeholder="{{ __('messages.Enter the client name') }}">
+                {{-- <flux:select name="user_id" placeholder="{{ __('messages.Enter the client name') }}">
                     @foreach ( $users as $user)
                         <flux:select.option value="{{ $user->id }}">{{ $user->name }}</flux:select.option>
                     @endforeach
-                </flux:select>
+                </flux:select> --}}
+                <select name="user_id" class="select">
+                    <option value="" disable selected>{{ __('messages.Client') }}</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" 
+                            {{ old('user_id') == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
                 <flux:error name="user_id" />
             </flux:field>
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.Product') }}</flux:label>
-                <flux:select name="product_id" placeholder="{{ __('messages.Enter the product') }}">
+                {{-- <flux:select name="product_id" placeholder="{{ __('messages.Enter the product') }}">
                     @foreach ( $products as $product)
                         <flux:select.option value="{{ $product->id }}">{{ $product->name }}  {{ $product->annual_rate }}% @if ($product->has_expiration)  {{ $product->investment_time }} {{ __('messages.Months') }}  @else {{ __('messages.No termination time') }} @endif</flux:select.option>
                     @endforeach
-                </flux:select>
+                </flux:select> --}}
+                <select name="product_id" class="select">
+                    <option value="" disable selected>{{ __('messages.Enter the product') }}</option>
+                    @foreach($products as $product)
+                        <option value="{{ $product->id }}" 
+                            {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                            {{ $product->name }}
+                        </option>
+                    @endforeach
+                </select>
                 <flux:error name="product_id" />
             </flux:field>
 

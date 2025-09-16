@@ -29,7 +29,7 @@
 
             <flux:field>
                 <flux:label class="mt-2!">{{ __('messages.State Code') }}</flux:label>
-                <flux:input name='code' placeholder="{{ __('messages.Enter the code') }}" value="{{ old('description') }}"/>
+                <flux:input name='code' placeholder="{{ __('messages.Enter the code') }}" value="{{ old('code') }}"/>
                 <flux:error name="code" />
             </flux:field>
 
@@ -38,7 +38,10 @@
                 <select name="country_id" class="select" placeholder="{{ __('messages.Select country') }}">
                     <option value="" disable selected>{{ __('messages.Select country') }}</option>
                     @foreach($countries as $country)
-                        <option value="{{ $country->id }}">{{ $country->name }}</foption>
+                        <option value="{{ $country->id }}" 
+                            {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                            {{ $country->name }}
+                        </option>
                     @endforeach
                 </select>
                 <flux:error name="country_id" />

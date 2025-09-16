@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('investments', function (Blueprint $table) {
             $table->id();
             $table->decimal('investment_amount', 12, 2);
+            $table->decimal('initial_amount', 12, 2);
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->boolean('is_active')->default(true);

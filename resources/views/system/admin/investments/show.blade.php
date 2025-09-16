@@ -52,6 +52,11 @@
                 $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
             @endphp
 
+            <flux:label class="mt-2!">{{ __('messages.Initial Investment Amount') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                {{ $formatter->format($investment->initial_amount) }}
+            </p>
+
             <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 {{ $formatter->format($investment->investment_amount) }}

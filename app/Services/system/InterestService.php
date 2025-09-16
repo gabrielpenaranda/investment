@@ -7,6 +7,7 @@ use App\Models\system\InterestArchive;
 use App\Models\system\InterestMonth;
 use App\Models\system\Investment;
 use App\Models\system\InvestmentChange;
+use App\Models\system\AccountStatement;
 use App\Models\system\Log;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,18 @@ class InterestService
                     $ic->total_days = $days;
                     $ic->interests = round($interest, 2);
                     $ic->update();
+
+                    $account_statement = new AccountStatement();
+                    $account_statement->date = Carbon::now()->startOfMonth();
+                    $account_statement->month = (int)Carbon::now()->subMonth()->format('m');
+                    $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
+                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
+                    $account_statement->amount = $interest;
+                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->type = 'contribution';
+                    $account_statement->approved = false;
+                    $account_statement->investment_id = $ic->investment->id;
+                    $account_statement->save();
                 } else {
                     $days = 30 - $acum_days;
                     $annual_interest = ($ic->amount * $ic->rate)/100;
@@ -51,6 +64,18 @@ class InterestService
                     $ic->total_days = $days;
                     $ic->interests = round($interest, 2);
                     $ic->update();
+
+                    $account_statement = new AccountStatement();
+                    $account_statement->date = Carbon::now()->startOfMonth();
+                    $account_statement->month = (int)Carbon::now()->subMonth()->format('m');
+                    $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
+                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
+                    $account_statement->amount = $interest;
+                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->type = 'contribution';
+                    $account_statement->approved = false;
+                    $account_statement->investment_id = $ic->investment->id;
+                    $account_statement->save();
                 }
             }
 
@@ -153,6 +178,15 @@ class InterestService
             $invCh->update();
         }
 
+        $accountStatements = AccountStatement::where('year', $lastInterestMonth->year)
+            ->where('month', $lastInterestMonth->month)
+            ->where('approved', 'false')
+            ->get();
+        
+        foreach($accountStatements as $statement) {
+            $statement->delete();
+        }
+
         session()->flash('swal', [
             'icon' => 'success',
             'title' => __('swal.Success'),
@@ -179,13 +213,24 @@ class InterestService
         $newInterestMonth->month = (int)Carbon::now()->format('m');
         $newInterestMonth->processed = false;
         $newInterestMonth->approved = false;
-        $newInterestMonth->save();  
+        $newInterestMonth->save();
+
 
         session()->flash('swal', [
             'icon' => 'success',
             'title' => __('swal.Success'),
             'text' => __('swal.The interests has been approved succesfully'),
         ]);
+
+        $accountStatements = AccountStatement::where('year', $interestMonth->year)
+            ->where('month', $interestMonth->month)
+            ->where('approved', false)
+            ->get();
+
+        foreach($accountStatements as $statement) {
+            $statement->approved = true;
+            $statement->update();
+        }
 
         return redirect()->back();
     }
@@ -196,6 +241,18 @@ class InterestService
         foreach($interests as $interest) {
             $interest->condition = 'paid';
             $interest->update();
+
+            $account_statement = new AccountStatement();
+            $account_statement->date = Carbon::now();
+            $account_statement->month = (int)Carbon::now()->format('m');
+            $account_statement->year = (int)Carbon::now()->format('Y');
+            $account_statement->description = 'Investor Distribution';
+            $account_statement->amount = $interest->interest_amount;
+            $account_statement->balance = $interest->investment->investment_amount;
+            $account_statement->type = 'distribution';
+            $account_statement->approved = true;
+            $account_statement->investment_id = $interest->investment->id;
+            $account_statement->save();
         }
 
         session()->flash('swal', [
@@ -211,6 +268,18 @@ class InterestService
     {
         $interest->condition = 'paid';
         $interest->update();
+
+        $account_statement = new AccountStatement();
+        $account_statement->date = Carbon::now();
+        $account_statement->month = (int)Carbon::now()->format('m');
+        $account_statement->year = (int)Carbon::now()->format('Y');
+        $account_statement->description = 'Investor Distribution';
+        $account_statement->amount = $interest->interest_amount;
+        $account_statement->balance = $interest->investment->investment_amount;
+        $account_statement->type = 'distribution';
+        $account_statement->approved = true;
+        $account_statement->investment_id = $interest->investment->id;
+        $account_statement->save();
 
         session()->flash('swal', [
             'icon' => 'success',

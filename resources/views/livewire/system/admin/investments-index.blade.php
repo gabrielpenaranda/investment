@@ -110,7 +110,16 @@
                                             <a href="{{ route('admin.investments.show', $investment) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
                                         @endcan
 
-                                        <a href="#" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
+                                        {{-- @can('admin.investments.add')
+                                            <a href="{{ route('admin.investments.add', $investment) }}" class="btn btn-warning text-xs">{{ __('messages.Increase') }}</a>
+                                        @endcan --}}
+
+
+                                        @can('admin.account-statements.index')
+                                            <a href="{{ route('admin.account-statements.index', $investment) }}" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
+                                        @endcan
+
+                                        
                                         
                                         @can('admin.investments.edit')
                                             <a href="{{ route('admin.investments.edit', $investment) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\system\Investment;
 use App\Models\system\Tax;
+use App\Models\system\State;
 
 class User extends Authenticatable
 {
@@ -26,6 +27,11 @@ class User extends Authenticatable
         'email',
         'password',
         'type',
+        'address',
+        'zip_code',
+        'fin',
+        'state_id',
+        'phone',
     ];
 
     /**
@@ -71,5 +77,10 @@ class User extends Authenticatable
     public function taxes()
     {
         return $this->hasMany(Tax::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
 }

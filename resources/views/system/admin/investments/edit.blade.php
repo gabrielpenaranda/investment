@@ -46,12 +46,19 @@
                 $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
             @endphp
 
-            <flux:field>
-                <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
+           
+
+            <flux:label class="mt-2!">{{ __('messages.Investment Amount') }}</flux:label>
+            <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
+                {{ $formatter->format($investment->investment_amount) }}
+            </p>
+
+             <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Investment Amount Increment') }}</flux:label>
                 @if (app()->getLocale() == 'es')
                     <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
                 @endif
-                <flux:input name='investment_amount'  placeholder="{{ __('messages.Enter the investment amount') }}" value="{{ old('investment_amount', $investment->investment_amount) }}"/>
+                <flux:input name='investment_amount'  placeholder="{{ __('messages.Enter the increment') }}" value="{{ old('investment_amount') }}"/>
                 <flux:error name="investment_amount" />
             </flux:field>
 

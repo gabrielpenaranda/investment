@@ -5,14 +5,15 @@ namespace App\Services\system;
 use App\Models\system\Country;
 use App\Models\system\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\QueryException;
 
 class CountryService
 {
     public function createCountry($request)
     {
         $country = new Country();
-        $country->name = $request['name'];
-        $country->code = $request['code'];
+        $country->name = ucwords($request['name']);
+        $country->code = strtoupper($request['code']);
         $country->save();
 
         $log = new Log();
@@ -29,8 +30,8 @@ class CountryService
 
     public function updateCountry($request, Country $country)
     {
-        $country->name = $request['name'];
-        $country->code = $request['code'];
+        $country->name = ucwords($request['name']);
+        $country->code = strtoupper($request['code']);
         $country->update();
 
         $log = new Log();

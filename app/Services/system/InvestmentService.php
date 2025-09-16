@@ -7,6 +7,7 @@ use App\Models\system\InvestmentChange;
 use App\Models\system\Product;
 use App\Models\system\Interest;
 use App\Models\system\InterestMonth;
+use App\Models\system\AccountStatement;
 use App\Models\system\Log;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -21,18 +22,13 @@ class InvestmentService
         
         $investment = new Investment();
 
-        /* if ($request['is_active'])
-        {
-            $investment->activation_date = Carbon::now();
-        } */
-
         if ($product->has_expiration) {
             $investment->closing_date = Carbon::parse($request['opening_date'])->addMonths($product->investment_time);
         }
 
-        // $investment->is_active = $request['is_active'];
         $investment->is_active = true;
         $investment->investment_amount = $request['investment_amount'];
+        $investment ->initial_amount = $request['investment_amount'];
         $investment->activation_date = $request['activation_date'];
         $investment->serial = hash('md5', Hash::make(Carbon::now()));
         $investment->name = $user->name;
@@ -52,6 +48,18 @@ class InvestmentService
         $investment_change->investment_id = $investment->id;
 
         $investment_change->save();
+
+        $account_statement = new AccountStatement();
+        $account_statement->date = Carbon::now();
+        $account_statement->month = (int)Carbon::now()->format('m');
+        $account_statement->year = (int)Carbon::now()->format('Y');
+        $account_statement->description = 'Initial Investment';
+        $account_statement->amount = $investment->investment_amount;
+        $account_statement->balance = $investment->investment_amount;
+        $account_statement->type = 'contribution';
+        $account_statement->approved = true;
+        $account_statement->investment_id = $investment->id;
+        $account_statement->save();
 
         $log = new Log();
         $log->register($log, 'C', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->name);
@@ -86,8 +94,10 @@ class InvestmentService
             $investment->closing_date = Carbon::parse($request['opening_date'])->addMonths($product->investment_time);
         } */
         
-        if ($investment->investment_amount != $request['investment_amount']) {
+        //if ($investment->investment_amount != $request['investment_amount'])
+        if ($request['investment_amount'] != null)     {
             $oic = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
+            // dd($oic);
             if (Carbon::parse($oic->activation_date)->format('Y-m-d') == Carbon::now()->format('Y-m-d')) {
                 $oic->delete();
             } else {
@@ -99,43 +109,32 @@ class InvestmentService
             $old_investment_change->update(); */
 
             $investment_change = new InvestmentChange();
-            $investment_change->amount = $request['investment_amount'];
+            $investment_change->amount = ($investment->investment_amount + $request['investment_amount']);
             $investment_change->activation_date = Carbon::now();
             $investment_change->rate = $product->annual_rate;
             $investment_change->year = (int)Carbon::parse($investment->activation_date)->format('Y');
             $investment_change->month = (int)Carbon::parse($investment->activation_date)->format('m');
             $investment_change->investment_id = $investment->id;
             $investment_change->save();
+
+            $investment->is_active = true;
+
+            $investment->investment_amount += $request['investment_amount'];
+
+            $account_statement = new AccountStatement();
+            $account_statement->date = Carbon::now();
+            $account_statement->month = (int)Carbon::now()->format('m');
+            $account_statement->year = (int)Carbon::now()->format('Y');
+            $account_statement->description = 'Additional Contribution';
+            $account_statement->amount = $request['investment_amount'];
+            $account_statement->balance = $investment->investment_amount;
+            $account_statement->type = 'contribution';
+            $account_statement->approved = true;
+            $account_statement->investment_id = $investment->id;
+            $account_statement->save();
         }
 
-         /* if (!$investment->is_active && $request['is_active'])
-        {
-            $investment->activation_date = Carbon::now();
-        } */
-       
-        $investment->is_active = true;
-
-        /* if ($investment->investment_amount != $request['investment_amount']) {
-            $investment_changes = InvestmentChange::where('deactivation_date', null)->where('rate', $product->annual_rate)->get();
-            foreach($investment_changes as $ic) {
-                $nic = new InvestmentChange();
-                $nic->amount = $request['investment_amount'];
-                $nic->activation_date = Carbon::now();
-                $nic->rate = $ic->rate;
-                $nic->interests = $ic->interests;
-                $nic->investment_id = $ic->investment_id;
-                $nic->save();
-
-                if (Carbon::parse($ic->activation_date) == Carbon::now()) {
-                    $ic->delete();
-                } else {
-                    $ic->deactivation_date = Carbon::now();
-                    $ic->update();
-                }
-            }
-        } */
-
-        $investment->investment_amount = $request['investment_amount'];
+        
         $investment->capitalize = $request['capitalize'];
 
         $investment->update();
@@ -157,20 +156,6 @@ class InvestmentService
         $investment->deactivation_date = Carbon::now();
         $investment->is_active = false;
         $investment->update();
-
-        /* $investment_archive = new InvestmentArchive();
-        $investment_archive->investment_amount = $investment->investment_amount;
-        $investment_archive->name = $investment->name;
-        $investment_archive->email = $investment->email;
-        $investment_archive->product_name = $investment->product->name;
-        $investment_archive->product_rate = $investment->product->annual_rate;
-        $investment_archive->activation_date = $investment->activation_date;
-        $investment_archive->deactivation_date = $investment->deactivation_date;
-        $investment_archive->serial = $investment->serial;
-        $investment_archive->investment_id = $investment->id;
-        $investment_archive->user_id = $investment->user_id;
-        $investment_archive->product_id = $investment->product_id;
-        $investment_archive->save(); */
 
         $log = new Log();
         $log->register($log, 'D', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->serial);session()->flash('swal', [
@@ -219,6 +204,18 @@ class InvestmentService
                     $interest = $day_interest * $days;
                     $acum_days += $days;
                     $acum_interests += $interest;
+
+                    $account_statement = new AccountStatement();
+                    $account_statement->date = Carbon::now();
+                    $account_statement->month = (int)Carbon::now()->format('m');
+                    $account_statement->year = (int)Carbon::now()->format('Y');
+                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
+                    $account_statement->amount = $interest;
+                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->type = 'none';
+                    $account_statement->approved = true;
+                    $account_statement->investment_id = $investment->id;
+                    $account_statement->save();
                 } else {
                     $days = 30 - $acum_days;
                     $annual_interest = ($ic->amount * $ic->rate)/100;
@@ -227,6 +224,18 @@ class InvestmentService
                     $acum_interests += $interest;
                     $ic->deactivation_date = Carbon::now()->endOfMonth();
                     $ic->update();
+
+                    $account_statement = new AccountStatement();
+                    $account_statement->date = Carbon::now();
+                    $account_statement->month = (int)Carbon::now()->format('m');
+                    $account_statement->year = (int)Carbon::now()->format('Y');
+                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
+                    $account_statement->amount = $interest;
+                    $account_statement->balance = ($ic->amount + $interest);
+                    $account_statement->type = 'none';
+                    $account_statement->approved = true;
+                    $account_statement->investment_id = $investment->id;
+                    $account_statement->save();
                 }
             }
         }
@@ -279,6 +288,18 @@ class InvestmentService
         } */
 
         //$investment->delete();
+
+        $account_statement = new AccountStatement();
+        $account_statement->date = Carbon::now();
+        $account_statement->month = (int)Carbon::now()->format('m');
+        $account_statement->year = (int)Carbon::now()->format('Y');
+        $account_statement->description = 'Investment Close - Final Balance';
+        $account_statement->amount = $investment->investment_amount;
+        $account_statement->balance = $investment->investment_amount;
+        $account_statement->type = 'none';
+        $account_statement->approved = true;
+        $account_statement->investment_id = $investment->id;
+        $account_statement->save();
 
         session()->flash('swal', [
             'icon' => 'success',
