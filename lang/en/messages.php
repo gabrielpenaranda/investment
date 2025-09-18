@@ -129,4 +129,5 @@ return [
     'Distributions' => 'Distributions',
     'Contributions' => 'Contributions',
     'Account Balance' => 'Account Balance',
+    'Form 1099' => 'Form 1099',
 ];

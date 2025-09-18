@@ -7,12 +7,12 @@
     <div class="flex justify-left mb-4">
         {{-- <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" /> --}}
 
-        <flux:select wire:model.live="user" class="ml-4!">
+        {{-- <flux:select wire:model.live="user" class="ml-4!">
             <flux:select.option value="">{{ __('messages.Choose the investor') }}</flux:select.option>
             @foreach($users as $u)
                 <flux:select.option value="{{ $u->id }}">{{ $u->name }}</flux:select.option>
             @endforeach
-        </flux:select>
+        </flux:select> --}}
 
         <flux:select wire:model.live="pagination" class="w-48!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
             <flux:select.option>5</flux:select.option>
@@ -53,8 +53,8 @@
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @if ($tax->year < (int)Carbon::now()->format('Y'))
-                                @can('admin.taxes.index')
-                                    <a href="{{ route('admin.taxes.print', $tax) }}" class="btn btn-secondary text-xs">{{ __('messages.Form 1099') }}</a>
+                                @can('portal.taxes.index')
+                                    <a href="{{ route('portal.taxes.print', $tax) }}" class="btn btn-secondary text-xs">{{ __('messages.Form 1099') }}</a>
                                 @endcan
                             @endif
                         </div>
@@ -72,4 +72,5 @@
         {{ $taxes->links() }}
     @endif
 </div>
+
 

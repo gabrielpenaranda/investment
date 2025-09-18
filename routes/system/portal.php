@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\system\portal\InvestmentController;
 use App\Http\Controllers\system\portal\AccountStatementController;
+use App\Http\Controllers\system\portal\TaxController;
+/* use App\Http\Controllers\system\portal\InterestController;
+use App\Http\Controllers\system\portal\PaymentController; */
+
 
 Route::get('dashboard', function(){
         return view('system.portal.dashboard');
@@ -24,11 +28,13 @@ Route::prefix('interests')->group(function() {
 
 Route::prefix('taxes')->group(function() {
     Route::get('index', [TaxController::class, 'index'])->middleware('can:portal.taxes.index')->name('portal.taxes.index');
+    Route::get('print', [TaxController::class, 'print'])->middleware('can:portal.taxes.print')->name('portal.taxes.print');
 });
 
 Route::prefix('account_statements')->group(function() {
     Route::get('index/{investment}', [AccountStatementController::class, 'index'])->middleware('can:portal.account-statements.index')->name('portal.account-statements.index');
     Route::get('print/{investment}', [AccountStatementController::class, 'print'])->middleware('can:portal.account-statements.print')->name('portal.account-statements.print');
+    Route::get('view/{investment}', [AccountStatementController::class, 'view'])->middleware('can:portal.account-statements.view')->name('portal.account-statements.view');
 });
 
 Route::prefix('payments')->group(function() {

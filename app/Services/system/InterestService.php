@@ -139,7 +139,7 @@ class InterestService
             $inv->investment_amount += $acum_interests;
             $inv->update();
 
-            $investment_change = new InvestmentChange();
+            /* $investment_change = new InvestmentChange();
             $investment_change->amount = $inv->investment_amount;
             $investment_change->activation_date = Carbon::now()->startOfMonth();
             $investment_change->rate = $inv->product->annual_rate;
@@ -147,7 +147,7 @@ class InterestService
             $investment_change->investment_id = $inv->id;    
             $investment_change->month = (int)Carbon::now()->format('m');
             $investment_change->year = (int)Carbon::now()->format('Y');
-            $investment_change->save();
+            $investment_change->save(); */
 
             $acum_interests = 0;
             $acum_days = 0;

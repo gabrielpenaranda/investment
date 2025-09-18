@@ -79,6 +79,7 @@ Route::prefix('taxes')->group(function() {
     Route::get('edit/{tax}', [TaxController::class, 'edit'])->middleware('can:admin.taxes.edit')->name('admin.taxes.edit');
     Route::put('update/{tax}', [TaxController::class, 'update'])->middleware('can:admin.taxes.edit')->name('admin.taxes.update');
     Route::delete('destroy/{tax}', [TaxController::class, 'destroy'])->middleware('can:admin.taxes.destroy')->name('admin.taxes.destroy');
+    Route::get('print/{tax}', [TaxController::class, 'print'])->middleware('can:admin.taxes.print')->name('admin.taxes.print');
 });
 
 

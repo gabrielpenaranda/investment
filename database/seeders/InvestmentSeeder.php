@@ -263,7 +263,6 @@ class InvestmentSeeder extends Seeder
         InvestmentChange::create([
             'amount' => 70000,
             'activation_date' => Carbon::now()->subMonth()->startOfMonth(),
-            'deactivation_date' => '2025-08-19',
             'rate' => 7.00,
             'interests' => 0.00,
             'month' => Carbon::now()->subMonth()->format('m'),
@@ -271,7 +270,7 @@ class InvestmentSeeder extends Seeder
             'investment_id' => $investment7->id,
         ]);
 
-        InvestmentChange::create([
+       /*  InvestmentChange::create([
             'amount' => $investment7->investment_amount,
             'activation_date' => '2025-08-20',
             'rate' => 7.00,
@@ -279,7 +278,7 @@ class InvestmentSeeder extends Seeder
             'month' => Carbon::now()->subMonth()->format('m'),
             'year' => Carbon::now()->subMonth()->format('Y'),
             'investment_id' => $investment7->id,
-        ]);
+        ]); */
 
     }
 }

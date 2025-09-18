@@ -265,7 +265,7 @@
                                     @endphp
                                     <a href="{{ route('admin.investments.show', $investment) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
                                 @endcan
-                                <a href="#" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
+                                <a href="{{ route('admin.account-statements.index', $investment) }}" class="btn btn-info text-xs">{{ __('messages.Account Statement') }}</a>
                             </div>
                         
                         </td>

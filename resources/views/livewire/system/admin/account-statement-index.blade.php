@@ -38,7 +38,10 @@
             @foreach ($account_statements as $state)
                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                     <td class="px-6 py-4 text-center text-xs">
-                        {{ $state->date }}
+                        @php
+                            $date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($state->date)) : date("m/d/Y", strtotime($state->date));
+                        @endphp
+                        {{ $date }}
                     </td>
                     <td class="px-6 py-4 text-left text-xs">
                         {{ $state->description }}

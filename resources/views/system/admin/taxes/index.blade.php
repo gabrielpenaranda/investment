@@ -1,6 +1,7 @@
 <x-layouts.admin>
-
-    @livewire('system.language-selector')
+    <div class="mb-4">
+        @livewire('system.language-selector')
+    </div>
 
     <div  class="mb-8 flex justify-between items-center">
         <flux:breadcrumbs> 
