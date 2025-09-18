@@ -1,6 +1,8 @@
 <div>
     @php
         use Carbon\Carbon;
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
     @endphp
     <div class="flex justify-left mb-4">
         {{-- <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" /> --}}
@@ -29,7 +31,7 @@
                     {{ __('messages.Year') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Earnings') }}
+                    {{ __('messages.Earnings') }} USD
                 </th>
                 {{-- <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Investment Time (months)') }}
@@ -45,8 +47,8 @@
                     <td class="px-6 py-4 text-center">
                         {{ $tax->year }}
                     </td>
-                    <td class="px-6 py-4 text-right">
-                        {{ $tax->earnings }}
+                    <td class="px-6 py-4 text-center">
+                        {{ $formatter->format(round($tax->earnings, 2)) }}
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">

@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             Route::middleware('web', 'auth')
                 ->prefix('portal')
-                ->group(base_path('routes/system/dashboard.php'));
+                ->group(base_path('routes/system/portal.php'));
 
             Route::middleware('web')
                 ->group(base_path('routes/system/site.php'));

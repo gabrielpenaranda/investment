@@ -1,6 +1,11 @@
 
 <x-layouts.admin>
 
+    @php
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
+    @endphp
+
     @livewire('system.language-selector')
 
     <div  class="mb-8 flex justify-between items-center">
@@ -45,7 +50,7 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
-                        {{ __('messages.Investment Amount') }}
+                        {{ __('messages.Investment Amount') }} USD
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
@@ -80,7 +85,7 @@
                     </td>
                     
                     <td class="px-6 py-4 text-center">
-                        {{ $interest->investment->investment_amount }}
+                        {{ $formatter->format(round($interest->investment->investment_amount, 2)) }}
                     </td>
 
                     <td class="px-6 py-4 text-center">
@@ -120,7 +125,7 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3">
-                        {{ __('messages.Interest Amount') }}
+                        {{ __('messages.Interest Amount') }} USD
                     </th>
 
                     <th scope="col" class="px-6 py-3">
@@ -143,8 +148,8 @@
                         {{ $interest->serial }}
                     </td>
 
-                    <td class="px-6 py-4">
-                        {{ $interest->interest_amount }}
+                    <td class="px-6 py-4 text-center">
+                        {{ $formatter->format(round($interest->interest_amount, 2)) }}
                     </td>
 
                     <td class="px-6 py-4">
@@ -188,11 +193,11 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3">
-                        {{ __('messages.Investment Amount') }}
+                        {{ __('messages.Investment Amount') }} USD
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
-                        {{ __('messages.Rate') }}
+                        {{ __('messages.Rate') }} %
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
@@ -222,12 +227,12 @@
                             {{ $deactivation_date }}
                         </td>
 
-                        <td class="px-6 py-4">
-                            {{ $investmentChange->amount }}
+                        <td class="px-6 py-4 text-center">
+                            {{ $formatter->format(round($investmentChange->amount, 2)) }}
                         </td>
 
-                        <td class="px-6 py-4">
-                             {{ $investmentChange->rate }}
+                        <td class="px-6 py-4 text-center">
+                             {{ $formatter->format(round($investmentChange->rate)) }}
                         </td>
                         
                         <td class="px-6 py-4 text-center">
@@ -235,7 +240,7 @@
                         </td>
 
                         <td class="px-6 py-4 text-center">
-                            {{ $investmentChange->interests }}
+                            {{ $formatter->format(round($investmentChange->interests, 2)) }}
                         </td>
                     </tr>
                 @endforeach

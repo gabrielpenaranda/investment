@@ -1,4 +1,10 @@
 <div>
+
+    @php
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
+    @endphp
+
     <div class="flex justify-left mb-4">
        {{--  <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search"> --}}
 
@@ -58,7 +64,7 @@
                         </th>
 
                         <th scope="col" class="px-6 py-3 text-center">
-                            {{ __('messages.Investment Amount') }}
+                            {{ __('messages.Investment Amount') }} USD
                         </th>
 
                         @if ($archive)
@@ -101,7 +107,7 @@
                                 </td>
                                 
                                 <td class="px-6 py-4 text-center">
-                                    {{ $investment->investment_amount }}
+                                    {{ $formatter->format($investment->investment_amount) }}
                                 </td>
 
                                 <td class="px-6 py-4">
@@ -198,7 +204,7 @@
                     </th>
 
                     <th scope="col" class="px-6 py-3 text-center">
-                        {{ __('messages.Investment Amount') }}
+                        {{ __('messages.Investment Amount') }} USD
                     </th>
 
                     @if ($archive)
@@ -240,7 +246,7 @@
                         </td>
                         
                         <td class="px-6 py-4 text-center">
-                            {{ $investment->investment_amount }}
+                            {{ $formatter->format($investment->investment_amount) }}
                         </td>
 
                         <td class="px-6 py-4 text-center">

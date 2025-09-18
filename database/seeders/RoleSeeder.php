@@ -17,7 +17,8 @@ class RoleSeeder extends Seeder
         $role1 = Role::create(['name' => 'Administrator']);
         $role2 = Role::create(['name' => 'Associate']);
 
-        Permission::create(['name' => 'admin.dashboard', 'description' => 'Administration Dashboard'])->syncRoles([$role1,$role2]);
+        // ADMINISTRATOR PERMISSIONS
+        Permission::create(['name' => 'admin.dashboard', 'description' => 'Administration Dashboard'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'admin.countries.index', 'description' => 'List of Countries'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.countries.create', 'description' => 'Create Country'])->syncRoles([$role1]);
@@ -69,5 +70,23 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.users.create', 'description' => 'Create User'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.edit', 'description' => 'Edit User'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.destroy', 'description' => 'Delete User'])->syncRoles([$role1]);
+
+
+        // ASSOCIATE PERMISSIONS
+        Permission::create(['name' => 'portal.dashboard', 'description' => 'Administration Dashboard'])->syncRoles([$role2]);
+
+        Permission::create(['name' => 'portal.investments.index', 'description' => 'List of Investments'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.investments.show', 'description' => 'Show Investment'])->syncRoles([$role2]);
+
+        Permission::create(['name' => 'portal.interests.index', 'description' => 'List of Interests '])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.interests.show', 'description' => 'Show Interests'])->syncRoles([$role2]);
+
+        Permission::create(['name' => 'portal.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role2]);
+
+        Permission::create(['name' => 'portal.account-statements.index', 'description' => 'Account Statement'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.account-statements.print', 'description' => 'Print Account Statement'])->syncRoles([$role2]);
+
+        Permission::create(['name' => 'portal.payments.index', 'description' => 'List of Payments'])->syncRoles([$role2]);
+        
     }
 }

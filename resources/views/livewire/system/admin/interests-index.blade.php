@@ -67,7 +67,7 @@
                     @endif
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Amount') }}
+                    {{ __('messages.Amount') }} USD
                 </th>
                <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Process') }}

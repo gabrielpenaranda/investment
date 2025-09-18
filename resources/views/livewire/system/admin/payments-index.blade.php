@@ -53,7 +53,7 @@
                     {{ __('messages.Email') }}
                 </th>
                <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Amount') }}
+                    {{ __('messages.Amount') }} USD
                 </th>
             </tr>
         </thead>
@@ -64,7 +64,10 @@
                         {{ $payment->serial }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        {{ $payment->date }}
+                        @php
+                            $payment_date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($payment->date)) : date("m/d/Y", strtotime($payment->date));
+                        @endphp
+                        {{ $payment_date }}
                     </td>
                     <td class="px-6 py-4 text-center">
                         {{ $payment->investment->serial }}

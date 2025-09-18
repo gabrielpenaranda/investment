@@ -1,20 +1,10 @@
 <div>
-    <div class="flex justify-left mb-4">
-        {{-- <input type="text" class="w-3xl sm:w-xl md:w-2xl rounded-sm m-2 p-2 border-2 shadow-sm" placeholder="{{ __('messages.Enter product name') }}" wire:model.live="search">
+    @php
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
+    @endphp
 
-        <div class="relative flex-1 ml-8">
-            <div class="w-64 flex justify-between">
-                <lavel class="m-2">{{ __('messages.Lines per page') }}</label>
-                <select name="" id="" wire:model.live="pagination"
-                    class="ml-2 px-4 py-3 pr-8 leading-tight bg-white border border-gray-300 rounded-sm shadow-sm appearance-none focus:outline-none dark:bg-zinc-800 dark:border-zinc-600 dark:text-white text-center">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-            </div>
-        </div> --}}
+    <div class="flex justify-left mb-4">
 
         <flux:input placeholder="{{ __('messages.Enter client name') }}" wire:model.live="search" class="w-2xl! ml-2!" />
 
@@ -49,11 +39,8 @@
                     {{ __('messages.Description') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Annual Rate') }}
+                    {{ __('messages.Annual Rate') }} %
                 </th>
-                {{-- <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Investment Time (months)') }}
-                </th> --}}
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
                 </th>
@@ -65,19 +52,12 @@
                     <td class="px-6 py-4">
                         {{ $product->name }}
                     </td>
-                    <td class="px-6 py-4 text-center">
+                    <td class="px-6 py-4 text-left">
                         {{ $product->description }}
                     </td>
                     <td class="px-6 py-4 text-center">
-                        {{ $product->annual_rate }}
+                        {{ $formatter->format($product->annual_rate) }}
                     </td>
-                     {{-- <td class="px-6 py-4 text-center">
-                        @if ($product->investment_time)
-                            {{ $product->investment_time }}
-                        @else
-                            {{ __('messages.No termination time') }}
-                        @endif
-                    </td> --}}
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @can('admin.products.edit')

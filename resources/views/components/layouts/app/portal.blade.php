@@ -1,25 +1,68 @@
+@php
+    $groups = [
+        'Platform' => [
+            [
+                'name' => 'Investments',
+                'icon' => '',
+                'url' => route('portal.investments.index'),
+                'current' => request()->routeIs('portal/investments'),
+                'can' => 'portal.investments.index',
+            ],
+            /* [
+                'name' => 'Interests',
+                'icon' => '',
+                'url' => route('portal.interests.index'),
+                'current' => request()->routeIs('portal/interests'),
+                'can' => 'portal.interests.index',
+            ],
+            [
+                'name' => 'Payments',
+                'icon' => '',
+                'url' => route('portal.payments.index'),
+                'current' => request()->routeIs('portal/payments'),
+                'can' => 'portal.payments.index',
+            ], */
+            [
+                'name' => 'Taxes',
+                'icon' => '',
+                'url' => route('portal.taxes.index'),
+                'current' => request()->routeIs('portal/taxes'),
+                'can' => 'portal.taxes.index',
+            ],
+        ],
+    ];
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-primary-800 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
+            <a href="{{ route('portal.dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+                <x-app-logo-white />
             </a>
 
+           
+
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
+                @foreach ($groups as $group => $links)
+                    <flux:navlist.group :heading="__($group)" class="grid">
+                        @foreach ($links as $link)
+                            @can($link['can'])
+                                <flux:navlist.item :icon="$link['icon']" :href="$link['url']" :current="$link['current']"  class="text-gray-200! hover:text-gray-400!" wire:navigate>{{ __('messages.'.$link['name']) }}</flux:navlist.item>
+                            @endcan
+                        @endforeach
+                    </flux:navlist.group>
+                @endforeach
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+           {{--  <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                 {{ __('Repository') }}
                 </flux:navlist.item>
@@ -27,14 +70,15 @@
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item>
-            </flux:navlist>
+            </flux:navlist> --}}
 
             <!-- Desktop User Menu -->
-            <flux:dropdown class="hidden lg:block" position="bottom" align="start">
+{{--             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
                 <flux:profile
-                    :name="auth()->user()->name"
+                    name="{{ @auth()->user()->name }}"
                     :initials="auth()->user()->initials()"
                     icon:trailing="chevrons-up-down"
+                    style="color: white important!"
                 />
 
                 <flux:menu class="w-[220px]">
@@ -63,6 +107,11 @@
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
+                     <flux:menu.radio.group>
+                        <flux:menu.item :href="route('settings.password')" icon="key" wire:navigate>{{ __('Password') }}</flux:menu.item>
+                    </flux:menu.radio.group>
+
+
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -72,15 +121,18 @@
                         </flux:menu.item>
                     </form>
                 </flux:menu>
-            </flux:dropdown>
+            </flux:dropdown> --}}
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <flux:header class=""> {{-- lg:hidden --}}
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />
-
+            
+            <div class="mr-4">
+                @livewire('system.language-selector')
+            </div>
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
@@ -109,9 +161,14 @@
 
                     <flux:menu.separator />
 
-                    <flux:menu.radio.group>
+                    {{-- <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group> --}}
+
+                     <flux:menu.radio.group>
+                        <flux:menu.item :href="route('settings.password')" icon="key" wire:navigate>{{ __('Password') }}</flux:menu.item>
                     </flux:menu.radio.group>
+
 
                     <flux:menu.separator />
 

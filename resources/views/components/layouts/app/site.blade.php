@@ -99,7 +99,7 @@
                         <flux:menu.radio.group>
                             <flux:menu.item :href="route('login')" wire:navigate>Log In</flux:menu.item>
 
-                            <flux:menu.item :href="route('register')" wire:navigate>Register</flux:menu.item>
+                            {{-- <flux:menu.item :href="route('register')" wire:navigate>Register</flux:menu.item> --}}
                         </flux:menu.radio.group>
 
                     </flux:menu>

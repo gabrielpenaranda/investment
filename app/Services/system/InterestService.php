@@ -180,7 +180,7 @@ class InterestService
             session()->flash('swal', [
                 'icon' => 'error',
                 'title' => __('swal.Error'),
-                'text' => __('swal.No unapproved processed interest month found to rollback.'),
+                'text' => __('swal.No unapproved processed interest month found to rollback'),
             ]);
             return redirect()->back();
         }
@@ -239,7 +239,7 @@ class InterestService
         session()->flash('swal', [
             'icon' => 'success',
             'title' => __('swal.Success'),
-            'text' => __('swal.The interests have been rolled back successfully.'),
+            'text' => __('swal.The interests have been rolled back successfully'),
         ]);
 
         return redirect()->back();
