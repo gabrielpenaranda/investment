@@ -40,6 +40,8 @@
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 {{ $investment->product->name }}
             </p>
+            
+            <input type="hidden" name="product_id" value="{{ $investment->product_id }}">
 
             @php
                 $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);

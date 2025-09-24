@@ -32,6 +32,7 @@ class User extends Authenticatable
         'fin',
         'state_id',
         'phone',
+        'social_security',
     ];
 
     /**

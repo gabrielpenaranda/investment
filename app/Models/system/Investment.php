@@ -48,6 +48,11 @@ class Investment extends Model
 
     public function account_statements()
     {
-        return $this->hasOne(AccountStatement::class);
+        return $this->hasMany(AccountStatement::class);
+    }
+
+    public function investment_balance()
+    {
+        return $this->hasOne(InvestmentBalance::class);
     }
 }

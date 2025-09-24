@@ -38,8 +38,31 @@
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Description') }}
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-center" wire:click="order('annual_rate')">
                     {{ __('messages.Annual Rate') }} %
+
+                     @if ($sort == 'annual_rate')
+                        @if ($direction == 'asc')
+                            <i class="fa-solid fa-arrow-up-a-z float-right mt-1"></i>
+                        @else
+                            <i class="fa-solid fa-arrow-down-z-a float-right mt-1"></i>
+                        @endif
+                    @else
+                        <i class="fa-solid fa-sort float-right mt-1"></i>
+                    @endif
+                </th>
+                <th scope="col" class="px-6 py-3 text-center" wire:click="order('minimum_investment')">
+                    {{ __('messages.Minimum Opening Amount') }} USD
+
+                     @if ($sort == 'minimum_investment')
+                        @if ($direction == 'asc')
+                            <i class="fa-solid fa-arrow-up-a-z float-right mt-1"></i>
+                        @else
+                            <i class="fa-solid fa-arrow-down-z-a float-right mt-1"></i>
+                        @endif
+                    @else
+                        <i class="fa-solid fa-sort float-right mt-1"></i>
+                    @endif
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
@@ -57,6 +80,9 @@
                     </td>
                     <td class="px-6 py-4 text-center">
                         {{ $formatter->format($product->annual_rate) }}
+                    </td>
+                     <td class="px-6 py-4 text-center">
+                        {{ $formatter->format($product->minimum_investment) }}
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">

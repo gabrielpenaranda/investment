@@ -23,6 +23,7 @@ class ProductService
         $product->name = $request['name'];
         $product->description = $request['description'];
         $product->annual_rate = $request['annual_rate'];
+        $product->minimum_investment = $request['minimum_investment'];
 
         $product->save();
 
@@ -45,8 +46,13 @@ class ProductService
         Si cambia el valor de annual_rate, crea nuevo registro en investment_changes y cierra el registro anterior.
         Si la fecha es la del mismo dia del registro anterior por otro cambio efectuado, se elimina el registro y se sustituye con el nuevo.
         */
-        $subMonth = Carbon::now()->subMonth()->format('m');
-        $interestMonth = interestMonth::where('year', (int)Carbon::now()->format('Y'))->where('month', (int)$subMonth)->first();
+        $subMonth = (int)Carbon::now()->subMonth()->format('m');
+        if ($subMonth == 12) {
+            $intYear = (int)Carbon::now()->format('Y') - 1;
+        } else {
+            $intYear = (int)Carbon::now()->format('Y');
+        }
+        $interestMonth = InterestMonth::where('year', $intYear)->where('month', $subMonth)->first();
         if (!$interestMonth->approved) {
             session()->flash('swal', [
                 'icon' => 'error',
@@ -83,6 +89,7 @@ class ProductService
         $product->name = $request['name'];
         $product->description = $request['description'];
         $product->annual_rate = $request['annual_rate'];
+        $product->minimum_investment = $request['minimum_investment'];
         
         $product->update();
      

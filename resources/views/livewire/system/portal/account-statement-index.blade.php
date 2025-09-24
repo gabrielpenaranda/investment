@@ -20,16 +20,16 @@
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Date') }}
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-left">
                     {{ __('messages.Description') }}
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-right">
                     {{ __('messages.Contributions') }}
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-right">
                     {{ __('messages.Distributions') }}
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-right">
                     {{ __('messages.Account Balance') }}
                 </th>
             </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\system;
 use App\Http\Controllers\Controller;
 use App\Models\system\Tax;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TaxController extends Controller
 {
@@ -37,9 +38,19 @@ class TaxController extends Controller
      */
     public function show(Tax $tax)
     {
-        //
+        return view('system.admin.taxes.show', compact('tax'));
     }
 
+    public function print(Tax $tax)
+    {
+        $data = [
+            'tax' => $tax,
+        ];
+        return $pdf = Pdf::loadView('system.portal.taxes.print', $data)->stream('tax-form.pdf');
+    }
+    
+    
+    
     /**
      * Show the form for editing the specified resource.
      */

@@ -232,7 +232,7 @@
                         </td>
 
                         <td class="px-6 py-4 text-center">
-                             {{ $formatter->format(round($investmentChange->rate)) }}
+                             {{ $formatter->format($investmentChange->rate) }}
                         </td>
                         
                         <td class="px-6 py-4 text-center">

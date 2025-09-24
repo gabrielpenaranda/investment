@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->decimal('annual_rate', 4, 2);
+            $table->decimal('minimum_investment', 10, 2);
             /* $table->boolean('has_expiration')->default(false);
             $table->integer('investment_time')->nullable(); */
             $table->timestamps();

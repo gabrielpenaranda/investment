@@ -10,6 +10,7 @@ class Product extends Model
         'name',
         'description',
         'annual_rate',
+        'minimum_investment',
     ];
 
     public function investements()

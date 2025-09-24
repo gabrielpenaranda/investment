@@ -53,8 +53,8 @@
                     <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @if ($tax->year < (int)Carbon::now()->format('Y'))
-                                @can('admin.taxes.index')
-                                    <a href="{{ route('admin.taxes.print', $tax) }}" class="btn btn-secondary text-xs">{{ __('messages.Form 1099') }}</a>
+                                @can('admin.taxes.show')
+                                    <a href="{{ route('admin.taxes.show', $tax) }}" class="btn btn-secondary text-xs">{{ __('messages.Form 1099') }}</a>
                                 @endcan
                             @endif
                         </div>

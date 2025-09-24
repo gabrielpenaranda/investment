@@ -54,13 +54,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.create', 'description' => 'Create Tax'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.edit', 'description' => 'Edit Tax'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.taxes.show', 'description' => 'Show Tax'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.destroy', 'description' => 'Delete Tax'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.print', 'description' => 'Print Tax'])->syncRoles([$role1]);
-
-        Permission::create(['name' => 'admin.withdrawals.index', 'description' => 'List of Withdrawals'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.withdrawals.create', 'description' => 'Create Withdrawal'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.withdrawals.edit', 'description' => 'Edit Withdrawal'])->syncRoles([$role1]);
-        Permission::create(['name' => 'admin.withdrawals.destroy', 'description' => 'Delete Withdrawal'])->syncRoles([$role1]);
 
         Permission::create(['name' => 'admin.account-statements.index', 'description' => 'State Accountment'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.account-statements.print', 'description' => 'Print State Accountment'])->syncRoles([$role1]);
@@ -69,6 +65,7 @@ class RoleSeeder extends Seeder
 
         Permission::create(['name' => 'admin.users.index', 'description' => 'List of Users'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.create', 'description' => 'Create User'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.users.show', 'description' => 'Show User'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.edit', 'description' => 'Edit User'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.users.destroy', 'description' => 'Delete User'])->syncRoles([$role1]);
 
@@ -83,7 +80,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'portal.interests.show', 'description' => 'Show Interests'])->syncRoles([$role2]);
 
         Permission::create(['name' => 'portal.taxes.index', 'description' => 'List of Taxes'])->syncRoles([$role2]);
-        Permission::create(['name' => 'portal.taxes.print', 'description' => 'List of Taxes'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.taxes.show', 'description' => 'Show Taxes'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.taxes.print', 'description' => 'Print Taxes'])->syncRoles([$role2]);
 
         Permission::create(['name' => 'portal.account-statements.index', 'description' => 'Account Statement'])->syncRoles([$role2]);
         Permission::create(['name' => 'portal.account-statements.print', 'description' => 'Print Account Statement'])->syncRoles([$role2]);

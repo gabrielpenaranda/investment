@@ -20,10 +20,14 @@ return new class extends Migration
             $table->enum('type', ['Person', 'Company', 'Admin'])->default('Company');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('generated_password')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('fin')
                   ->nullable()
                   ->unique(); //Federal Identification Number
+            $table->string('social_security')
+                  ->nullable()
+                  ->unique();
             $table->foreignId('state_id')->nullable()->constrained('states')->onDelete('restrict');
             $table->rememberToken();
             $table->timestamps();

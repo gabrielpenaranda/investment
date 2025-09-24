@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->decimal('amount', 12, 2);
             $table->datetime('activation_date');
-            $table->datetime('deactivation_date')->nullable();
+            $table->datetime('deactivation_date')->nullable()->default(null);
             $table->integer('year');
             $table->integer('month');
             $table->integer('total_days')->default(0);

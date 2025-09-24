@@ -76,6 +76,7 @@ Route::prefix('taxes')->group(function() {
     Route::get('index', [TaxController::class, 'index'])->middleware('can:admin.taxes.index')->name('admin.taxes.index');
     Route::get('create', [TaxController::class, 'create'])->middleware('can:admin.taxes.create')->name('admin.taxes.create');
     Route::post('store', [TaxController::class, 'store'])->middleware('can:admin.taxes.create')->name('admin.taxes.store');
+    Route::get('show/{tax}', [TaxController::class, 'show'])->middleware('can:admin.taxes.show')->name('admin.taxes.show');
     Route::get('edit/{tax}', [TaxController::class, 'edit'])->middleware('can:admin.taxes.edit')->name('admin.taxes.edit');
     Route::put('update/{tax}', [TaxController::class, 'update'])->middleware('can:admin.taxes.edit')->name('admin.taxes.update');
     Route::delete('destroy/{tax}', [TaxController::class, 'destroy'])->middleware('can:admin.taxes.destroy')->name('admin.taxes.destroy');
@@ -101,6 +102,7 @@ Route::prefix('users')->group(function() {
     Route::get('index', [UserController::class, 'index'])->middleware('can:admin.users.index')->name('admin.users.index');
     Route::get('create', [UserController::class, 'create'])->middleware('can:admin.users.create')->name('admin.users.create');
     Route::post('store', [UserController::class, 'store'])->middleware('can:admin.users.create')->name('admin.users.store');
+    Route::get('show/{user}', [UserController::class, 'show'])->middleware('can:admin.users.show')->name('admin.users.show');
     Route::get('edit/{user}', [UserController::class, 'edit'])->middleware('can:admin.users.edit')->name('admin.users.edit');
     Route::put('update/{user}', [UserController::class, 'update'])->middleware('can:admin.users.edit')->name('admin.users.update');
     Route::delete('destroy/{user}', [UserController::class, 'destroy'])->middleware('can:admin.users.destroy')->name('admin.users.destroy');

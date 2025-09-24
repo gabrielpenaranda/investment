@@ -44,7 +44,7 @@
                     {{ __('messages.Date') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
-                    {{ __('messages.Investment') }}
+                    {{ __('messages.Investment Serial') }}
                 </th>
                 <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Name') }}

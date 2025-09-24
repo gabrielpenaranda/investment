@@ -28,7 +28,8 @@ Route::prefix('interests')->group(function() {
 
 Route::prefix('taxes')->group(function() {
     Route::get('index', [TaxController::class, 'index'])->middleware('can:portal.taxes.index')->name('portal.taxes.index');
-    Route::get('print', [TaxController::class, 'print'])->middleware('can:portal.taxes.print')->name('portal.taxes.print');
+    Route::get('show/{tax}', [TaxController::class, 'show'])->middleware('can:portal.taxes.show')->name('portal.taxes.show');
+    Route::get('print/{tax}', [TaxController::class, 'print'])->middleware('can:portal.taxes.print')->name('portal.taxes.print');
 });
 
 Route::prefix('account_statements')->group(function() {

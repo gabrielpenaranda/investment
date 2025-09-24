@@ -17,7 +17,10 @@
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <p class="text-2xl mb-4">{{  __('messages.Account Statement') }}</p>
+    <div class="mb-8 flex justify-between items-center p-6">
+        <p class="text-2xl mb-4">{{  __('messages.Account Statement') }}</p>
+        <a href="{{ route('portal.account-statements.print', $investment) }}" target="_blank" class="btn btn-success">{{ __('messages.Print') }}</a>
+    </div>
 
     @if (auth()->user()->id == $investment->user_id)
 

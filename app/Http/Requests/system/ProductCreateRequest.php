@@ -21,20 +21,21 @@ class ProductCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'name' => 'required|min:3|max:255',
             'description' => 'nullable|max:255',
-            'annual_rate' => 'required|decimal:2|between:0,100',
-            'has_expiration' => 'boolean',
+            'minimum_investment' => 'required|decimal:2|between:1000,1000000000',
+            /* 'annual_rate' => 'required|decimal:2|between:0,100',
+            'has_expiration' => 'boolean', */
         ];
 
         // Si tiene expiración, agregar investment_time como obligatorio
-        if ($this->has_expiration) {
+        /* if ($this->has_expiration) {
             $rules['investment_time'] = 'required|integer|between:12,60';
         }
 
         $this->has_expiration = 0;
 
-        return $rules;
+        return $rules; */
     }
 }

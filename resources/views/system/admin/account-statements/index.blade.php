@@ -21,42 +21,22 @@
     
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <p class="text-2xl mb-4">{{  __('messages.Account Statement') }}</p>
+    
+    <div class="mb-8 flex justify-between items-center p-6">
+        <p class="text-2xl mb-4">{{  __('messages.Account Statement') }}</p>
+        <a href="{{ route('admin.account-statements.print', $investment) }}" target="_blank" class="btn btn-success">{{ __('messages.Print') }}</a>
+    </div>
 
-    <p>{{ $investment->user->name }}</p>
-    <p>{{ $investment->user->address }}, {{ $investment->user->state->code }}</p>
-    <p>{{ $investment->user->zip_code }}</p>
+    <div class="ml-4">
+        <p>{{ $investment->user->name }}</p>
+        <p>{{ $investment->user->address }}, {{ $investment->user->state->code }}</p>
+        <p>{{ $investment->user->zip_code }}</p>
+    </div>
 
 
     @livewire('system.admin.account-statement-index', ['investment' => $investment])
 
 </div>
 
-@push('js')
-    <script>
-        forms = document.querySelectorAll('.delete-form');
-        forms.forEach(form => {
-            form.addEventListener('submit', (e) => {
-
-                e.preventDefault();
-
-                Swal.fire({
-                    title: {{ __('swal.Are you sure') }},
-                    text: {{ _('swal.Cannot revert') }},
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: {{ __('swal.Yes, delete it') }},
-                    cancelButtonText: "{{ __('swal.Cancel') }}",
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
 
 </x-layouts.admin>

@@ -4,6 +4,7 @@ namespace App\Services\system;
 
 use App\Models\system\Investment;
 use App\Models\system\InvestmentChange;
+use App\Models\system\InvestmentBalance;
 use App\Models\system\Product;
 use App\Models\system\Interest;
 use App\Models\system\InterestMonth;
@@ -38,6 +39,11 @@ class InvestmentService
         $investment->capitalize = $request['capitalize'];
 
         $investment->save();
+
+        $investment_balance = new InvestmentBalance();
+        $investment_balance = $investment->investment_amount;
+        $investment_balance->investment_id = $investment->id;
+        $investment_balance->save();
 
         $investment_change = new InvestmentChange();
         $investment_change->amount = $investment->investment_amount;
@@ -77,8 +83,13 @@ class InvestmentService
     {
         $investment->capitalize = $request['capitalize'];
         $investment->update();
-        $subMonth = Carbon::now()->subMonth()->format('m');
-        $interestMonth = InterestMonth::where('year', (int)Carbon::now()->format('Y'))->where('month', (int)$subMonth)->first();
+        $subMonth = (int)Carbon::now()->subMonth()->format('m');
+        if ($subMonth == 12) {
+            $intYear = (int)Carbon::now()->format('Y') - 1;
+        } else {
+            $intYear = (int)Carbon::now()->format('Y');
+        }
+        $interestMonth = InterestMonth::where('year', $intYear)->where('month', $subMonth)->first();
         if (!$interestMonth->approved && $request['investment_amount'] != null) {
             session()->flash('swal', [
                 'icon' => 'error',
@@ -114,8 +125,8 @@ class InvestmentService
             $investment_change->amount = ($investment->investment_amount + $request['investment_amount']);
             $investment_change->activation_date = Carbon::now();
             $investment_change->rate = $product->annual_rate;
-            $investment_change->year = (int)Carbon::parse($investment->activation_date)->format('Y');
-            $investment_change->month = (int)Carbon::parse($investment->activation_date)->format('m');
+            $investment_change->year = (int)Carbon::now()->format('Y');
+            $investment_change->month = (int)Carbon::now()->format('m');
             $investment_change->investment_id = $investment->id;
             $investment_change->save();
 
@@ -140,6 +151,10 @@ class InvestmentService
         $investment->capitalize = $request['capitalize'];
 
         $investment->update();
+
+        $investment_balance = InvestmentBalance::where('investment_id', $investment->id)->first();
+        $investment_balance->balance = $investment->investment_amount;
+        $investment_balance->update();
 
         $log = new Log();
         $log->register($log, 'U', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->serial);

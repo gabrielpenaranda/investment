@@ -38,4 +38,10 @@ return [
     'The state has been created succesfully' => 'El estado ha sido creado satisfactoriamente',
     'The state has been updated succesfully' => 'El estado ha sido actualizado satisfactoriamente',
     'state cannot be deleted' => 'El estado no se puede eliminar',
+    'The user has been created succesfully' => 'El usuario ha sido creado satisfactoriamente',
+    'The user has been updated succesfully' => 'El usuario ha sido actualizado satisfactoriamente',
+    'User cannot be deleted' => 'El usuario no se puede eliminar',
+    'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)' => 'El',
+    'The profile has been updated succesfully' => 'El perfil ha sido actualizado satisfactoriamente',
+    'The password has been updated succesfully' => 'La contraseña ha sido actualizada satisfactoriamente',
 ];

@@ -67,7 +67,7 @@ class StateService
                 Session::flash('swal', [
                     'icon' => 'error',
                     'title' => __('swal.Cannot delete'),
-                    'text' => __('swal.state cannot be deleted'),
+                    'text' => __('swal.State cannot be deleted'),
                 ]);
             } else {
                 // mensaje de error

@@ -38,5 +38,11 @@ return [
     'The product cannot be updated because the interests for the previous month have not been approved' => 'The product cannot be updated because the interests for the previous month have not been approved',
     'The state has been created succesfully' => 'The state has been created succesfully',
     'The state has been updated succesfully' => 'The state has been updated succesfully',
-    'state cannot be deleted' => 'State cannot be deleted',
+    'State cannot be deleted' => 'State cannot be deleted',
+    'The user has been created succesfully' => 'The user has been created succesfully',
+    'The user has been updated succesfully' => 'The user has been updated succesfully',
+    'User cannot be deleted' => 'User cannot be deleted',
+    'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)' => 'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)',
+    'The profile has been updated succesfully' => 'The profile has been updated succesfully',
+    'The password has been updated succesfully' => 'The password has been updated succesfully',
 ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\system\AccountStatement;
 use App\Models\system\Investment;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AccountStatementController extends Controller
 {
@@ -15,6 +16,21 @@ class AccountStatementController extends Controller
     public function index(Investment $investment)
     {
         return view('system.portal.account_statements.index', compact('investment'));
+    }
+
+    public function print(Investment $investment)
+    {
+        $account_statements = AccountStatement::where('investment_id', $investment->id)->get();
+        $data = [
+            'investment' => $investment,
+            'account_statements' => $account_statements,
+        ];
+
+        $pdf = Pdf::loadView('system.portal.account_statements.print2', $data);
+        $pdf->setPaper('a4', 'landscape');
+
+        return $pdf->stream('account-statement.pdf');
+       /*  return view('system.admin.account-statements.print', $data); */
     }
 
     /**

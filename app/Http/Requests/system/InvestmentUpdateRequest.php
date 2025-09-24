@@ -3,6 +3,7 @@
 namespace App\Http\Requests\system;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\system\MinimumAmountRule;
 
 class InvestmentUpdateRequest extends FormRequest
 {
@@ -25,15 +26,21 @@ class InvestmentUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // dd($this->all());
+        /* dd($this->input('product_id')); */
         return [
             /* 'investment_amount' => 'decimal:2|required|between:1000,100000000000', */
             /* $this->filled('amount') && $this->amount != $investment->amount
                     ? 'decimal:2|required|between:1000,100000000000'
                     : 'nullable', */
-            'investment_amount' => 'decimal:2|nullable|between:1000,100000000000',
+            /* 'investment_amount' => 'decimal:2|nullable|between:1000,100000000000', */
             /* 'is_active' => 'boolean', */
             'capitalize' => 'boolean',
+            'investment_amount' => [
+                'decimal:2',
+                'nullable',
+                'max:1000000000',
+                new MinimumAmountRule($this->input('product_id')),
+            ],
         ];
     }
 }

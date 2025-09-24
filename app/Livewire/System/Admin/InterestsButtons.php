@@ -12,16 +12,22 @@ class InterestsButtons extends Component
 
     public function mount()
     {
-        $this->year = now()->year;
-        $this->month = now()->subMonth()->format('m'); // mes anterior
+        $this->month = (int)now()->subMonth()->format('m'); // mes anterior
+
+        if ($this->month == 12) {
+            $this->year = (int)now()->year - 1;
+        } else {
+            $this->year = (int)now()->year;
+        }
+        // dd($this->month, $this->year);
     }
 
     public function render()
     {
-        $interestMonth = InterestMonth::where('year', (string)$this->year)
-            ->where('month', (string)$this->month)
+        $interestMonth = InterestMonth::where('year', $this->year)
+            ->where('month', $this->month)
             ->first();
-        
-            return view('livewire.system.admin.interests-buttons', compact('interestMonth'));
+        //dd($interestMonth);
+        return view('livewire.system.admin.interests-buttons', compact('interestMonth'));
     }
 }

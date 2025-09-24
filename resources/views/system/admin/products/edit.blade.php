@@ -45,6 +45,15 @@
                 <flux:error name="annual_rate" />
             </flux:field>
 
+             <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Minimum Opening Amount') }} USD</flux:label>
+                @if (app()->getLocale() == 'es')
+                    <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
+                @endif
+                <flux:input name='minimum_investment' placeholder="{{ __('messages.Enter the amount') }}" value="{{ old('minimum_investment', $product->minimum_investment) }}"/>
+                <flux:error name="minimum_investment" />
+            </flux:field>
+
 
             {{-- <div x-data="{ customRateEnabled: $el.querySelector('[name=has_expiration]').checked }">
                 <label class="flex items-center space-x-2 mt-2">

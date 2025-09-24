@@ -3,6 +3,7 @@
 namespace App\Http\Requests\system;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\system\MinimumAmountRule;
 use Carbon\Carbon;
 
 class InvestmentCreateRequest extends FormRequest
@@ -32,7 +33,12 @@ class InvestmentCreateRequest extends FormRequest
             'product_id' => 'required|exists:products,id',
             /* 'user_id' => 'required',
             'product_id' => 'required', */
-            'investment_amount' => 'decimal:2|required|between:1000,100000000000',
+            'investment_amount' => [
+                'decimal:2',
+                'required',
+                'max:1000000000',
+                new MinimumAmountRule($this->input('product_id')),
+            ],
             'activation_date' => 'date|required|after_or_equal:today|before_or_equal:'.Carbon::now()->endOfMonth()->format('Y-m-d'),
             /* 'activation_date' => 'required|date', */
             /* 'is_active' => 'boolean', */
