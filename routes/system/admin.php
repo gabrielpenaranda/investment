@@ -9,6 +9,7 @@ use App\Http\Controllers\system\InvestmentArchiveController;
 use App\Http\Controllers\system\InterestController;
 use App\Http\Controllers\system\AccountStatementController;
 use App\Http\Controllers\system\TaxController;
+use App\Http\Controllers\system\ReportController;
 use App\Http\Controllers\system\PaymentController;
 use App\Http\Controllers\system\UserController;
 
@@ -81,6 +82,17 @@ Route::prefix('taxes')->group(function() {
     Route::put('update/{tax}', [TaxController::class, 'update'])->middleware('can:admin.taxes.edit')->name('admin.taxes.update');
     Route::delete('destroy/{tax}', [TaxController::class, 'destroy'])->middleware('can:admin.taxes.destroy')->name('admin.taxes.destroy');
     Route::get('print/{tax}', [TaxController::class, 'print'])->middleware('can:admin.taxes.print')->name('admin.taxes.print');
+});
+
+Route::prefix('reports')->group(function() {
+    Route::get('index', [ReportController::class, 'index'])->middleware('can:admin.reports.index')->name('admin.reports.index');
+    Route::get('create', [ReportController::class, 'create'])->middleware('can:admin.reports.create')->name('admin.reports.create');
+    Route::post('store', [ReportController::class, 'store'])->middleware('can:admin.reports.create')->name('admin.reports.store');
+    Route::get('show/{report}', [ReportController::class, 'show'])->middleware('can:admin.reports.show')->name('admin.reports.show');
+    Route::get('edit/{report}', [ReportController::class, 'edit'])->middleware('can:admin.reports.edit')->name('admin.reports.edit');
+    Route::put('update/{report}', [ReportController::class, 'update'])->middleware('can:admin.reports.edit')->name('admin.reports.update');
+    Route::delete('destroy/{report}', [ReportController::class, 'destroy'])->middleware('can:admin.reports.destroy')->name('admin.reports.destroy');
+    Route::get('print/{report}', [ReportController::class, 'print'])->middleware('can:admin.reports.print')->name('admin.reports.print');
 });
 
 

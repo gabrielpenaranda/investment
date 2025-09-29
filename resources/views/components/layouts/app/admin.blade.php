@@ -43,6 +43,13 @@
                 'current' => request()->routeIs('admin/taxes'),
                 'can' => 'admin.taxes.index',
             ],
+            [
+                'name' => 'Reports',
+                'icon' => '',
+                'url' => route('admin.reports.index'),
+                'current' => request()->routeIs('admin/reports'),
+                'can' => 'admin.reports.index',
+            ],
         ],
         'Configuration' => [
             [

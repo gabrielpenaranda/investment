@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\system\portal\InvestmentController;
 use App\Http\Controllers\system\portal\AccountStatementController;
 use App\Http\Controllers\system\portal\TaxController;
+use App\Http\Controllers\system\portal\ReportController;
+use App\Http\Controllers\system\portal\ProductController;
 /* use App\Http\Controllers\system\portal\InterestController;
 use App\Http\Controllers\system\portal\PaymentController; */
 
@@ -38,6 +40,13 @@ Route::prefix('account_statements')->group(function() {
     Route::get('view/{investment}', [AccountStatementController::class, 'view'])->middleware('can:portal.account-statements.view')->name('portal.account-statements.view');
 });
 
-Route::prefix('payments')->group(function() {
-    Route::get('index', [PaymentController::class, 'index'])->middleware('can:portal.payments.index')->name('portal.payments.index');
+
+Route::prefix('reports')->group(function() {
+    Route::get('index', [ReportController::class, 'index'])->middleware('can:portal.reports.index')->name('portal.reports.index');
+    Route::get('show/{report}', [ReportController::class, 'show'])->middleware('can:portal.reports.show')->name('portal.reports.show');
+});
+
+
+Route::prefix('products')->group(function() {
+    Route::get('index', [ProductController::class, 'index'])->middleware('can:portal.products.index')->name('portal.products.index');
 });

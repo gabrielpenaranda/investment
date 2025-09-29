@@ -58,6 +58,13 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.taxes.destroy', 'description' => 'Delete Tax'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.taxes.print', 'description' => 'Print Tax'])->syncRoles([$role1]);
 
+        Permission::create(['name' => 'admin.reports.index', 'description' => 'List of Reports'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.reports.create', 'description' => 'Create Report'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.reports.edit', 'description' => 'Edit Report'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.reports.show', 'description' => 'Show Report'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.reports.destroy', 'description' => 'Delete Report'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.reports.print', 'description' => 'Print Report'])->syncRoles([$role1]);
+
         Permission::create(['name' => 'admin.account-statements.index', 'description' => 'State Accountment'])->syncRoles([$role1]);
         Permission::create(['name' => 'admin.account-statements.print', 'description' => 'Print State Accountment'])->syncRoles([$role1]);
 
@@ -86,7 +93,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'portal.account-statements.index', 'description' => 'Account Statement'])->syncRoles([$role2]);
         Permission::create(['name' => 'portal.account-statements.print', 'description' => 'Print Account Statement'])->syncRoles([$role2]);
 
-        Permission::create(['name' => 'portal.payments.index', 'description' => 'List of Payments'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.reports.index', 'description' => 'List of Reports'])->syncRoles([$role2]);
+        Permission::create(['name' => 'portal.reports.show', 'description' => 'Show Reports'])->syncRoles([$role2]);
+        
+        Permission::create(['name' => 'portal.products.index', 'description' => 'List of Products'])->syncRoles([$role2]);
         
     }
 }

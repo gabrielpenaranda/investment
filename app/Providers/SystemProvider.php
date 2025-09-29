@@ -7,6 +7,7 @@ use App\Services\system\ProductService;
 use App\Services\system\InterestService;
 use App\Services\system\CountryService;
 use App\Services\system\StateService;
+use App\Services\system\ReportService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\system\UserService;
 use Illuminate\Support\ProductProvider;
@@ -35,6 +36,9 @@ class SystemProvider extends ServiceProvider
         });
         $this->app->singleton(UserService::class, function ($app) {
             return new UserService();
+        });
+        $this->app->singleton(ReportService::class, function ($app) {
+            return new ReportService();
         });
     }
 
