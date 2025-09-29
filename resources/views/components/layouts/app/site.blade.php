@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="font-sans antialiased text-gray-800 bg-white">
+    <body class="font-figtree antialiased text-gray-800 bg-black">
 
         {{ $slot }}
 

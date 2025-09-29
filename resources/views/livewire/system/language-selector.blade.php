@@ -2,7 +2,8 @@
     <div class="w-full flex">
         <select wire:model.live="language" class="form-select">
             <option value="en">🇺🇸 {{ __('language.english') }}</option>
-            <option value="es">🇪🇸 {{ __('language.spanish') }}</option>
+            {{-- <option value="es">🇪🇸 {{ __('language.spanish') }}</option> --}}
+            <option value="es">🇲🇽 {{ __('language.spanish') }}</option>
         </select>
     </div>
     {{-- <div class="flex space-x-2">
