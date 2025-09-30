@@ -30,6 +30,7 @@ class ReportCreateRequest extends FormRequest
             'year' => 'required|integer|between:1990,2099',
             'month' => 'required|integer|between:1,12',
             'file' => 'required|file|mimetypes:application/pdf, application/x-pdf',
+            'published' => 'boolean',
         ];
     }
 }

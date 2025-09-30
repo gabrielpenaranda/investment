@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('month');
             $table->integer('year');
             $table->string('route');
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }

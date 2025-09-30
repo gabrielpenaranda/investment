@@ -15,6 +15,7 @@ class ReportService
         $report->name = $request['name'];
         $report->month = $request['month'];
         $report->year = $request['year'];
+        $report->published = $request['published'];
         
         if ($request->hasFile('file')) {
             $route = Storage::put('reports', $request->file);
@@ -38,6 +39,7 @@ class ReportService
         $report->name = $request['name'];
         $report->month = $request['month'];
         $report->year = $request['year'];
+        $report->published = $request['published'];
         
         $report->update();
 

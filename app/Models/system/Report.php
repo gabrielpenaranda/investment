@@ -11,5 +11,6 @@ class Report extends Model
         'year',
         'month',
         'route',
+        'published',
     ];
 }

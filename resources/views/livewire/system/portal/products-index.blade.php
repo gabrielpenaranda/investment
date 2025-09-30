@@ -64,9 +64,9 @@
                         <i class="fa-solid fa-sort float-right mt-1"></i>
                     @endif
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+               {{--  <th scope="col" class="px-6 py-3 text-center">
                     {{ __('messages.Action') }} 
-                </th>
+                </th> --}}
             </tr>
         </thead>
         <tbody>
@@ -84,7 +84,7 @@
                      <td class="px-6 py-4 text-center">
                         {{ $formatter->format($product->minimum_investment) }}
                     </td>
-                    <td class="px-6 py-4">
+                    {{-- <td class="px-6 py-4">
                         <div class="flex space-x-2 justify-center">
                             @can('admin.products.edit')
                                 <a href="{{ route('admin.products.edit', $product) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>
@@ -97,7 +97,7 @@
                                 </form>
                             @endcan
                         </div>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>

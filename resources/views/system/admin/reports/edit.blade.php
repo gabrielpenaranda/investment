@@ -42,6 +42,19 @@
                 <flux:error name="month" />
             </flux:field>
 
+            <!-- Input oculto: valor por defecto cuando NO está marcado -->
+            <input type="hidden" name="published" value="0">
+            
+            <input 
+                type="checkbox" 
+                name="published"
+                value="1"
+                {{ old('published', $report->published) ? 'checked' : '' }}
+                class="rounded border-gray-300 text-zinc-600 shadow-sm mt-4"
+            >
+            <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Published') }}?</span>
+            </label>
+
             {{-- <flux:field>
                 <label for="file" class="mt-2!">{{ __('messages.File') }}</label>
                 <input type="file" style="display:none;" name='file' accept="application/pdf, application/x-pdf" value="{{ old('file') }}"/>

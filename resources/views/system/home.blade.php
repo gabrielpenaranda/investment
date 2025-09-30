@@ -1,128 +1,6 @@
 <x-layouts.site :title="__('Welcome')">
 
 
-    {{-- <nav x-data="{ scrolled: false }" 
-        @scroll.window="scrolled = window.scrollY > 0"
-        :class="scrolled ? 'bg-white text-[#162C48]' : 'bg-black text-white'" 
-        class="sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center space-x-6">
-                <img 
-                    :src="scrolled ? '{{ asset('images/LOGO APF.svg') }}' : '{{ asset('images/LOGO APF blanco.svg') }}'" 
-                    alt="Asset Performance Fund" 
-                    class="h-10"
-                >
-                <nav class="hidden md:flex space-x-6">
-                    <a href="#" class="hover:text-blue-400">Inicio</a>
-                    <a href="#" class="hover:text-blue-400">Servicios</a>
-                    <a href="#" class="hover:text-blue-400">Asset Found</a>
-                    <a href="#" class="hover:text-blue-400">Quienes somos</a>
-                    <a href="#" class="hover:text-blue-400">FAQ</a>
-                    <a href="#" class="hover:text-blue-400">Documentación</a>
-                    <a href="#" class="hover:text-blue-400">Contacto</a>
-                </nav>
-            </div>
-
-            <!-- Botones y opciones -->
-            <div class="flex items-center space-x-6">
-                <div class="flex items-center space-x-2">
-                    <img src="https://via.placeholder.com/20x15?text=MX" alt="México" class="w-5 h-3">
-                    <i class="fas fa-chevron-down text-xs"></i>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-lock text-sm"></i>
-                    <span>Log In Inversionistas</span>
-                </div>
-                <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 rounded-lg font-medium">
-                    Invierte ahora
-                </button>
-            </div>
-        </div>
-    </nav> --}}
-
-    
-    {{-- <nav x-data="{ scrolled: false, isOpen: false }" 
-     @scroll.window="scrolled = window.scrollY > 0"
-     :class="scrolled ? 'bg-white text-[#162C48]' : 'bg-black text-white'" 
-     class="sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <!-- Hamburguesa (visible en móviles) -->
-            <div class="md:hidden">
-                <button @click="isOpen = !isOpen" class="text-2xl focus:outline-none">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-
-            <!-- Logo -->
-            <div class="flex justify-center md:justify-start w-full md:w-auto">
-                <img 
-                    :src="scrolled ? '{{ asset('images/LOGO APF.svg') }}' : '{{ asset('images/LOGO APF blanco.svg') }}'" 
-                    alt="Asset Performance Fund" 
-                    class="h-10 mx-auto md:mx-0"
-                >
-            </div>
-
-            <!-- Menú de navegación (oculto en móviles) -->
-            <nav class="hidden md:flex space-x-6">
-                <a href="#home" class="hover:text-blue-400">Inicio</a>
-                <a href="#services" class="hover:text-blue-400">Servicios</a>
-                <a href="#information" class="hover:text-blue-400">Asset Found</a>
-                <a href="#team" class="hover:text-blue-400">Quienes somos</a>
-                <a href="#faq" class="hover:text-blue-400">FAQ</a>
-                <a href="#docs" class="hover:text-blue-400">Documentación</a>
-                <a href="#contact" class="hover:text-blue-400">Contacto</a>
-            </nav>
-
-            <!-- Botones y opciones -->
-            <div class="hidden md:flex items-center space-x-6">
-                <div class="flex items-center space-x-2">
-                    @livewire('system.language-selector')
-                </div>
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-lock text-sm"></i>
-                    
-                    <a href="{{ route('login') }}"><span>Log In Inversionistas</span></a>
-                </div>
-                <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 rounded-lg font-medium">
-                    Invierte ahora
-                </button>
-            </div>
-        </div>
-
-        <!-- Menú desplegable (visible en móviles) -->
-        <div x-show="isOpen" @click.away="isOpen = false" class="md:hidden bg-white text-[#162C48] mt-2"
-            x-transition:enter="transition ease-out duration-300" 
-            x-transition:enter-start="opacity-0 transform scale-95" 
-            x-transition:enter-end="opacity-100 transform scale-100" 
-            x-transition:leave="transition ease-in duration-200" 
-            x-transition:leave-start="opacity-100 transform scale-100" 
-            x-transition:leave-end="opacity-0 transform scale-95">
-            <div class="px-4 py-6 space-y-4">
-                <a href="#home" class="block hover:text-azul-secondary">Inicio</a>
-                <a href="#services" class="block hover:text-azul-secondary">Servicios</a>
-                <a href="#information" class="block hover:text-azul-secondary">Asset Found</a>
-                <a href="#team" class="block hover:text-azul-secondary">Quienes somos</a>
-                <a href="#faq" class="block hover:text-azul-secondary">FAQ</a>
-                <a href="#docs" class="block hover:text-azul-secondary">Documentación</a>
-                <a href="#contact" class="block hover:text-azul-secondary">Contacto</a>
-            </div>
-            <div class="items-center space-x-6">
-                <div class="flex items-center space-x-2 m-2">
-                    @livewire('system.language-selector')
-                </div>
-                <div class="flex items-center space-x-2 m-1">
-                    <i class="fas fa-lock text-sm"></i>
-                    <span>Log In Inversionistas</span>
-                </div>
-                <div class="flex justify-end">
-                    <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 m-2 rounded-lg font-medium">
-                        Invierte ahora
-                    </button>
-                </div>
-        </div>
-    </nav> --}}
-
     <nav x-data="{ scrolled: false, isOpen: false }" 
      @scroll.window="scrolled = window.scrollY > 0"
      :class="scrolled ? 'bg-white text-[#162C48]' : 'bg-black text-white'" 
@@ -221,9 +99,11 @@
                         {{ __('site.hero_text_1') }}
                     </h1>
                     <p class="text-xl mb-8">{{ __('site.hero_text_2') }}</p>
-                    <button class="bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition">
-                        {{ __('site.hero_text_3') }}
-                    </button>
+                    <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank">
+                        <button class="bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition">
+                            {{ __('site.hero_text_3') }}
+                        </button>
+                    </a>
                 </div>
                 <div class="relative">
                     <img src="{{ asset('images/GRAFICO HERO.webp') }}" alt="Gráfico de crecimiento" class="w-full rounded-lg">
@@ -264,7 +144,7 @@
                     <div class="absolute inset-0 bg-azul-primary opacity-50 rounded-2xl"></div>
                 </div>
                 <div>
-                    <h2 class="text-5xl lg:text-6xl text-azul-primary mb-6 font-figtree font-bold">{{ __('site.services_title') }}</h2>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl text-azul-primary mb-6 font-figtree font-bold">{{ __('site.services_title') }}</h2>
                     <ul class="space-y-4">
                         <li class="flex items-center">
                             <i class="fa-solid fa-check text-xl lg:text-2xl text-azul-secondary mr-3"></i>
@@ -303,7 +183,7 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-5xl lg:text-6xl font-figtree font-bold text-azul-primary mb-4">{{ __('site.fund_title') }}</h2>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-figtree font-bold text-azul-primary mb-4">{{ __('site.fund_title') }}</h2>
                     <h3 class="text-2xl font-figtree font-semibold text-azul-primary mb-6">{{ __('site.fund_subtitle') }}</h3>
                     <ul class="space-y-4">
                         <li class="flex items-center">
@@ -345,12 +225,13 @@
 
     <!-- Nuestros Proyectos -->
     <section id="projects" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto">
             <h2 class="text-5xl lg:text-6xl font-figtree font-bold text-azul-primary text-center mb-4">{{ __('site.projects_title') }}</h2>
-            <p class="text-center text-2xl lg:text-3xl text-azul-primary font-figtree">{{ __('site.projects_subtitle') }}</p>
+            <p class="text-center text-2xl lg:text-3xl text-azul-primary font-figtree mb-2">{{ __('site.projects_subtitle') }}</p>
             <div class="relative w-full">
-                <img src="{{ asset('images/Construccion.webp') }}" alt="Sitio de construcción con grúas" class="w-full rounded-2xl shadow-lg">
-                <div class="absolute inset-0 bg-azul-primary opacity-20 rounded-2xl"></div>
+                <img src="{{ asset('images/Construccion.webp') }}" alt="Sitio de construcción con grúas" class="w-full shadow-sm">
+                <div class="absolute inset-0 bg-white opacity-20 rounded-2xl"></div>
+
             </div>
         </div>
     </section>
@@ -369,7 +250,7 @@
                     </div> --}}
                 </div>
                 <div>
-                    <h2 class="text-5xl lg:text-6xl font-figtree font-bold text-azul-primary mb-2">{{ __('site.team_title') }}</h2>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-figtree font-bold text-azul-primary mb-2">{{ __('site.team_title') }}</h2>
                     <p class="text-xl lg:text-2xl text-azul-primary mb-8">{{ __('site.team_subtitle') }}</p>
                     
                     <div class="bg-white p-6 rounded-xl shadow-lg">
@@ -392,7 +273,7 @@
             <h2 class="text-4xl font-bold text-blue-900 text-center mb-12">{{ __('site.where_title') }}</h2>
             
             <div class="grid md:grid-cols-4 gap-8 items-center">
-                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[500px] lg:h-[300px]">
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[600px] lg:h-[300px]">
                     <div class="flex justify-center mb-4">
                         <img src="{{ asset('images/Donde operamos icon-01.svg') }}"  class="text-azul-secondary h-[128px]"></img>
                     </div>
@@ -401,7 +282,7 @@
                     </p>
                 </div>
                 
-                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[500px] lg:h-[300px]">
+                <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[600px] lg:h-[300px]">
                     <div class="flex justify-center mb-4">
                         <img src="{{ asset('images/Donde operamos icon-02.svg') }}"  class="text-azul-secondary h-[128px]"></img>
                     </div>
@@ -424,41 +305,6 @@
         <div class="absolute inset-0 bg-gradient-to-b from-white to-transparent"></div>
     </div>
 
-    <!-- Historical y rendimiento -->
-   {{--  <section class="py-16 bg-azul-primary text-white">
-        <div class="mx-auto px-4">
-            <h2 class="text-4xl font-figtree font-bold text-center mb-12">Historial y rendimiento</h2>
-            
-            <div class="grid md:grid-cols-4 gap-8 mb-12">
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-300">+10</div>
-                    <div class="text-sm">Años operando</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-300">$3,894,567</div>
-                    <div class="text-sm">AUM</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-300">145</div>
-                    <div class="text-sm">Proyectos finales</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-blue-300">7% -10%</div>
-                    <div class="text-sm">Rendimiento promedio anual</div>
-                </div>
-            </div>
-            
-            <div class="text-center">
-                <button class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-medium transition">
-                    Solicitar Reporte de Rendimiento
-                </button>
-            </div>
-            
-            <div class="mt-12 flex justify-center">
-                <img src="https://via.placeholder.com/400x400?text=Analytics+Chart+in+Circle" alt="Gráfico analítico en círculo" class="w-64 h-64">
-            </div>
-        </div>
-    </section> --}}
 
     <!-- Historical y rendimiento -->
     <section id="performance" class="relative w-full h-50vh bg-black text-white overflow-hidden">
@@ -646,30 +492,6 @@
         </div>
     </section>
 
-    <!-- Documentación & Cumplimiento -->
-    {{-- <section class="h-50vh bg-white text-white">
-        <div class="container bg-gray-900 mx-auto px-4 py-16 mb-8">
-            <img 
-                src="{{ asset('images/Documentacion y Cumplimiento.webp') }}" 
-                alt="Imagen transparente" 
-                class="absolute inset-0 w-full object-cover opacity-10"
-            />
-            <h2 class="text-4xl font-bold text-center mb-8">Documentación & Cumplimiento</h2>
-            <p class="text-center mb-8">archivos descargables:</p>
-            
-            <div class="flex flex-wrap justify-center gap-4">
-                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition">
-                    Folleto
-                </button>
-                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition">
-                    Acuerdo de Suscripción para inversores existentes
-                </button>
-                <button class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium transition">
-                    Acuerdo de Suscripción para nuevos inversores
-                </button>
-            </div>
-        </div>
-    </section> --}}
     <section id="docs" class="relative w-full bg-white py-16">
         <!-- Contenedor principal -->
         <div class="container mx-auto px-4">
@@ -692,15 +514,21 @@
 
                     <!-- Botones -->
                     <div class="flex flex-wrap justify-center gap-4">
-                        <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
-                            {{ __('site.docs_button_1') }}
-                        </button>
-                        <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
-                            {{ __('site.docs_button_2') }}
-                        </button>
-                        <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
-                            {{ __('site.docs_button_3') }}
-                        </button>
+                        <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                                {{ __('site.docs_button_1') }}
+                            </button>
+                        </a>
+                        <a href="{{ asset('documents/APF Existing Investor Subscription Agreement.pdf') }}" target="_blank">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                                {{ __('site.docs_button_2') }}
+                            </button>
+                        </a>
+                        <a href="{{ asset('documents/APF New Investor Subscription Agreement.pdf') }}" target="_blank">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                                {{ __('site.docs_button_3') }}
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -713,7 +541,7 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-8">
                 <div>
-                    <img src="{{ asset('images/Logo APF blanco.png') }}" alt="Asset Performance Fund" class="h-24 mb-12">
+                    <img src="{{ asset('images/Logo APF blanco.png') }}" alt="Asset Performance Fund" class="h-16 md:h-20 xl:h-24 mb-12">
                     <div class="space-y-3 mb-12">
                         <div class="flex items-center space-x-3">
                             <i class="fa-solid fa-location-dot text-lg md:text-xl"></i>
@@ -746,9 +574,9 @@
             
             <div class="border-t border-blue-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <div class="flex space-x-6 text-sm text-gray-400 mb-4 md:mb-0">
-                    <a href="#" class="hover:text-white">{{ __('site.footer_text_1') }}</a>
-                    <a href="#" class="hover:text-white">{{ __('site.footer_text_2') }}</a>
-                    <a href="#" class="hover:text-white">{{ __('site.footer_text_3') }}</a>
+                    <a href="{{ route('privacy') }}" class="hover:text-white">{{ __('site.footer_text_1') }}</a>
+                    <a href="{{ route('terms') }}" class="hover:text-white">{{ __('site.footer_text_2') }}</a>
+                    <a href="{{ route('legal') }}" class="hover:text-white">{{ __('site.footer_text_3') }}</a>
                 </div>
                 <div class="text-sm text-gray-400">
                     © 2025 {{ __('site.footer_text_4') }}
@@ -756,8 +584,5 @@
             </div>
         </div>
     </footer>
-
-
-
 
 </x-layouts.site>

@@ -41,6 +41,19 @@
                 <flux:error name="month" />
             </flux:field>
 
+             <!-- Input oculto: valor por defecto cuando NO está marcado -->
+            <input type="hidden" name="published" value="0">
+                
+                <input 
+                    type="checkbox" 
+                    name="published"
+                    value="1"
+                    {{ old('published') ? 'checked' : '' }}
+                    class="rounded border-gray-300 text-zinc-600 shadow-sm mt-4"
+                >
+                <flux:error name="published" />
+                <span class="text-sm text-zinc-700 mt-4">{{ __('messages.Publish') }}?</span>
+
             {{-- <flux:field>
                 <label for="file" class="mt-2!">{{ __('messages.File') }}</label>
                 <input type="file" style="display:none;" name='file' accept="application/pdf, application/x-pdf" value="{{ old('file') }}"/>
@@ -64,7 +77,7 @@
                     </button>
 
                     <!-- Texto que muestra el nombre del archivo seleccionado -->
-                    {{-- <span id="file-name" class="text-gray-600">{{ __('messages.No file selected') }}</span> --}}
+                    <span id="file-name" class="text-gray-600">{{ __('messages.No file selected') }}</span>
                 </div>
                 <flux:error name="file" />
             </flux:field>
@@ -76,5 +89,12 @@
 
         </form>
     </div>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function () {
+            const fileName = this.files[0] ? this.files[0].name : '{{ __('messages.No file selected') }}';
+            document.getElementById('file-name').textContent = fileName;
+        });
+    </script>
 
 </x-layouts.admin>

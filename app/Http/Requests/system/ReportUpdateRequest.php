@@ -27,9 +27,10 @@ class ReportUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:reports', Rule::unique('reports', 'name')->ignore($this->report->id),
+            'name' => 'required', Rule::unique('reports', 'name')->ignore($this->report->id),
             'year' => 'required|integer|between:1990,2099',
             'month' => 'required|integer|between:1,12',
+            'published' => 'boolean',
         ];
     }
 }

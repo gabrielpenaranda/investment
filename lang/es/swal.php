@@ -41,7 +41,10 @@ return [
     'The user has been created succesfully' => 'El usuario ha sido creado satisfactoriamente',
     'The user has been updated succesfully' => 'El usuario ha sido actualizado satisfactoriamente',
     'User cannot be deleted' => 'El usuario no se puede eliminar',
-    'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)' => 'El',
+    'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)' => 'El usuario no puede ser eliminado porque mantiene información en otras áreas del sistema (Ej. inversiones)',
     'The profile has been updated succesfully' => 'El perfil ha sido actualizado satisfactoriamente',
     'The password has been updated succesfully' => 'La contraseña ha sido actualizada satisfactoriamente',
+    'The report has been uploaded' => 'El reporte ha sido subido al sistema',
+    'The report data has been updated' => 'Los datos del reporte han sido actualizados',
+    'Report cannot be deleted' => 'El reporte no puede ser eliminado',
 ];

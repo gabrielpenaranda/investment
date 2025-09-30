@@ -17,7 +17,7 @@
         @if ($reports->count())
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="px-6 py-3  text-left" wire:click="order('name')">
+                    <th scope="col" class="px-6 py-3 text-left" wire:click="order('name')">
                         {{ __('messages.Name') }} <i class="fa-solid fa-magnifying-glass"></i>
 
                         @if ($sort == 'name')
@@ -57,10 +57,6 @@
                         @endif
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
-                        {{ __('messages.Published') }}
-
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
                         {{ __('messages.Action') }} 
                     </th>
                 </tr>
@@ -68,36 +64,19 @@
             <tbody>
                 @foreach ($reports as $report)
                     <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4  text-left">
+                        <td class="px-6 py-4 text-left">
                             {{ $report->name }}
                         </td>
-                        <td class="px-6 py-4  text-center">
+                        <td class="px-6 py-4 text-center">
                             {{ $report->year }}
                         </td>
-                        <td class="px-6 py-4  text-center">
+                        <td class="px-6 py-4 text-center">
                             {{ $report->month }}
-                        </td>
-                        <td class="px-6 py-4  text-center">
-                            @if ($report->published)
-                                <i class="fa-solid fa-check font-bold text-green-500"></i>
-                            @else
-                                <i class="fa-solid fa-xmark  font-bold text-red-500"></i>
-                            @endif
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex space-x-2 justify-center">
-                                @can('admin.reports.show')
+                                @can('portal.reports.show')
                                     <a href="{{ asset('storage/'.$report->route) }}" target="_blank" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
-                                @endcan
-                                @can('admin.reports.edit')
-                                    <a href="{{ route('admin.reports.edit', $report) }}" class="btn btn-secondary text-xs">{{ __('messages.Edit') }}</a>
-                                @endcan
-                                @can('admin.reports.destroy')
-                                    <form action="{{ route('admin.reports.destroy', $report) }}" method="POST" class="delete-form">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-danger text-xs">{{ __('messages.Delete') }}</button>
-                                    </form>
                                 @endcan
                             </div>
                         </td>

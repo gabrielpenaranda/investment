@@ -45,4 +45,7 @@ return [
     'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)' => 'The user cannot be deleted because it is being used in other parts of the system (e.g. investments)',
     'The profile has been updated succesfully' => 'The profile has been updated succesfully',
     'The password has been updated succesfully' => 'The password has been updated succesfully',
+    'The report has been uploaded' => 'The report has been uploaded',
+    'The report data has been updated' => 'The report data has been updated',
+    'Report cannot be deleted' => 'Report cannot be deleted',
 ];

@@ -8,26 +8,26 @@
                 'current' => request()->routeIs('portal/investments'),
                 'can' => 'portal.investments.index',
             ],
-            /* [
-                'name' => 'Interests',
-                'icon' => '',
-                'url' => route('portal.interests.index'),
-                'current' => request()->routeIs('portal/interests'),
-                'can' => 'portal.interests.index',
-            ],
-            [
-                'name' => 'Payments',
-                'icon' => '',
-                'url' => route('portal.payments.index'),
-                'current' => request()->routeIs('portal/payments'),
-                'can' => 'portal.payments.index',
-            ], */
             [
                 'name' => 'Taxes',
                 'icon' => '',
                 'url' => route('portal.taxes.index'),
                 'current' => request()->routeIs('portal/taxes'),
                 'can' => 'portal.taxes.index',
+            ],
+            [
+                'name' => 'Products',
+                'icon' => '',
+                'url' => route('portal.products.index'),
+                'current' => request()->routeIs('portal/products'),
+                'can' => 'portal.products.index',
+            ],
+            [
+                'name' => 'Reports',
+                'icon' => '',
+                'url' => route('portal.reports.index'),
+                'current' => request()->routeIs('portal/reports'),
+                'can' => 'portal.reports.index',
             ],
         ],
     ];

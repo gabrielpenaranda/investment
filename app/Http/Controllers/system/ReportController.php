@@ -65,7 +65,7 @@ class ReportController extends Controller
      */
     public function update(ReportUpdateRequest $request, Report $report)
     {
-        $this->reportService->updateReport($report);
+        $this->reportService->updateReport($request, $report);
         return redirect()->route('admin.reports.index');
     }
 
