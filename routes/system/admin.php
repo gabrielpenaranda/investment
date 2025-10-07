@@ -12,10 +12,13 @@ use App\Http\Controllers\system\TaxController;
 use App\Http\Controllers\system\ReportController;
 use App\Http\Controllers\system\PaymentController;
 use App\Http\Controllers\system\UserController;
+use App\Http\Controllers\system\MailController;
 
 /* Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->middleware('can:admin.dashboard')->name('admin.dashboard'); */
+
+Route::get('/enviar-correo-prueba', [MailController::class, 'sendTestEmail']);
 
 Route::get('dashboard', function(){
         return view('system.admin.dashboard');

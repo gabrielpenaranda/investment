@@ -39,9 +39,10 @@ class InvestmentService
         $investment->capitalize = $request['capitalize'];
 
         $investment->save();
+        //dd($investment->id);
 
         $investment_balance = new InvestmentBalance();
-        $investment_balance = $investment->investment_amount;
+        $investment_balance->balance = $investment->investment_amount;
         $investment_balance->investment_id = $investment->id;
         $investment_balance->save();
 
@@ -81,8 +82,8 @@ class InvestmentService
 
     public function updateInvestment($request, Investment $investment)
     {
-        $investment->capitalize = $request['capitalize'];
-        $investment->update();
+        /* $investment->capitalize = $request['capitalize'];
+        $investment->update(); */
         $subMonth = (int)Carbon::now()->subMonth()->format('m');
         if ($subMonth == 12) {
             $intYear = (int)Carbon::now()->format('Y') - 1;
@@ -120,9 +121,15 @@ class InvestmentService
 
             /* $old_investment_change->deactivation_date = Carbon::now();
             $old_investment_change->update(); */
-
+            // dd($request['amount_change']);
             $investment_change = new InvestmentChange();
-            $investment_change->amount = ($investment->investment_amount + $request['investment_amount']);
+            if ($request['amount_change'] === "1") {
+                $investment_change->amount = ($investment->investment_amount + $request['investment_amount']);
+                $investment->investment_amount += $request['investment_amount'];
+            } else if ($request['amount_change'] === "0") {
+                $investment_change->amount = ($investment->investment_amount - $request['investment_amount']);
+                $investment->investment_amount -= $request['investment_amount'];
+            }
             $investment_change->activation_date = Carbon::now();
             $investment_change->rate = $product->annual_rate;
             $investment_change->year = (int)Carbon::now()->format('Y');
@@ -132,16 +139,21 @@ class InvestmentService
 
             $investment->is_active = true;
 
-            $investment->investment_amount += $request['investment_amount'];
+            // $investment->investment_amount += $request['investment_amount'];
 
             $account_statement = new AccountStatement();
             $account_statement->date = Carbon::now();
             $account_statement->month = (int)Carbon::now()->format('m');
             $account_statement->year = (int)Carbon::now()->format('Y');
-            $account_statement->description = 'Additional Contribution';
+            if ($request['amount_change'] === "1") {
+                $account_statement->description = 'Additional Contribution';
+                $account_statement->type = 'contribution';
+            } else if ($request['amount_change'] === "0") {
+                $account_statement->description = 'Withdrawal';
+                $account_statement->type = 'distribution';
+            }
             $account_statement->amount = $request['investment_amount'];
             $account_statement->balance = $investment->investment_amount;
-            $account_statement->type = 'contribution';
             $account_statement->approved = true;
             $account_statement->investment_id = $investment->id;
             $account_statement->save();

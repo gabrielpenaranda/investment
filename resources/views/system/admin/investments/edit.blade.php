@@ -40,6 +40,8 @@
             <p class="w-full border border-zinc-200 rounded-md p-2 focus:ring-2 focus:ring-zinc-500 focus:border-ring-500 text-red-500">
                 {{ $investment->product->name }}
             </p>
+
+            <input type="hidden" name="investment_id" value="{{ $investment->id }}">
             
             <input type="hidden" name="product_id" value="{{ $investment->product_id }}">
 
@@ -55,14 +57,78 @@
                 {{ $formatter->format($investment->investment_amount) }}
             </p>
 
-             <flux:field>
-                <flux:label class="mt-2!">{{ __('messages.Investment Amount Increment') }}</flux:label>
+            <flux:label class="mt-2!">{{ __('messages.Investment Amount Change') }}</flux:label>
+
+
+            <div x-data="{ amountChange: '{{ old('amount_change', 2) }}' }">
+                <!-- Grupo de botones de radio para seleccionar Incremento, Retiro o No Modify -->
+                <div class="mt-0">
+                    <!-- Input oculto: valor por defecto cuando no se selecciona ninguna opción -->
+                    <input type="hidden" name="amount_change" x-model="amountChange">
+
+                    <!-- Botón de radio para Incremento -->
+                    <label class="inline-flex items-center mr-6">
+                        <input 
+                            type="radio" 
+                            name="amount_change" 
+                            value="1" 
+                            x-model="amountChange"
+                            class="rounded border-gray-300 text-zinc-600 shadow-sm"
+                        >
+                        <span class="ml-2 text-sm text-zinc-700">{{ __('messages.Increment') }}</span>
+                    </label>
+
+                    <!-- Botón de radio para Retiro -->
+                    <label class="inline-flex items-center mr-6">
+                        <input 
+                            type="radio" 
+                            name="amount_change" 
+                            value="0" 
+                            x-model="amountChange"
+                            class="rounded border-gray-300 text-zinc-600 shadow-sm"
+                        >
+                        <span class="ml-2 text-sm text-zinc-700">{{ __('messages.Withdrawal') }}</span>
+                    </label>
+
+                    <!-- Botón de radio para No Modify -->
+                    <label class="inline-flex items-center">
+                        <input 
+                            type="radio" 
+                            name="amount_change" 
+                            value="2" 
+                            x-model="amountChange"
+                            class="rounded border-gray-300 text-zinc-600 shadow-sm"
+                        >
+                        <span class="ml-2 text-sm text-zinc-700">{{ __('messages.No Modify') }}</span>
+                    </label>
+                </div>
+
+                <!-- Mensajes de error -->
+                <flux:error name="amount_change" />
+
+                <!-- Campo investment_amount -->
+                <flux:field>
+                    @if (app()->getLocale() == 'es')
+                        <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
+                    @endif
+                    <flux:input 
+                        name="investment_amount"  
+                        placeholder="{{ __('messages.Enter the increment') }}" 
+                        value="{{ old('investment_amount') }}"
+                        x-bind:disabled="amountChange === '2'" 
+                    />
+                    <flux:error name="investment_amount" />
+                </flux:field>
+            </div>
+
+
+             {{-- <flux:field>
                 @if (app()->getLocale() == 'es')
                     <span class="text-xs">Utilice punto (.) para introducir los decimales</span>
                 @endif
                 <flux:input name='investment_amount'  placeholder="{{ __('messages.Enter the increment') }}" value="{{ old('investment_amount') }}"/>
                 <flux:error name="investment_amount" />
-            </flux:field>
+            </flux:field> --}}
 
 
             <!-- Input visible (solo lectura, formato local) -->

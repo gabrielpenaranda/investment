@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Form 1099-INT</title>
+    <link rel="icon" href="{{ asset('favicon/favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon/favicon.svg') }}" type="image/svg+xml">
     <style>
         body {
             font-family: Arial, sans-serif;

@@ -71,7 +71,7 @@
             </div>
             <div class="flex items-center space-x-2 m-1">
                 <i class="fas fa-lock text-sm"></i>
-                <span>{{ __('site.login') }}</span>
+                <a href="{{ route('login') }}"><span>{{ __('site.login') }}</span></a>
             </div>
             <div class="flex justify-end">
                 <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 m-2 rounded-lg font-medium">
@@ -339,11 +339,11 @@
                             <div class="text-sm">{{ __('site.perf_text_4') }}</div>
                         </div>
                     </div>
-                    <div class="text-center col-span-2 mt-12">
+                    {{-- <div class="text-center col-span-2 mt-12">
                         <button class="bg-azul-secondary hover:bg-azul-primary px-8 py-3 rounded-lg font-medium transition">
                             {{ __('site.perf_button') }}
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
                 {{-- <div class="relative items-center">
                     <img src="{{ asset('images/Metrica icon.webp') }}" alt="Gráfico de crecimiento" class="w-4/5 rounded-lg">

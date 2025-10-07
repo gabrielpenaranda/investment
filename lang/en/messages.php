@@ -184,4 +184,11 @@ return [
     'No file selected' => 'No file selected',
     'Publish' => 'Publish',
     'Published' => 'Published',
+    'Investment Amount Change' => 'Investment Amount Change',
+    'Increment' => 'Increment',
+    'Withdrawal' => 'Withdrawal',
+    'No Modify' => 'No Modify',
+    'Minimum investment must be equal or greater than' => 'The minimum investment must be equal to or greater than',
+    'The remaining amount after withdrawal must be equal or greater than' => 'The remaining amount after withdrawal must be equal to or greater than',
+    'Password and its confirmation must match' => 'Password and its confirmation must match',
 ];

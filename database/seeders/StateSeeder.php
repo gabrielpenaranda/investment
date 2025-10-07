@@ -14,7 +14,7 @@ class StateSeeder extends Seeder
     public function run(): void
     {
         State::create(['name' => 'Arizona', 'code' => 'AZ', 'country_id' => 1]);
-        State::create(['name' => 'New Mexico', 'code' => 'NM', 'country_id' => 1]);
+        /* State::create(['name' => 'New Mexico', 'code' => 'NM', 'country_id' => 1]);
         State::create(['name' => 'California', 'code' => 'CA', 'country_id' => 1]);
         State::create(['name' => 'Texas', 'code' => 'TX', 'country_id' => 1]);
         State::create(['name' => 'New York', 'code' => 'NY', 'country_id' => 1]);
@@ -29,6 +29,6 @@ class StateSeeder extends Seeder
         State::create(['name' => 'Wales', 'code' => 'WLS', 'country_id' => 4]);
         State::create(['name' => 'Bavaria', 'code' => 'BY', 'country_id' => 5]);
         State::create(['name' => 'Berlin', 'code' => 'BE', 'country_id' => 5]);
-        State::create(['name' => 'Hamburg', 'code' => 'HH', 'country_id' => 5]);    
+        State::create(['name' => 'Hamburg', 'code' => 'HH', 'country_id' => 5]);   */  
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\system;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\system\ComparePassword;
 
 class UserCreateRequest extends FormRequest
 {
@@ -36,6 +37,9 @@ class UserCreateRequest extends FormRequest
             'social_security' => 'nullable|string|min:9|max:9|unique:users,social_security',
             'state_id' => 'required|exists:states,id',
             'phone' => 'nullable|string|max:20',
+            'password' => 'required|string|min:8',
+            'password2' => ['required', 'string', 'min:8', new ComparePassword('password')],
         ];
     }
+
 }

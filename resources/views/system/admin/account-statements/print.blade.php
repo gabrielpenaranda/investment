@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Statement - {{ $investment->name }}</title>
+    <link rel="icon" href="{{ asset('favicon/favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon/favicon.svg') }}" type="image/svg+xml">
     <style>
         /* Estilo general */
         body {
@@ -96,7 +98,7 @@
     </style>
 </head>
 <body>
-
+    
     <div class="page">
         <!-- Encabezado -->
         <div class="header">
@@ -128,13 +130,13 @@
                     <tbody>
                         @foreach ($chunk as $state)
                             <tr>
-                                <td>
+                                <td style="text-align: center;">
                                     @php
                                         $date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($state->date)) : date("m/d/Y", strtotime($state->date));
                                     @endphp
                                     {{ $date }}
                                 </td>
-                                <td>{{ $state->description }}</td>
+                                <td style="text-align: left;">{{ $state->description }}</td>
                                 <td style="text-align: right;">
                                     @if ($state->type == 'contribution')
                                         {{ number_format($state->amount, 2) }}
@@ -145,7 +147,9 @@
                                         {{ number_format($state->amount, 2) }}
                                     @endif
                                 </td>
-                                <td style="text-align: right;">{{ number_format($state->balance, 2) }}</td>
+                                <td style="text-align: right;">
+                                    {{ number_format($state->balance, 2) }}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

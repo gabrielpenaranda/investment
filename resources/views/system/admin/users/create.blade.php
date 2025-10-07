@@ -111,6 +111,18 @@
                     <flux:error name="fin" />
                 </flux:field>
             </div>
+
+            <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Password') }}</flux:label>
+                <flux:input type="password" name='password' placeholder="{{ __('messages.Password') }}" value=""/>
+                <flux:error name="password" />
+            </flux:field>
+
+            <flux:field>
+                <flux:label class="mt-2!">{{ __('messages.Confirm Password') }}</flux:label>
+                <flux:input type="password" name='password2' placeholder="{{ __('messages.Confirm Password') }}" value=""/>
+                <flux:error name="password2" />
+            </flux:field>
  
 
 

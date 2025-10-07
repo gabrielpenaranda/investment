@@ -14,9 +14,9 @@ class CountrySeeder extends Seeder
     public function run(): void
     {
         Country::create(['name' => 'United States', 'code' => 'USA']);
-        Country::create(['name' => 'Canada', 'code' => 'CAN']);
+        /* Country::create(['name' => 'Canada', 'code' => 'CAN']);
         Country::create(['name' => 'Mexico', 'code' => 'MEX']);
         Country::create(['name' => 'United Kingdom', 'code' => 'GBR']);
-        Country::create(['name' => 'Germany', 'code' => 'DEU']);
+        Country::create(['name' => 'Germany', 'code' => 'DEU']); */
     }
 }

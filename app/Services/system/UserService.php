@@ -15,7 +15,7 @@ class UserService
 {
     public function storeUser($request)
     {
-        $password = Str::password(12, true, true, false);
+        /* $password = Str::password(12, true, true, false); */
 
         $user = new User();
         $user->name = $request->input('name');
@@ -28,8 +28,8 @@ class UserService
         $user->fin = $request->input('fin');
         $user->type = $request->input('type');
         $user->state_id = $request->input('state_id');
-        $user->password = Hash::make($password);
-        $user->generated_password = $password;
+        $user->password = Hash::make($request->input('password'));
+        $user->generated_password = $request->input('password');
         $user->save();
         
         if ($user->type == 'Admin') {
@@ -38,7 +38,7 @@ class UserService
             $user->assignRole('Associate');
         }
 
-        Mail::to($user->email)->send(new UserCredentialsMail($user, $password));
+        // Mail::to($user->email)->send(new UserCredentialsMail($user, $password));
 
         $log = new Log();
         $log->register($log, 'C', $user->id, "users", auth()->user()->name, auth()->user()->id, $user->name);
@@ -56,7 +56,7 @@ class UserService
     {
         // dd($request->all(), $user);
         $user->name = $request->input('name');
-        $user->password = bcrypt($request->input('password'));
+        // $user->password = bcrypt($request->input('password'));
         $user->address = $request->input('address');
         $user->phone = $request->input('phone');
         $user->zip_code = $request->input('zip_code');
@@ -78,7 +78,7 @@ class UserService
         session()->flash('swal', [
             'icon' => 'success',
             'title' => __('swal.Success'),
-            'text' => __('swal.The user has been created succesfully'),
+            'text' => __('swal.The user has been updated succesfully'),
         ]);
 
         return redirect()->back();

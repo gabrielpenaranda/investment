@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Statement - {{ $investment->name }}</title>
+    <link rel="icon" href="{{ asset('favicon/favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon/favicon.svg') }}" type="image/svg+xml">
     <style>
         /* Estilo general */
         body {

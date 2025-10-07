@@ -104,7 +104,11 @@ class InterestService
                         $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date))) + 1;
                     } else {
                         // dump($ic->deactivation_date);
-                        $days = 30 - $acum_days;
+                        if (Carbon::parse($inv->activation_date)->format('Y-m-d') ==  Carbon::parse($ic->activation_date)->format('Y-m-d')) {
+                            $days = 30 - (int)Carbon::parse($ic->activation_date)->format('d');
+                        } else {
+                            $days = 30 - $acum_days;
+                        }
                         $ic->deactivation_date = Carbon::now()->subMonth()->endOfMonth();
                     }
                     $annual_interest = ($ic->amount * $ic->rate)/100;
@@ -120,7 +124,7 @@ class InterestService
                     $investment_balance->update();
 
                     $account_statement = new AccountStatement();
-                    $account_statement->date = Carbon::now()->startOfMonth();
+                    $account_statement->date = Carbon::now()->subMonth()->endOfMonth();
                     $account_statement->month = (int)Carbon::now()->subMonth()->format('m');
                     $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
                     $account_statement->description = $days.' days at '. $ic->rate.'% APY';

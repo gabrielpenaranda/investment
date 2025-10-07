@@ -13,7 +13,7 @@ class InterestSeeder extends Seeder
      */
     public function run(): void
     {
-        InterestMonth::create([
+        /* InterestMonth::create([
             'year' => '2025',
             'month' => '05',
             'processed' => true,
@@ -39,6 +39,6 @@ class InterestSeeder extends Seeder
             'month' => '08',
             'processed' => false,
             'approved' => false,
-        ]);
+        ]); */
     }
 }

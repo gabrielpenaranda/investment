@@ -1,4 +1,8 @@
-<div>
+<div class="max-w-8xl mx-auto">
+    @php
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
+    @endphp
     <div class="flex justify-end mb-4">
 {{-- 
         <flux:input placeholder="{{ __('messages.Enter state') }}" wire:model.live="search" class="w-2xl! ml-2!" /> --}}
@@ -48,16 +52,16 @@
                     </td>
                     <td class="px-6 py-4 text-right text-xs">
                         @if ($state->type == 'contribution')
-                            {{ $state->amount }}
+                            {{ $formatter->format(round($state->amount, 2)) }}
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right text-xs">
                         @if ($state->type == 'distribution')
-                            {{ $state->amount }}
+                            {{ $formatter->format(round($state->amount, 2)) }}
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right text-xs">
-                        {{ $state->balance }}
+                        {{ $formatter->format(round($state->balance, 2)) }}
                     </td>
                 </tr>
             @endforeach

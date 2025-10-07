@@ -82,6 +82,7 @@ class InterestController extends Controller
     {
         $investmentChanges = InvestmentChange::where('investment_id', $interest->investment_id)
             ->where('month', $interest->month)
+            ->where('year', $interest->year)
             ->get();
         return view('system.admin.interests.show', compact('interest','investmentChanges'));
     }

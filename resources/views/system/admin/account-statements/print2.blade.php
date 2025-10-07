@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Account Statement - {{ $investment->name }}</title>
+    <link rel="icon" href="{{ asset('favicon/favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon/favicon.svg') }}" type="image/svg+xml">
     <style>
         /* Estilo general */
         body {
@@ -101,6 +103,8 @@
     @php
         $numPage = 0;
         $counter = 0;
+        $formatter = new NumberFormatter(app()->getLocale(), NumberFormatter::DECIMAL);
+        $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
     @endphp
     <div class="page">
         <!-- Encabezado -->
@@ -125,9 +129,9 @@
                         <tr>
                             <th>{{ __('messages.Date') }}</th>
                             <th>{{ __('messages.Description') }}</th>
-                            <th>{{ __('messages.Contributions') }}</th>
-                            <th>{{ __('messages.Distributions') }}</th>
-                            <th>{{ __('messages.Account Balance') }}</th>
+                            <th>{{ __('messages.Contributions') }} USD</th>
+                            <th>{{ __('messages.Distributions') }} USD</th>
+                            <th>{{ __('messages.Account Balance') }} USD</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,24 +142,29 @@
                                 }
                             @endphp --}}
                             <tr>
-                                <td>
+                                <td tyle="text-align: center;">
                                     @php
                                         $date = app()->getLocale() === 'es' ? date("d/m/Y", strtotime($state->date)) : date("m/d/Y", strtotime($state->date));
                                     @endphp
                                     {{ $date }}
                                 </td>
-                                <td>{{ $state->description }}</td>
+                                <td tyle="text-align: left;">{{ $state->description }}</td>
                                 <td style="text-align: right;">
                                     @if ($state->type == 'contribution')
-                                        {{ number_format($state->amount, 2) }}
+                                        {{-- {{ number_format($state->amount, 2) }} --}}
+                                        {{ $formatter->format(round($state->amount, 2)) }}
                                     @endif
                                 </td>
                                 <td style="text-align: right;">
                                     @if ($state->type == 'distribution')
-                                        {{ number_format($state->amount, 2) }}
+                                        {{-- {{ number_format($state->amount, 2) }} --}}
+                                        {{ $formatter->format(round($state->amount, 2)) }}
                                     @endif
                                 </td>
-                                <td style="text-align: right;">{{ number_format($state->balance, 2) }}</td>
+                                <td style="text-align: right;">
+                                    {{-- {{ number_format($state->balance, 2) }} --}}
+                                    {{ $formatter->format(round($state->balance, 2)) }}
+                                </td>
                             </tr>
                             @php
                                 $counter++;

@@ -3,7 +3,8 @@
 namespace App\Http\Requests\system;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\system\MinimumAmountRule;
+use App\Rules\system\MinimumAmountUpdateRule;
+use App\Models\system\Investment;
 
 class InvestmentUpdateRequest extends FormRequest
 {
@@ -26,7 +27,12 @@ class InvestmentUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        /* dd($this->input('product_id')); */
+        $productId = $this->input('product_id');
+        // $investmentId = $this->route('investment'); // Suponiendo que el ID de la inversión está en la ruta
+        $currentInvestmentAmount = Investment::find($this->input('investment_id'))->investment_amount ?? 0;
+
+        $amountChange = $this->input('amount_change');
+
         return [
             /* 'investment_amount' => 'decimal:2|required|between:1000,100000000000', */
             /* $this->filled('amount') && $this->amount != $investment->amount
@@ -39,8 +45,9 @@ class InvestmentUpdateRequest extends FormRequest
                 'decimal:2',
                 'nullable',
                 'max:1000000000',
-                new MinimumAmountRule($this->input('product_id')),
+                new MinimumAmountUpdateRule($productId, $currentInvestmentAmount, $amountChange),
             ],
+            'amount_change' => 'required|in:0,1,2'
         ];
     }
 }

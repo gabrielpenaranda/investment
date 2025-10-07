@@ -184,4 +184,11 @@ return [
     'No file selected' => 'No hay archivo seleccionado',
     'Publish' => 'Publicar',
     'Published' => 'Publicado',
+    'Investment Amount Change' => 'Cambiar Monto de Inversión',
+    'Increment' => 'Incremento',
+    'Withdrawal' => 'Retiro',
+    'No Modify' => 'No Modificar',
+    'Minimum investment must be equal or greater than' => 'El mínimo invertido debe ser mayor o igual que',
+    'The remaining amount after withdrawal must be equal or greater than' => 'El monto después del retiro debe ser igual o mayor que',
+    'Password and its confirmation must match' => 'La contraseña y su confirmación deben coincidir'
 ];
