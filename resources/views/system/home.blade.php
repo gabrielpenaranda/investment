@@ -1,5 +1,10 @@
 <x-layouts.site :title="__('Welcome')">
 
+<!-- Solo para depuración -->
+{{-- <div style="position: fixed; top: 10px; right: 10px; background: yellow; padding: 5px; z-index: 9999;">
+    Locale: {{ session('locale') ?? 'No definido' }}<br>
+    App Locale: {{ app()->getLocale() }}
+</div> --}}
 
     <nav x-data="{ scrolled: false, isOpen: false }" 
      @scroll.window="scrolled = window.scrollY > 0"

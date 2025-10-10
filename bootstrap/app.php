@@ -26,9 +26,9 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(prepend: [
+        /* $middleware->web(prepend: [
             SetLocale::class
-        ]);
+        ]); */
         $middleware->web(append: [
             Language::class
         ]);
