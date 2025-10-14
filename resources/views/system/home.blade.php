@@ -13,7 +13,7 @@
     <div class="container mx-auto px-4 py-3 flex items-center justify-between">
         <!-- Hamburguesa (visible en móviles y tablets) -->
         <div class="xl:hidden">
-            <button @click="isOpen = !isOpen" class="text-2xl focus:outline-none">
+            <button @click="isOpen = !isOpen" class="text-2xl focus:outline-none" aria-label="Menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -29,13 +29,13 @@
 
         <!-- Menú de navegación (oculto en móviles y tablets) -->
         <nav class="hidden xl:flex space-x-6">
-            <a href="#home" class="hover:text-blue-400">{{ __('site.home') }}</a>
-            <a href="#services" class="hover:text-blue-400">{{ __('site.services') }}</a>
-            <a href="#information" class="hover:text-blue-400">{{ __('site.fund') }}</a>
-            <a href="#team" class="hover:text-blue-400">{{ __('site.team') }}</a>
-            <a href="#faq" class="hover:text-blue-400">{{ __('site.faq') }}</a>
-            <a href="#docs" class="hover:text-blue-400">{{ __('site.docs') }}</a>
-            <a href="#contact" class="hover:text-blue-400">{{ __('site.contact') }}</a>
+            <a href="#home" class="hover:text-blue-400" aria-label="Home">{{ __('site.home') }}</a>
+            <a href="#services" class="hover:text-blue-400" aria-label="Services">{{ __('site.services') }}</a>
+            <a href="#information" class="hover:text-blue-400" aria-label="Asset Performance Fund">{{ __('site.fund') }}</a>
+            <a href="#team" class="hover:text-blue-400" aria-label="Team">{{ __('site.team') }}</a>
+            <a href="#faq" class="hover:text-blue-400" aria-label="FAQ">{{ __('site.faq') }}</a>
+            <a href="#docs" class="hover:text-blue-400" aria-label="Documents">{{ __('site.docs') }}</a>
+            <a href="#contact" class="hover:text-blue-400" aria-label="Contact">{{ __('site.contact') }}</a>
         </nav>
 
         <!-- Botones y opciones -->
@@ -45,9 +45,9 @@
             </div>
             <div class="flex items-center space-x-2">
                 <i class="fas fa-lock text-sm"></i>
-                <a href="{{ route('login') }}"><span>{{ __('site.login') }}</span></a>
+                <a href="{{ route('login') }}" aria-label="Log In Investments"><span>{{ __('site.login') }}</span></a>
             </div>
-            <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 rounded-lg font-medium">
+            <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 rounded-lg font-medium" aria-label="Invest now">
                 {{ __('site.invest_now') }}
             </button>
         </div>
@@ -62,13 +62,13 @@
         x-transition:leave-start="opacity-100 transform scale-100" 
         x-transition:leave-end="opacity-0 transform scale-95">
         <div class="px-4 py-6 space-y-4">
-            <a href="#home" class="block hover:text-azul-secondary">{{ __('site.home') }}</a>
-            <a href="#services" class="block hover:text-azul-secondary">{{ __('site.services') }}</a>
-            <a href="#information" class="block hover:text-azul-secondary">{{ __('site.fund') }}</a>
-            <a href="#team" class="block hover:text-azul-secondary">{{ __('site.team') }}</a>
-            <a href="#faq" class="block hover:text-azul-secondary">{{ __('site.faq') }}</a>
-            <a href="#docs" class="block hover:text-azul-secondary">{{ __('site.docs') }}</a>
-            <a href="#contact" class="block hover:text-azul-secondary">{{ __('site.contact') }}</a>
+            <a href="#home" class="block hover:text-azul-secondary" aria-label="Home">{{ __('site.home') }}</a>
+            <a href="#services" class="block hover:text-azul-secondary" aria-label="Services">{{ __('site.services') }}</a>
+            <a href="#information" class="block hover:text-azul-secondary" aria-label="Asset Performance Fund">{{ __('site.fund') }}</a>
+            <a href="#team" class="block hover:text-azul-secondary" aria-label="Team">{{ __('site.team') }}</a>
+            <a href="#faq" class="block hover:text-azul-secondary" aria-label="FAQ">{{ __('site.faq') }}</a>
+            <a href="#docs" class="block hover:text-azul-secondary" aria-label="Documents">{{ __('site.docs') }}</a>
+            <a href="#contact" class="block hover:text-azul-secondary" aria-label="Contact">{{ __('site.contact') }}</a>
         </div>
         <div class="items-center space-x-6">
             <div class="flex items-center space-x-2 m-2">
@@ -76,10 +76,10 @@
             </div>
             <div class="flex items-center space-x-2 m-1">
                 <i class="fas fa-lock text-sm"></i>
-                <a href="{{ route('login') }}"><span>{{ __('site.login') }}</span></a>
+                <a href="{{ route('login') }}" aria-label="Log In Investments"><span>{{ __('site.login') }}</span></a>
             </div>
             <div class="flex justify-end">
-                <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 m-2 rounded-lg font-medium">
+                <button class="bg-azul-secondary hover:bg-azul-primary text-white px-4 py-2 m-2 rounded-lg font-medium" aria-label="Invest now">
                     {{ __('site.invest_now') }}
                 </button>
             </div>
@@ -94,7 +94,7 @@
         <!-- Imagen transparente -->
         <img 
             src="{{ asset('images/Hero background.webp') }}" 
-            alt="Imagen transparente" 
+            alt="Transparent image" 
             class="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
@@ -104,14 +104,14 @@
                         {{ __('site.hero_text_1') }}
                     </h1>
                     <p class="text-xl mb-8">{{ __('site.hero_text_2') }}</p>
-                    <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank">
-                        <button class="bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition">
+                    <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank"  aria-label="Download Brochure">
+                        <button class="bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition" aria-label="Brochure">
                             {{ __('site.hero_text_3') }}
                         </button>
                     </a>
                 </div>
                 <div class="relative">
-                    <img src="{{ asset('images/GRAFICO HERO.webp') }}" alt="Gráfico de crecimiento" class="w-full rounded-lg">
+                    <img src="{{ asset('images/GRAFICO HERO.webp') }}" alt="Growth graph" class="w-full rounded-lg">
                 </div>
             </div>
         </div>
@@ -134,14 +134,11 @@
     <section id="services" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                {{-- <div>
-                    <img src="{{ asset('images/Servicios.webp') }}" alt="Edificio moderno" class="w-full rounded-2xl shadow-lg">
-                </div> --}}
                 <div class="relative w-full">
                     <!-- Imagen -->
                     <img 
                         src="{{ asset('images/Servicios.webp') }}" 
-                        alt="Edificio moderno" 
+                        alt="Modern building" 
                         class="w-full rounded-2xl shadow-lg h-[500px] md:h-[600px] lg:h-[700px] object-cover"
                     />
 
@@ -217,7 +214,7 @@
                     <!-- Imagen -->
                     <img 
                         src="{{ asset('images/Asset Found Information.webp') }}" 
-                        alt="Edificio moderno" 
+                        alt="Asset Found Information" 
                         class="w-full rounded-2xl shadow-lg h-[500px] md:h-[600px] lg:h-[700px] object-cover"
                     />
 
@@ -234,7 +231,7 @@
             <h2 class="text-5xl lg:text-6xl font-figtree font-bold text-azul-primary text-center mb-4">{{ __('site.projects_title') }}</h2>
             <p class="text-center text-2xl lg:text-3xl text-azul-primary font-figtree mb-2">{{ __('site.projects_subtitle') }}</p>
             <div class="relative w-full">
-                <img src="{{ asset('images/Construccion.webp') }}" alt="Sitio de construcción con grúas" class="w-full shadow-sm">
+                <img src="{{ asset('images/Construccion.webp') }}" alt="Construction site with cranes" class="w-full shadow-sm">
                 <div class="absolute inset-0 bg-white opacity-20 rounded-2xl"></div>
 
             </div>
@@ -246,7 +243,7 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="relative">
-                    <img src="{{ asset('images/Alvaro Bazan.webp') }}" alt="Álvaro Bazan" class="w-3/4 mx-auto rounded-2xl shadow-lg">
+                    <img src="{{ asset('images/Alvaro Bazan.webp') }}" alt="Alvaro Bazan" class="w-3/4 mx-auto rounded-2xl shadow-lg">
                     {{-- <div class="absolute -bottom-6 left-10 w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
                         <i class="fas fa-ellipsis-h text-white text-2xl"></i>
                     </div>
@@ -280,7 +277,7 @@
             <div class="grid md:grid-cols-4 gap-8 items-center">
                 <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[600px] lg:h-[300px]">
                     <div class="flex justify-center mb-4">
-                        <img src="{{ asset('images/Donde operamos icon-01.svg') }}"  class="text-azul-secondary h-[128px]"></img>
+                        <img src="{{ asset('images/Donde operamos icon-01.svg') }}" alt="Where we operate" class="text-azul-secondary h-[128px]"></img>
                     </div>
                     <p class="text-center text-gray-700">
                         {{ __('site.where_text_1') }}
@@ -289,7 +286,7 @@
                 
                 <div class="bg-white p-6 rounded-xl shadow-md border-b-4 border-azul-secondary h-[600px] lg:h-[300px]">
                     <div class="flex justify-center mb-4">
-                        <img src="{{ asset('images/Donde operamos icon-02.svg') }}"  class="text-azul-secondary h-[128px]"></img>
+                        <img src="{{ asset('images/Donde operamos icon-02.svg') }}" alt="Where we operate" class="text-azul-secondary h-[128px]"></img>
                     </div>
                     <p class="text-center text-gray-700">
                         {{ __('site.where_text_2') }}
@@ -297,14 +294,14 @@
                 </div>
                 
                 <div class="bg-white p-6 col-span-2">
-                    <img src="{{ asset('images/Mapa USA corregido.webp') }}" alt="Mapa de EE.UU. con estados destacados" class="w-full h-auto">
+                    <img src="{{ asset('images/Mapa USA corregido.webp') }}" alt="US map with highlighted states" class="w-full h-auto">
                 </div>
             </div>
             
         </div>
     </section>
     <div class="relative mt-0 mb-0 overflow-hidden">
-        <img src="{{ asset('images/Mesa Arizona.webp') }}" alt="Panorama de la ciudad de Mesa, Arizona" class="w-full h-[600px] object-cover opacity-60">
+        <img src="{{ asset('images/Mesa Arizona.webp') }}" alt="Panorama of the city of Mesa, Arizona" class="w-full h-[600px] object-cover opacity-60">
 
         <!-- Gradiente difuminado -->
         <div class="absolute inset-0 bg-gradient-to-b from-white to-transparent"></div>
@@ -317,7 +314,7 @@
         <!-- Imagen transparente -->
         <img 
             src="{{ asset('images/Historial y Rendimiento Background.webp') }}" 
-            alt="Imagen transparente" 
+            alt="Transparent image" 
             class="absolute inset-0 w-full h-[900px] object-cover opacity-10"
         />
         <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
@@ -344,19 +341,11 @@
                             <div class="text-sm">{{ __('site.perf_text_4') }}</div>
                         </div>
                     </div>
-                    {{-- <div class="text-center col-span-2 mt-12">
-                        <button class="bg-azul-secondary hover:bg-azul-primary px-8 py-3 rounded-lg font-medium transition">
-                            {{ __('site.perf_button') }}
-                        </button>
-                    </div> --}}
                 </div>
-                {{-- <div class="relative items-center">
-                    <img src="{{ asset('images/Metrica icon.webp') }}" alt="Gráfico de crecimiento" class="w-4/5 rounded-lg">
-                </div> --}}
                 <div class="flex justify-center items-center">
                 <img 
                     src="{{ asset('images/Metrica icon.webp') }}" 
-                    alt="Gráfico de crecimiento" 
+                    alt="Growth graphic
                     class="w-full md:w-4/5 lg:w-3/5 max-w-[400px] mx-auto rounded-lg"
                 />
             </div>
@@ -380,7 +369,7 @@
                             <!-- Botón para abrir/cerrar -->
                             <button 
                                 @click="open = !open"
-                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"
+                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition" aria-label="FAQ 1"
                             >
                                 <div class="flex items-center justify-between">
                                     <span class="font-medium text-gray-800">{{ __('site.faq_text_1_title') }}</span>
@@ -408,7 +397,7 @@
                         <div x-data="{ open: false }" class="border rounded-lg overflow-hidden">
                             <button 
                                 @click="open = !open"
-                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"
+                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"  aria-label="FAQ 2"
                             >
                                 <div class="flex items-center justify-between">
                                     <span class="font-medium text-gray-800">{{ __('site.faq_text_2_title') }}</span>
@@ -434,7 +423,7 @@
                         <div x-data="{ open: false }" class="border rounded-lg overflow-hidden">
                             <button 
                                 @click="open = !open"
-                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"
+                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"  aria-label="FAQ 3"
                             >
                                 <div class="flex items-center justify-between">
                                     <span class="font-medium text-gray-800">{{ __('site.faq_text_3_title') }}</span>
@@ -460,7 +449,7 @@
                         <div x-data="{ open: false }" class="border rounded-lg overflow-hidden">
                             <button 
                                 @click="open = !open"
-                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"
+                                class="w-full text-left font-figtree font-bodd text-lg md:text-2xl px-6 py-4 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition"  aria-label="FAQ 4"
                             >
                                 <div class="flex items-center justify-between">
                                     <span class="font-medium text-gray-800">{{ __('site.faq_text_4_title') }}</span>
@@ -490,7 +479,7 @@
 
 
                 <div>
-                    <img src="{{ asset('images/Preguntas frecuentes.webp') }}" alt="Rascacielos modernos" class="w-2/3 mx-auto rounded-2xl shadow-lg">
+                    <img src="{{ asset('images/Preguntas frecuentes.webp') }}" alt="Modern buildings" class="w-2/3 mx-auto rounded-2xl shadow-lg">
                 </div>
             </div>
                 
@@ -505,7 +494,7 @@
                 <!-- Imagen de fondo transparente -->
                 <img 
                     src="{{ asset('images/Documentacion y Cumplimiento.webp') }}" 
-                    alt="Imagen transparente" 
+                    alt="Transparent image" 
                     class="absolute inset-0 w-full h-full object-cover opacity-80"
                 />
 
@@ -519,18 +508,18 @@
 
                     <!-- Botones -->
                     <div class="flex flex-wrap justify-center gap-4">
-                        <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank">
-                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                        <a href="{{ asset('documents/Asset Performance Fund LLC - BROCHURE VERTICAL.pdf') }}" target="_blank"  aria-label="Brochure">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16"  aria-label="Brochure">
                                 {{ __('site.docs_button_1') }}
                             </button>
                         </a>
-                        <a href="{{ asset('documents/APF Existing Investor Subscription Agreement.pdf') }}" target="_blank">
-                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                        <a href="{{ asset('documents/APF Existing Investor Subscription Agreement.pdf') }}" target="_blank"  aria-label="Suscription agreement for existing investors">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16"  aria-label="Suscription agreement for existing investors">
                                 {{ __('site.docs_button_2') }}
                             </button>
                         </a>
-                        <a href="{{ asset('documents/APF New Investor Subscription Agreement.pdf') }}" target="_blank">
-                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16">
+                        <a href="{{ asset('documents/APF New Investor Subscription Agreement.pdf') }}" target="_blank" aria-label="Suscription agreement for new investors">
+                            <button class="font-figtree hover:font-bold text-xl bg-azul-secondary hover:bg-azul-primary px-6 py-3 rounded-lg font-medium transition text-white md:mb-16"   aria-label="Suscription agreement for new investors">
                                 {{ __('site.docs_button_3') }}
                             </button>
                         </a>
@@ -562,16 +551,16 @@
                         </div>
                     </div>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl md:text-3xl hover:text-azul-secondary" aria-label="Linkedin"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 
                 <div>
                     <h3 class="text-2xl md:text-5xl font-figtree font-bold mb-4">{{ __('site.contact_title') }}</h3>
                     <p class="mb-6 text-lg md:text-xl font-figtree">{{ __('site.contact_text') }}</p>
-                    <button class="text-xl md:text-2xl font-figtree hover:font-bold bg-azul-secondary hover:bg-azul-primary px-8 py-3 rounded-lg font-medium transition w-full md:w-auto">
+                    <button class="text-xl md:text-2xl font-figtree hover:font-bold bg-azul-secondary hover:bg-azul-primary px-8 py-3 rounded-lg font-medium transition w-full md:w-auto" aria-label="Contact">
                         {{ __('site.contact_button') }}
                     </button>
                 </div>
@@ -579,9 +568,9 @@
             
             <div class="border-t border-blue-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <div class="flex space-x-6 text-sm text-gray-400 mb-4 md:mb-0">
-                    <a href="{{ route('privacy') }}" class="hover:text-white">{{ __('site.footer_text_1') }}</a>
-                    <a href="{{ route('terms') }}" class="hover:text-white">{{ __('site.footer_text_2') }}</a>
-                    <a href="{{ route('legal') }}" class="hover:text-white">{{ __('site.footer_text_3') }}</a>
+                    <a href="{{ route('privacy') }}" class="hover:text-white" aria-label="Private Policy">{{ __('site.footer_text_1') }}</a>
+                    <a href="{{ route('terms') }}" class="hover:text-white" aria-label="Terms of use">{{ __('site.footer_text_2') }}</a>
+                    <a href="{{ route('legal') }}" class="hover:text-white" aria-label="Legal">{{ __('site.footer_text_3') }}</a>
                 </div>
                 <div class="text-sm text-gray-400">
                     © 2025 {{ __('site.footer_text_4') }}

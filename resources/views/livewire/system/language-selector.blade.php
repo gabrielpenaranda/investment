@@ -1,6 +1,7 @@
 <div>
     <div class="w-full flex">
-        <select wire:model.live="language" class="form-select">
+        <label hidden for="language">Language</label>
+        <select wire:model.live="language" name="language" class="form-select">
             <option value="en">🇺🇸 {{ __('language.english') }}</option>
             {{-- <option value="es">🇪🇸 {{ __('language.spanish') }}</option> --}}
             <option value="es">🇲🇽 {{ __('language.spanish') }}</option>
