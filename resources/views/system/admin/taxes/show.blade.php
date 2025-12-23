@@ -224,16 +224,19 @@
                                 <p>
                                     <span class="font-medium">Recipient's ID:</span>
                                     @if ($tax->user->type == 'Person')
-                                        @php
+                                       {{--  @php
                                             $formatted = substr($tax->user->social_security, 0, 3) . '-' . substr($tax->user->social_security, 3, 2) . '-' . substr($tax->user->social_security, 5);
                                         @endphp
-                                        {{ $formatted }}
+                                        {{ $formatted }} --}}
+                                         {{ $tax->user->social_security }}
                                     @else
-                                    @php
+                                        {{-- @php
                                             $formatted = substr($tax->user->fin, 0, 2) . '-' . substr($tax->user->fin, 3);
                                         @endphp
-                                        {{ $formatted }}
+                                        {{ $formatted }} --}}
+                                        {{ $tax->user->fin }}
                                     @endif
+
                                 </p>
                             </div>
                         </div>
