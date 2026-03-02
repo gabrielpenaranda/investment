@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        /* User::create([
+        User::create([
             'name' => 'Gabriel Peñaranda',
             'email' => 'gabrielpg77@gmail.com',
             'password' => bcrypt('password'),
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'address' => 'Calle Falsa 123, Springfield',
             'phone' => '555-1234',
             'zip_code' => '12345',
-        ])->assignRole('Administrator'); */
+        ])->assignRole('Administrator');
         
         User::create([
             'name' => 'Alvaron Bazan',
