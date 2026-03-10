@@ -48,4 +48,5 @@ return [
     'The report has been uploaded' => 'The report has been uploaded',
     'The report data has been updated' => 'The report data has been updated',
     'Report cannot be deleted' => 'Report cannot be deleted',
+    'Error' => 'Error',
 ];

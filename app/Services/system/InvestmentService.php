@@ -182,9 +182,14 @@ class InvestmentService
 
     public function deactivateInvestment(Investment $investment)
     {
+        $ic = InvestmentChange::where('investment_id', $investment->id)->where('deactivation_date', null)->first();
+        $ic->deactivation_date = Carbon::now();
+        $ic->update();
+
         $investment->deactivation_date = Carbon::now();
         $investment->is_active = false;
         $investment->update();
+
 
         $log = new Log();
         $log->register($log, 'D', $investment->id, "investments", auth()->user()->name, auth()->user()->id, $investment->serial);session()->flash('swal', [

@@ -17,10 +17,14 @@
             <flux:select.option>50</flux:select.option>
         </flux:select>
 
-        <flux:select wire:model.live="is_active" class="w-32!  ml-4!" placeholder="{{ __('messages.Lines per page') }}">
-            <flux:select.option value=1>{{ __('messages.Active') }}</flux:select.option>
-            <flux:select.option value=0>{{ __('messages.Closed') }}</flux:select.option>
-        </flux:select>
+        <div class="flex gap-2 ml-4">
+            <button wire:click="setActive(1)" class="px-3 py-1 rounded {{ $is_active == 1 ? 'bg-blue-500 text-white' : 'bg-gray-200' }}">
+                {{ __('messages.Active') }}
+            </button>
+            <button wire:click="setActive(0)" class="px-3 py-1 rounded {{ $is_active == 0 ? 'bg-blue-500 text-white' : 'bg-gray-200' }}">
+                {{ __('messages.Closed') }}
+            </button>
+        </div>
 
     </div>
 
@@ -68,10 +72,10 @@
                         </th>
 
                         @if ($archive)
-                        <th scope="col" class="px-6 py-3 text-center" wire:click="order('closing_date')">
+                        <th scope="col" class="px-6 py-3 text-center" wire:click="order('deactivation_date')">
                             {{ __('messages.Closing Date') }}
 
-                            @if ($sort == 'closing_date')
+                            @if ($sort == 'deactivation_date')
                                 @if ($direction == 'asc')
                                     <i class="fa-solid fa-arrow-up-a-z float-right mt-1"></i>
                                 @else
@@ -208,10 +212,10 @@
                     </th>
 
                     @if ($archive)
-                    <th scope="col" class="px-6 py-3 text-center" wire:click="order('closing_date')">
+                    <th scope="col" class="px-6 py-3 text-center" wire:click="order('deactivation_date')">
                         {{ __('messages.Closing Date') }}
 
-                        @if ($sort == 'closing_date')
+                        @if ($sort == 'deactivation_date')
                             @if ($direction == 'asc')
                                 <i class="fa-solid fa-arrow-up-a-z float-right mt-1"></i>
                             @else

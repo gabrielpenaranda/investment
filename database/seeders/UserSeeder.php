@@ -82,12 +82,7 @@ class UserSeeder extends Seeder
             'zip_code' => '85260',
         ])->assignRole('Associate');
            
-
-
-
-
-
-        /* User::create([
+        User::create([
             'name' => 'Jane Martínez',
             'email' => 'jmartinez@mail.com',
             'password' => bcrypt('password'),
@@ -169,6 +164,6 @@ class UserSeeder extends Seeder
             'phone' => '555-1234',
             'fin' => '75-7845968',
             'zip_code' => '12345',
-        ])->assignRole('Associate');*/
+        ])->assignRole('Associate');
     } 
 }

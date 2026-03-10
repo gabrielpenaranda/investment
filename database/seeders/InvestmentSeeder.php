@@ -21,12 +21,12 @@ class InvestmentSeeder extends Seeder
     {
 
         $user1 = User::where('id', 2)->first();
-        /* $user2 = User::where('id', 3)->first();
+        $user2 = User::where('id', 3)->first();
         $user3 = User::where('id', 4)->first();
         $user4 = User::where('id', 5)->first();
         $user5 = User::where('id', 6)->first();
         $user6 = User::where('id', 7)->first();
-        $user7 = User::where('id', 8)->first(); */
+        $user7 = User::where('id', 8)->first();
 
 
         // dd($user1->name);
@@ -43,7 +43,7 @@ class InvestmentSeeder extends Seeder
             'serial' => hash('md5', Hash::make(Carbon::now())),
         ]);
 
-        /* $investment2 = Investment::create([
+        $investment2 = Investment::create([
             'investment_amount' => 20000,
             'initial_amount' => 20000,
             'activation_date' => Carbon::now()->subMonth()->startOfMonth(),
@@ -113,7 +113,7 @@ class InvestmentSeeder extends Seeder
             'email' => $user7->email,
             'is_active' => true,
             'serial' => hash('md5', Hash::make(Carbon::now())),
-        ]); */
+        ]);
         
 
         AccountStatement::create([
@@ -128,7 +128,7 @@ class InvestmentSeeder extends Seeder
             'investment_id' => $investment1->id,
         ]);
 
-        /* AccountStatement::create([
+        AccountStatement::create([
             'date' => $investment2->activation_date,
             'month' => (int)$investment2->activation_date->format('m'),
             'year' => (int)$investment2->activation_date->format('Y'),
@@ -198,7 +198,7 @@ class InvestmentSeeder extends Seeder
             'type' => 'contribution',
             'approved' => true,
             'investment_id' => $investment7->id,
-        ]); */
+        ]);
 
 
         InvestmentChange::create([
@@ -211,7 +211,7 @@ class InvestmentSeeder extends Seeder
             'investment_id' => $investment1->id,
         ]);
 
-        /* InvestmentChange::create([
+        InvestmentChange::create([
             'amount' => $investment2->investment_amount,
             'activation_date' => Carbon::now()->subMonth()->startOfMonth(),
             'rate' => 7.00,
@@ -269,21 +269,51 @@ class InvestmentSeeder extends Seeder
             'month' => Carbon::now()->subMonth()->format('m'),
             'year' => Carbon::now()->subMonth()->format('Y'),
             'investment_id' => $investment7->id,
-        ]); */
+        ]);
 
-        /* InvestmentChange::create([
+        InvestmentChange::create([
             'amount' => $investment7->investment_amount,
-            'activation_date' => '2025-08-20',
+            'activation_date' => Carbon::now()->subMonth()->startOfMonth(),
             'rate' => 7.00,
             'interests' => 0.00,
             'month' => Carbon::now()->subMonth()->format('m'),
             'year' => Carbon::now()->subMonth()->format('Y'),
             'investment_id' => $investment7->id,
-        ]); */
+        ]);
 
         InvestmentBalance::create([
             'balance' => $investment1->investment_amount,
             'investment_id' => $investment1->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment2->investment_amount,
+            'investment_id' => $investment2->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment3->investment_amount,
+            'investment_id' => $investment3->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment4->investment_amount,
+            'investment_id' => $investment4->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment5->investment_amount,
+            'investment_id' => $investment5->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment6->investment_amount,
+            'investment_id' => $investment6->id,
+        ]);
+
+        InvestmentBalance::create([
+            'balance' => $investment7->investment_amount,
+            'investment_id' => $investment7->id,
         ]);
 
     }

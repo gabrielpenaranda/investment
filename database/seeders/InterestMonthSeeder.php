@@ -14,7 +14,7 @@ class InterestMonthSeeder extends Seeder
     public function run(): void
     {
         InterestMonth::create([
-            'year' => 2024,
+            'year' => 2025,
             'month' => 9,
             'processed' => 0,
             'approved' => 0,

@@ -47,4 +47,5 @@ return [
     'The report has been uploaded' => 'El reporte ha sido subido al sistema',
     'The report data has been updated' => 'Los datos del reporte han sido actualizados',
     'Report cannot be deleted' => 'El reporte no puede ser eliminado',
+    'Error' => 'Error',
 ];

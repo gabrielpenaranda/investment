@@ -31,7 +31,8 @@ class InterestService
             return redirect()->back();
         } */
 
-        $investments = Investment::all();
+        $investments = Investment::where('calculate_interest', true)->get();
+        // dd($investments);
         $process_month = (int)Carbon::now()->subMonth()->format('m');
         $process_year = (int)Carbon::now()->subMonth()->format('Y');
 
@@ -48,60 +49,11 @@ class InterestService
             //dd($investment_balance);
 
             foreach($investment_changes as $ic) {
-                /* if ($ic->deactivation_date != null) {
-                    $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date))) + 1;
-                    $annual_interest = ($ic->amount * $ic->rate)/100;
-                    $day_interest = $annual_interest / 360;
-                    $interest = $day_interest * $days;
-                    $acum_days += $days;
-                    $acum_interests += $interest;
-                    $ic->total_days = $days;
-                    $ic->interests = round($interest, 2);
-                    $ic->update();
-
-                    $account_statement = new AccountStatement();
-                    $account_statement->date = Carbon::now()->startOfMonth();
-                    $account_statement->month = (int)Carbon::now()->subMonth()->format('m');
-                    $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
-                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
-                    $account_statement->amount = $interest;
-                    $account_statement->balance = ($ic->investment->investment_amount + $interest);
-                    $account_statement->type = 'contribution';
-                    $account_statement->approved = false;
-                    $account_statement->investment_id = $ic->investment->id;
-                    $account_statement->save();
-
-
-                } else {
-                    $days = 30 - $acum_days;
-                    // dump($days);
-                    $annual_interest = ($ic->amount * $ic->rate)/100;
-                    $day_interest = $annual_interest / 360;
-                    $interest = $day_interest * $days;
-                    $acum_interests += $interest;
-                    $ic->deactivation_date = Carbon::now()->subMonth()->endOfMonth();
-                    $ic->total_days = $days;
-                    $ic->interests = round($interest, 2);
-                    $ic->update();
-
-                    $account_statement = new AccountStatement();
-                    $account_statement->date = Carbon::now()->startOfMonth();
-                    $account_statement->month = (int)Carbon::now()->subMonth()->format('m');
-                    $account_statement->year = (int)Carbon::now()->subMonth()->format('Y');
-                    $account_statement->description = $days.' days at '. $ic->rate.'% APY';
-                    $account_statement->amount = $interest;
-                    $account_statement->balance = ($ic->investment->investment_amount + $interest);
-                    $account_statement->type = 'contribution';
-                    $account_statement->approved = false;
-                    $account_statement->investment_id = $ic->investment->id;
-                    $account_statement->save();
-
-                } */
 
                 if ($ic->interests == 0 && $ic->total_days == 0) {
                     if ($ic->deactivation_date != null) {
                         // dump($ic->deactivation_date);
-                        $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date))) + 1;
+                        $days = ceil(Carbon::parse($ic->activation_date)->diffInDays(Carbon::parse($ic->deactivation_date)));
                     } else {
                         // dump($ic->deactivation_date);
                         if (Carbon::parse($inv->activation_date)->format('Y-m-d') ==  Carbon::parse($ic->activation_date)->format('Y-m-d')) {
@@ -179,24 +131,32 @@ class InterestService
                 $inv->update();
             } */
 
-            $investment_change = new InvestmentChange();
-            if ($inv->capitalize) {
-                $investment_change->amount = $inv->investment_amount + $acum_interests;
-            } else {
-                $investment_change->amount = $inv->investment_amount;
+            if ($inv->is_active) {
+                $investment_change = new InvestmentChange();
+                if ($inv->capitalize) {
+                    $investment_change->amount = $inv->investment_amount + $acum_interests;
+                } else {
+                    $investment_change->amount = $inv->investment_amount;
+                }
+                $investment_change->activation_date = Carbon::now()->startOfMonth();
+                $investment_change->rate = $inv->product->annual_rate;
+                $investment_change->interests = 0.00;
+                $investment_change->investment_id = $inv->id;    
+                $investment_change->month = (int)Carbon::now()->format('m');
+                $investment_change->year = (int)Carbon::now()->format('Y');
+                $investment_change->save();
             }
-            $investment_change->activation_date = Carbon::now()->startOfMonth();
-            $investment_change->rate = $inv->product->annual_rate;
-            $investment_change->interests = 0.00;
-            $investment_change->investment_id = $inv->id;    
-            $investment_change->month = (int)Carbon::now()->format('m');
-            $investment_change->year = (int)Carbon::now()->format('Y');
-            $investment_change->save();
 
             if ($inv->capitalize) {
                 $inv->investment_amount += $acum_interests;
                 $inv->update();
-            }   
+            }
+
+            /* if ($inv->calculate_interest && !$inv->is_active) {
+                $inv->calculate_interest = false;
+                $inv->update();
+            } */
+        
 
             /* $investment_change = new InvestmentChange();
             $investment_change->amount = $inv->investment_amount;
@@ -345,6 +305,12 @@ class InterestService
         foreach($accountStatements as $statement) {
             $statement->approved = true;
             $statement->update();
+        }
+
+        $investments = Investment::where('is_active', false)->where('calculate_interest', true)->get();
+        foreach($investments as $inv) {
+            $inv->calculate_interest = false;
+            $inv->update();
         }
 
         return redirect()->back();

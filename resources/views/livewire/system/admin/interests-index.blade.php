@@ -125,7 +125,7 @@
                                 <a href="{{ route('admin.interests.show', $interest) }}" class="btn btn-warning text-xs">{{ __('messages.Show') }}</a>
                             @endcan
                             @can('admin.interests.pay')
-                                @if ($interest_month->approved && $interest->status == 'payable' && $interest->condition == 'unpaid')
+                                @if ($interest_month && $interest_month->approved && $interest->status == 'payable' && $interest->condition == 'unpaid')
                                     <a href="{{ route('admin.interests.pay', $interest) }}" class="btn btn-info text-xs">{{ __('messages.Pay') }}</a>
                                 @endif
                             @endcan
