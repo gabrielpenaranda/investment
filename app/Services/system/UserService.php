@@ -30,6 +30,7 @@ class UserService
         $user->state_id = $request->input('state_id');
         $user->password = Hash::make($request->input('password'));
         $user->generated_password = $request->input('password');
+        $user->calculate_interest = true;
         $user->save();
         
         if ($user->type == 'Admin') {
